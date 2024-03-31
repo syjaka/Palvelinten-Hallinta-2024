@@ -73,7 +73,7 @@ Koneen ja pääte-työkalun käynnistys.
 Kaikki seuraavien osion tehtävänannot ovat peräisin Tero Karvisen - Infra As a Code - Palvelinten hallinta 2024 [kurssisivulta](https://terokarvinen.com/2024/configuration-management-2024-spring/#h1-viisikko). 
 
 ## a) Hello Mac Salt World
-> Hello Windows/Mac Salt World! Näytä jollain Salt-komennolla, että olet onnistunut asentamaan Saltin (salt-minion) Windowsille tai Macille. Jos et ole vielä asentanut Saltia, raportoi myös asennus. (Karvinen 2024)
+Näytä jollain Salt-komennolla, että olet onnistunut asentamaan Saltin (salt-minion) Windowsille tai Macille. Jos et ole vielä asentanut Saltia, raportoi myös asennus. (Karvinen 2024)
 Koska asensin Saltin jo tunnilla [saltproject](https://docs.saltproject.io/salt/install-guide/en/latest/topics/install-by-operating-system/macos.html#install-macos) ohjeiden mukaan, en sitä enää tässä dokumentoi.
 Saltin onnistunut asennus näkyy ao. kuvassa:
 > ![a-001](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h1-001.png)
@@ -83,7 +83,7 @@ Saltin onnistunut asennus näkyy ao. kuvassa:
 ---
 
 ## b) Hello Vagrant
-> Hello Vagrant! Osoita jollain komennolla, että Vagrant toimii. Jos et ole vielä asentanut niitä, raportoi myös Vagrant ja VirtualBox asennukset. (Karvinen 2024)
+Osoita jollain komennolla, että Vagrant toimii. Jos et ole vielä asentanut niitä, raportoi myös Vagrant ja VirtualBox asennukset. (Karvinen 2024)
 
 Itse Vagrant tuli asennettua viime kurssilla ja siitä raporttia [täällä](https://github.com/syjaka/Linux-Palvelimet-2024/blob/main/h5_Uudestaan.md#m-vagrant) (Syrjä 2024).
 > ![a-002](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h1-002.png)
@@ -95,7 +95,7 @@ Itse Vagrant tuli asennettua viime kurssilla ja siitä raporttia [täällä](htt
 ## c) Tee Vagrantilla uusi Linux-virtuaalikone
 suoritus kesti noin 5 min.
 
-Virtuaalikoneen teko Vagrantilla olio nopeaa. Loin aluksi uuden kansion Bullseyelle ja sen jälkeen suoritin tarvittavat komennot:
+Virtuaalikoneen teko Vagrantilla oli nopeaa. Loin aluksi uuden kansion Bullseyelle ja sen jälkeen suoritin tarvittavat komennot:
 
 >     vagrant init debian/bullseye64
 >     vagrant up
@@ -118,12 +118,13 @@ suoritus kesti noin 8 min.
 - Haen päivitykset
 
       sudo apt-get update
-- Asennan minionin ja tarkistan asennuksen version. Lisäksi tarkistin vielä, että minion vastaa, jonka vastaus osoitti asennuksen onnistuneen.
+- Asennan minionin ja tarkistan asennuksen version. Lisäksi tarkistin vielä, että minion vastaa. Vastaus osoitti asennuksen onnistuneen.
 
       sudo apt-get -y install salt-minion
       sudo salt-call --version
       sudo salt-call --local grains.item osfinger virtual
 > ![a-005](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h1-005.png)
+
 (Karvinen/b 2023).
 
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h1_viisikko.md#h-1-viisikko)
@@ -148,13 +149,14 @@ Näytä Linuxissa esimerkit viidestä tärkeimmästä Saltin tilafunktiosta: pkg
 - Changes: mitä muutoksia tehtiin eli nyt asennettiin uusi ohjelma tree versiolla 1.8.0-1+b1, ja vanhaa versiota ei ollut.
 - Summary: kertaa montako onnistunutta ja epäonnistunutta operaatiota suoritettiin ja niiden suoritusaika.
 
+
 ### 2. Tiedostojen hallinta - *file* 
 - kaditestaa tiedoston luonti komennolla:
 
        sudo salt-call --local -l info state.single file.managed /tmp/kaditestaa
 > ![a-007](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h1-007.png)
 
-> - Tässä palautteessa alun *[WARNING]* osa osoittaa hyvän esimerkin idempotenssista. Vaikka `replace` arvo on asetettu `true`, ei ole mitään määriteltyä lähdettä, sisältöä tai korvaavia parametrejä, joten salt ei tiedä millä olemassa oleva tiedosto korvattaisiin, jos sellainen olisi. Tämän vuoksi salt asettaa `replace` arvoksi `false`. Tämä varmistaa idempotentin toteutumisen - jos tiedostoa ei ole, se luodaan, mutta jos se on olemassa, sitä ei muokata ilman selkeitä ohjeita.
+ - Tässä palautteessa alun *[WARNING]* osa osoittaa hyvän esimerkin idempotenssista. Vaikka `replace` arvo on asetettu `true`, ei ole mitään määriteltyä lähdettä, sisältöä tai korvaavia parametrejä, joten salt ei tiedä millä olemassa oleva tiedosto korvattaisiin, jos sellainen olisi. Tämän vuoksi salt asettaa `replace` arvoksi `false`. Tämä varmistaa idempotentin toteutumisen - jos tiedostoa ei ole, se luodaan, mutta jos se on olemassa, sitä ei muokata ilman selkeitä ohjeita.
 - ID: kertoo mitä käsiteltiin eli /tmp/kaditestaa/.
 - Function: kertoo mitä funktiota asennukseen käytettiin.
 - Result: kertoo lopputuloksen, True - yo. funktion suoritus onnistui
@@ -163,6 +165,7 @@ Näytä Linuxissa esimerkit viidestä tärkeimmästä Saltin tilafunktiosta: pkg
 - Duration: asennuksen kesto
 - Changes: mitä muutoksia tehtiin eli luotiin /tmp/kaditestaa tiedosto.
 - Summary: kertaa montako onnistunutta ja epäonnistunutta operaatiota suoritettiin ja niiden suoritusaika.
+
 
 ### 3. Palveluiden hallinta - *service* - huolehtii eri palvelujen käyttöönotosta tai deaktivoimisesta.
 - Apachen käyttöönotto komennolla:
@@ -180,6 +183,7 @@ Näytä Linuxissa esimerkit viidestä tärkeimmästä Saltin tilafunktiosta: pkg
 - Changes: mitä muutoksia tehtiin - tässä tapauksessa ei mitään.
 - Summary: kertaa montako onnistunutta ja epäonnistunutta operaatiota suoritettiin ja niiden suoritusaika.
 
+
 ### 4. Käyttäjien hallinta -  *user* - 
 - Käyttäjän kadisa001 luonti komennolla
 
@@ -193,6 +197,7 @@ Näytä Linuxissa esimerkit viidestä tärkeimmästä Saltin tilafunktiosta: pkg
 - Duration: toiminnon kesto
 - Changes: tehdyt muutokset, joista gid on käyttäjäryhmä 1001, groups on kadisa001 oma ryhmä, home esitteleee käyttäjän kotihakemistopolun, name on käyttäjänimi, salasanaa ei ole määritetty, shell on oletuskomentotulkki ja uid on käyttäjän id.
 - Summary taas kertaa tehdyt toimet.
+
 
 ### 5. Komentojen ajo tietyin ehdoin *cmd.run*
 - cmd-tilamoduuli hallinnoi suoritettujen komentojen täytäntöönpanoa - tila antaa täytäntöönpanolle ehdot. Ao-komennolla suoritin salt-tilan luomaan /tmp/foo tiedoston.
@@ -209,12 +214,15 @@ Näytä Linuxissa esimerkit viidestä tärkeimmästä Saltin tilafunktiosta: pkg
 
 ## f) Idempotentti. Anna esimerkki idempotenssista. 
 Aja `salt-call --local` komentoja, analysoi tulokset, selitä miten idempotenssi ilmenee. 
+
 Alkuun halusin selvitellä idempotenssin käsitettä selkeämmäksi. Luennolta jäi jo mieleen, että toiminto tulee suoritetuksi vain, jos sen lopputulos on eri kuin lähtötila. Toisesta suunnasta tarkasteltuna toimintoa ei siis suoriteta, mikäli alku ja lopputilanne on sama. Saltstack sivulla todetaan että Saltin määritellessä tilan olevan jo toivotunlainen, ei muutoksia tehdä lainkaan. (Saltstack 2016)
 
 Aiemmin olin luonut tiedoston /tmp/kaditestaa jonka palaute oli:
 >  ![a-007](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h1-007.png)
+
 Suoritan komennon `sudo salt-call --local -l info state.single file.managed /tmp/kaditestaa` uudelleen ja lopputulos on:
->  !|a-011](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h1-011.png)
+>  ![a-011](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h1-011.png)
+
 Eli kommenttiosiossa maininta, että kyseinen tiedosto on olemassa ja ei muutoksia tehty. Ajoin komennon lukuisia kertoja ja lopputulos aina sama, vaikka funktio saatiin onnistuneesti toteutettua. Eli komento oli idempotentti.
 >  ![a-012](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h1-012.png)
 
@@ -223,7 +231,7 @@ Eli kommenttiosiossa maininta, että kyseinen tiedosto on olemassa ja ei muutoks
 ---
 
 ## g) Tietoa koneesta. 
-Kerää tietoja koneesta Saltin grains.items -tekniikalla. Poimi kolme kiinnostavaa kohtaa, näytä tulokset ('grains.item osfinger virtual') ja analysoi ne.
+Kerää tietoja koneesta Saltin grains.items -tekniikalla. Poimi kolme kiinnostavaa kohtaa, näytä tulokset 'grains.item osfinger virtual' ja analysoi ne.
 
 - Aloitin ao. komennolla, joka tulosti kattavasti käyttämäni virtuaalikoneen tiedot.
   
