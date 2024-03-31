@@ -66,6 +66,9 @@ Pahimpia mokia raporttia kirjoittaessa ovat asioiden keksiminen sekä plagiointi
 
 ## z) Alkutoimet
 
+
+Kaikki seuraavien osion tehtävänannot ovat peräisin Tero Karvisen - Infra As a Code - Palvelinten hallinta 2024 [kurssisivulta](https://terokarvinen.com/2024/configuration-management-2024-spring/#h1-viisikko). 
+
 ## a) Hello Mac Salt World
 > Hello Windows/Mac Salt World! Näytä jollain Salt-komennolla, että olet onnistunut asentamaan Saltin (salt-minion) Windowsille tai Macille. Jos et ole vielä asentanut Saltia, raportoi myös asennus. (Karvinen 2024)
 Koska asensin Saltin jo tunnilla [saltproject](https://docs.saltproject.io/salt/install-guide/en/latest/topics/install-by-operating-system/macos.html#install-macos) ohjeiden mukaan, en sitä enää tässä dokumentoi.
@@ -82,29 +85,172 @@ Saltin Onnistunut asennus näkyy ao. kuvassa:
 Itse Vagrant tuli asennettua viime kurssilla ja siitä raporttia [täällä](https://github.com/syjaka/Linux-Palvelimet-2024/blob/main/h5_Uudestaan.md#m-vagrant) (Syrjä 2024).
 > ![a-002]()
 
-[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/new/main#h-1-viisikko)v
+[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/new/main#h-1-viisikko)
 
 ---
 
-## c) Tee Vagrantilla uusi Linux-virtuaalikone
+## c) Tee Vagrantilla uusi Linux-virtuaalikone, suoritus kesti noin 5 min.
 
+Virtuaalikoneen teko Vagrantilla olio nopeaa. Loin aluksi uuden kansion Bulleyelle ja sen jälkeen suoritin tarvittavat komennot:
 
+>     vagrant init debian/bullseye64
+>     vagrant up
 
+Asennus käynnistui ja hetken kuluttua oli valmista. Uusi vietuaalikone oli ilmestynyt Virtualboxiin:
+> ![a-003]()
 
+[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/new/main#h-1-viisikko)
 
+---
 
+## d) a) Asenna Salt (salt-minion) Linuxille (uuteen virtuaalikoneeseesi), suoritus kesti noin 8 min.
 
+- Avaan yhteyden edellä luotuun virtuaalikoneeseen.
+    
+      vagrant ssh 
+> ![a-004]()
 
+- Haen päivitykset
 
+      sudo apt-get update
+- Asennan minionin ja tarkistan asennuksen version. Lisäksi tarkistin vielä että minion vastaa, jonka vastaus osoitti asennuksen onnistuneen.
 
+      sudo apt-get -y install salt-minion
+      sudo salt-call --version
+      sudo salt-call --local grains.item osfinger virtual
+> ![a-005]()
+(Karvinen/b 2023).
 
+[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/new/main#h-1-viisikko)
 
+---
+
+## e) Viisi tärkeintä. 
+Näytä Linuxissa esimerkit viidestä tärkeimmästä Saltin tilafunktiosta: pkg, file, service, user, cmd. Analysoi ja selitä tulokset.
+### 1. Paketinhallinta - *pkg*  on nimensämukaisesti paketinhallintatyökalu, eli sillä asennetaan erilaisia sovelluspaketteja.
+- tree -ohjelman asennus komennolla:
+
+       salt-call --local -l info state.single pkg.installed tree
+
+> ![a-006]()
+ 
+- ID: kertoo mitä käsiteltiin eli tree ohjelma.
+- Function: kertoo mitä funktiota asennukseen käytettiin.
+- Result: kertoo lopputuloksen, True - yo. funktion asennus onnistui.
+- Comment summaa toteutetun toiminnon.
+- Started: aloitusaika.
+- Duration: asennuksen kesto.
+- Changes: mitä muutoksia tehtiin eli nyt asennettiin uusi ohjelma tree versiolla 1.8.0-1+b1, ja vanhaa versiota ei ollut.
+- Summary: kertaa montako onnistunutta ja epäonnistunutta operaatiota suoritettiin ja niiden suoritusaika.
+
+### 2. Tiedostojen hallinta - *file* 
+- kaditestaa tiedoston luonti komennolla:
+
+       sudo salt-call --local -l info state.single file.managed /tmp/kaditestaa
+> ![a-007]()
+
+> - Tässä palautteessa alun *[WARNING]* osa osoittaa hyvän esimerkin idempotenssista. Vaikka `replace` arvo on asetettu `true`, ei ole mitää määriteltyä lähdettä, sisältöä tai korvaavia parametrejä joten salt ei tiedä millä olemassaoleva tiedosto korvattaisiin, jos sellainen olisi. Tämän vuoksi salt asettaa `replace`arvoksi `false`. Tämä varmistaa idempotentin toteutumisen - jos tiedostoa ei ole, se luodaan, mutta jos se on olemassa, sitä ei mnuokata ilman selkeitä ohjeita.
+- ID: kertoo mitä käsiteltiin eli /tmp/kaditestaa/.
+- Function: kertoo mitä funktiota asennukseen käytettiin.
+- Result: kertoo lopputuloksen, True - yo. funktion suoritus onnistui
+- Comment summaa toteutetun toiminnon
+- Started: aloitusaika
+- Duration: asennuksen kesto
+- Changes: mitä muutoksia tehtiin eli luotiin /tmp/kaditestaa tiedosto.
+- Summary: kertaa montako onnistunutta ja epäonnistunutta operaatiota suoritettiin ja niiden suoritusaika.
+
+### 3. Palveluiden hallinta - *service* - huolehtii eri palvelujen käyttöönotosta tai deaktivoimisesta.
+- Apachen käyttöönotto komennolla:
+
+       sudo salt-call --local -l info state.single service.running apache2 enable=True
+> ![a-008]()
+ 
+- *[ERROR]* kertoo että kyseistä palvelua ei ole saatavilla - tämä tietenkin ilmiselvää, sillä apachea ei luotuun koneeseen ole asennettu.
+- ID: kertoo mitä käsiteltiin eli apache2.
+- Function: kertoo mitä funktiota käytettiin.
+- Result: kertoo lopputuloksen, False, eli funktion ajo ei onnistunut.
+- Comment summaa toteutetun toiminnon eli kertoo että apache2 ei ole saatavilla.
+- Started: aloitusaika
+- Duration: asennuksen kesto
+- Changes: mitä muutoksia tehtiin - tässä tapauksessa ei mitään.
+- Summary: kertaa montako onnistunutta ja epäonnistunutta operaatiota suoritettiin ja niiden suoritusaika.
+
+### 4. Käyttäjien hallinta -  *user* - 
+- Käyttäjän kadisa001 luonti komennolla
+
+       sudo salt-call --local -l info state.single user.present kadisa001
+> ![a-009]()
+- ID: Luotiin kadisa001
+- Function: millä funktiolla
+- Result: Onnistunut lopputulos *True*
+- Comment: Kertoo että uusi käyttäjä luotiin
+- Started: luontiaika
+- Duration: toiminnon kesto
+- Changes: tehdyt muutokset joista gid on käyttäjäryhmä 1001, groups on kadisa001 oma ryhmä, home esitteleee käyttäjän kotihakemostopolun, name on käyttäjänimi, salasanaa ei ole määritetty, shell on oletuskomentotulkki ja uid on käyttäjän id.
+- Summary taas kertaa tehdyt toimet.
+
+### 5. Komentojen ajo tietyin ehdoin *cmd.run*
+- cmd-tilamoduuli hallinnoi suoritettujen komentojen täytäntöönpanoa - tila antaa täytäntöönpanolle ehdot. Ao-komennolla suoritin salt-tilan luomaan /tmp/foo tiedoston.
+  
+       sudo salt-call --local -l info state.single cmd.run 'touch /tmp/foo' creates="/tmp/foo"
+> ![a-010]()
+- Jälleen samat kuin yllä.
+- Changes - kohta tuo lisää vaihtelua tuloksiin. pid: kertoo prosessin tunnisteen ja retcode palautuskoodin (Kaspersky 2024).
+- Lopussa taas listattu tehdyt toimet ja niiden specsit.
+
+[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/new/main#h-1-viisikko)
+
+---
+
+## f) Idempotentti. Anna esimerkki idempotenssista. 
+Aja `salt-call --local` komentoja, analysoi tulokset, selitä miten idempotenssi ilmenee. 
+Alkuun halusin selvitellä idempotenssin käsitettä selkeämmäksi. Luennolta jäi jo mieleen että toiminto tulee suoritetuksi vain, jos sen lopputulos aon eri kuin lähtötila. Toisesta suunnasta tarkasteltuna toimintoa ei siis suoriteta, mikäli alku ja lopputilanne on sama. Saltstack sivulla todetaan että Saltin määritellessä tilan olevan jo toivotunlainen, ei muutoksia tehdä lainkaan. (Saltstack 2016)
+
+Aiemmin olin luonut tiedoston /tmp/kaditestaa jonka palaute oli:
+>  ![a-007]()
+Suoritan komennon `sudo salt-call --local -l info state.single file.managed /tmp/kaditestaa` uudelleen ja lopputulos on:
+>  !|a-011]()
+Eli kommenttiosiossa maininta että kyseinen tiedosto on olemassa ja ei muuoksia tehty. Ajoin komennon lukuisia kertoja ja lopputulos aina sama, vaikka funktio saatiin onnistuneesti toteutettua. Eli komento oli idempotentti.
+>  ![a-012]()
+
+[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/new/main#h-1-viisikko)
+
+---
+
+## g) Tietoa koneesta. 
+Kerää tietoja koneesta Saltin grains.items -tekniikalla. Poimi kolme kiinnostavaa kohtaa, näytä tulokset ('grains.item osfinger virtual') ja analysoi ne.
+
+- Aloitin ao. komennolla joka tulosti kattavasti käyttämäni virtuaalikoneen tiedot.
+  
+      sudo salt-call --local grains.items
+- Seuraavaan komentoon poimin kolme nostoa.
+
+      sudo salt-call --local grains.item  lsb_distrib_description kernel biosreleasedate
+  Palautteena sain seuraavat:
+  > ![a-013]()
+  - BIOS julkaisupäivä 2006, tämä tarkoittaa Linuxin Biosia.
+  - Kernel - Linux
+  - käyttöjärjestelmän kuvaus - Debian GNU/Linux 11 Bullseye
+ 
+  [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/new/main#h-1-viisikko)
+
+  ---
 
 ## Lähteet
 
 Karvinen T/a. Create a Web Page Using Github, 2023. Luettavissa: https://terokarvinen.com/2023/create-a-web-page-using-github/. Luettu 31.03.2023. 
+
 Karvinen T/b. Run Salt kommand locally 2023. Luettavissa: https://terokarvinen.com/2021/salt-run-command-locally/. Luettu 31.03.2024
-Karvinen T/c. Raportin kirjoittaminen, 2023. Luettavissa: https://terokarvinen.com/2006/06/04/raportin-kirjoittaminen-4/. Luettu 31.03.2024
+
+Karvinen T/c. Raportin kirjoittaminen, 2023. Luettavissa: https://terokarvinen.com/2006/06/04/raportin-kirjoittaminen-4/. Luettu 31.03.2024.
+
+Kaspersky How to get a Process Identifier (PID or Process ID) in Windows, 2023. Luettavissa: https://support.kaspersky.com/common/windows/6325. Luettu 31.03.2024.
+
+Salt Stack, salt.states.cmd. Luettavissa: https://salt-zh.readthedocs.io/en/latest/ref/states/all/salt.states.cmd.html. Luettu 31.03.2024.
+
+Salt Stack, Create a salt state, 2016. Luettavissa: https://docs.saltproject.io/en/getstarted/fundamentals/states.html. Luettu 31.03.2024.
+
 Syrjä K. h1 Oma Linux, 2024. Luettavissa https://github.com/syjaka/Linux-Palvelimet-2024/blob/main/h1_OmaLinux.md#1-
 raportointiohjeen-tiivistelm%C3%A4. Luettu 31.03.2024.
+
 Syrjä K. h5 Uudestaan, 2024. Luettavissa;: https://github.com/syjaka/Linux-Palvelimet-2024/blob/main/h5_Uudestaan.md#kertaus-on-opintojen-%C3%A4iti. Luettu 31.03.2024.
