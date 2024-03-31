@@ -2,7 +2,7 @@
 
 # h 1 Viisikko
 
-x) [Lue ja tiivistä](https://github.com/syjaka/Palvelinten-Hallinta-2024/new/main#x-lue-ja-tiivist%C3%A4)
+x) [Lue ja tiivistä](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h1_viisikko.md#x-lue-ja-tiivist%C3%A4)
 
 a) [Hello Mac Salt World](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h1_viisikko.md#a-hello-mac-salt-world)
 
@@ -58,7 +58,7 @@ Koska olen tämän tiivistelmän kirjoittanut jo edellisellä kurssilla ja pyör
 > 3. Hyvässä raportissa on lähteet listattu perusteellisesti.
 > Pahimpia mokia raporttia kirjoittaessa ovat asioiden keksiminen sekä plagiointi. Tärkeää on tehdä annetut tehtävät ja dokumentoida tämä helppolukuisesti ja selkeästi. (Karvinen/c 2024)
 
-[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/new/main#h-1-viisikko)
+[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h1_viisikko.md#h-1-viisikko)
 
 ---
 
@@ -78,7 +78,7 @@ Koska asensin Saltin jo tunnilla [saltproject](https://docs.saltproject.io/salt/
 Saltin onnistunut asennus näkyy ao. kuvassa:
 > ![a-001](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h1-001.png)
 
-[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/new/main#h-1-viisikko)
+[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h1_viisikko.md#h-1-viisikko)
 
 ---
 
@@ -88,7 +88,7 @@ Saltin onnistunut asennus näkyy ao. kuvassa:
 Itse Vagrant tuli asennettua viime kurssilla ja siitä raporttia [täällä](https://github.com/syjaka/Linux-Palvelimet-2024/blob/main/h5_Uudestaan.md#m-vagrant) (Syrjä 2024).
 > ![a-002](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h1-002.png)
 
-[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/new/main#h-1-viisikko)
+[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h1_viisikko.md#h-1-viisikko)
 
 ---
 
@@ -103,7 +103,7 @@ Virtuaalikoneen teko Vagrantilla olio nopeaa. Loin aluksi uuden kansion Bullseye
 Asennus käynnistyi ja hetken kuluttua oli valmista. Uusi virtuaalikone oli ilmestynyt Virtualboxiin:
 > ![a-003](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h1-003.png)
 
-[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/new/main#h-1-viisikko)
+[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h1_viisikko.md#h-1-viisikko)
 
 ---
 
@@ -126,7 +126,7 @@ suoritus kesti noin 8 min.
 > ![a-005](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h1-005.png)
 (Karvinen/b 2023).
 
-[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/new/main#h-1-viisikko)
+[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h1_viisikko.md#h-1-viisikko)
 
 ---
 
@@ -203,7 +203,7 @@ Näytä Linuxissa esimerkit viidestä tärkeimmästä Saltin tilafunktiosta: pkg
 - Changes - kohta tuo lisää vaihtelua tuloksiin. pid: kertoo prosessin tunnisteen ja retcode palautuskoodin (Kaspersky 2024).
 - Lopussa taas listattu tehdyt toimet ja niiden specsit.
 
-[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/new/main#h-1-viisikko)
+[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h1_viisikko.md#h-1-viisikko)
 
 ---
 
@@ -218,7 +218,7 @@ Suoritan komennon `sudo salt-call --local -l info state.single file.managed /tmp
 Eli kommenttiosiossa maininta, että kyseinen tiedosto on olemassa ja ei muutoksia tehty. Ajoin komennon lukuisia kertoja ja lopputulos aina sama, vaikka funktio saatiin onnistuneesti toteutettua. Eli komento oli idempotentti.
 >  ![a-012](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h1-012.png)
 
-[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/new/main#h-1-viisikko)
+[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h1_viisikko.md#h-1-viisikko)
 
 ---
 
@@ -237,7 +237,7 @@ Kerää tietoja koneesta Saltin grains.items -tekniikalla. Poimi kolme kiinnosta
   - Kernel - Linux
   - käyttöjärjestelmän kuvaus - Debian GNU/Linux 11 Bullseye
  
-  [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/new/main#h-1-viisikko)
+  [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h1_viisikko.md#h-1-viisikko)
 
   ---
 
