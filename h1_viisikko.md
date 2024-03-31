@@ -1,4 +1,3 @@
-# KESKENERÄINEN
 
 # h 1 Viisikko
 
@@ -132,6 +131,7 @@ suoritus kesti noin 8 min.
 ---
 
 ## e) Viisi tärkeintä. 
+Loppuosoin suoritus alkoi 31.03.2024 klo 15.00 ETC ja päättyi 17.23 ETC.
 Näytä Linuxissa esimerkit viidestä tärkeimmästä Saltin tilafunktiosta: pkg, file, service, user, cmd. Analysoi ja selitä tulokset.
 ### 1. Paketinhallinta - *pkg*  on nimensä mukaisesti paketinhallintatyökalu, eli sillä asennetaan erilaisia sovelluspaketteja.
 - tree -ohjelman asennus komennolla:
