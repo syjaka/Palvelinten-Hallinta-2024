@@ -116,7 +116,7 @@ Verkko voi olla virtuaalinen verkko paikallisten virtuaalikoneiden välillä, ku
 10.  `sudo salt-key -A` ja `y` hyväksyi orjan salakirjoitusavaimen.
 11.  Testaan `sudo salt '*' cmd.run 'whoami'` joka kysyy kaikkia kuulolla olevia minioneita vastaamaan. Tuloksena minionk1 vastaa.
 >  ![h2_005](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_005.png)
-    
+    (Karvinen 2018)
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h2_Soitto_kotiin.md#h2-soitto-kotiin)
 
 ---
@@ -127,6 +127,7 @@ Verkko voi olla virtuaalinen verkko paikallisten virtuaalikoneiden välillä, ku
 >  ![h2_006](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_006.png)
 Komento `sudo salt '*' cmd.run 'ls -l /tmp/'` todentaa luonnin onnistuneen.
 >  ![h2_007](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_007.png)
+(Karvinen 2021)
 
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h2_Soitto_kotiin.md#h2-soitto-kotiin)
 
@@ -141,6 +142,7 @@ Komento `sudo salt '*' cmd.run 'ls -l /tmp/'` todentaa luonnin onnistuneen.
 3. Komento `sudo salt '*' state.single pkg.installed name=cowsay` toimi samoin.
 >  ![h2_010](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_010.png)
 >  ![h2_011](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_011.png)
+(Karvinen 2021)
 
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h2_Soitto_kotiin.md#h2-soitto-kotiin)
 
@@ -150,6 +152,7 @@ Komento `sudo salt '*' cmd.run 'ls -l /tmp/'` todentaa luonnin onnistuneen.
 
 Komento `sudo salt '*' grains.item os ipv4 master osfinger` palautti seuraavat pyydetyt tiedot:
 >  ![h2_012](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_012.png)
+(Karvinen 2021)
 
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h2_Soitto_kotiin.md#h2-soitto-kotiin)
 
@@ -188,6 +191,8 @@ Hashicorp2, Vagrant Documentation, Config.vm. Luettavissa: https://developer.has
 Karvinen T. Infra as Code - Palvelinten hallinta 2024. Luettavissa: https://terokarvinen.com/2024/configuration-management-2024-spring/#h2-soitto-kotiin. Luettu 08.04.2024
 
 Karvinen T. Hello Salt Infra-as-Code 2014. Luettavissa https://terokarvinen.com/2024/hello-salt-infra-as-code/. Luettu 08.04.2024
+
+Karvinen T. Run Salt Command Locally, 2021. Luettavissa:https://terokarvinen.com/2021/salt-run-command-locally/. Luettu 08.04.2024-
 
 Karvinen T. Salt Quickstart – Salt Stack Master and Slave on Ubuntu Linux 2018. Luettavissa: https://terokarvinen.com/2018/salt-quickstart-salt-stack-master-and-slave-on-ubuntu-linux/?fromSearch=salt%20quickstart%20salt%20stack%20master%20and%20slave%20on%20ubuntu%20linux. Luettu 08.04.2024
 
