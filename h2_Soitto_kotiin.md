@@ -1,4 +1,3 @@
-# Keskeneräinen
 
 # h2 Soitto kotiin
 
@@ -7,11 +6,11 @@ a) [ Kaksi virtuaalikonetta samassa verkossa ](https://github.com/syjaka/Palveli
 
 b) [ Saltin herra-orja arkkitehtuuri toimii verkon yli ](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h2_Soitto_kotiin.md#b-asenna-saltin-herra-orja-arkkitehtuuri-toimimaan-verkon-yli---08042024-klo-1345---1420-eet)
 
-c) [ Shell-komento orjalla](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h2_Soitto_kotiin.md#c-aja-shell-komento-orjalla-saltin-master-slave-yhteyden-yli-08042024-klo-1430---1439-eet)
+c) [ Shell-komento orjalla](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h2_Soitto_kotiin.md#c-aja-shell-komento-orjalla-saltin-master-slave-yhteyden-yli---08042024-klo-1430---1439-eet)
 
-d) [ Idempotentit komennot master-slave yhteyden yli](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h2_Soitto_kotiin.md#d-aja-useita-idempotentteja-statesingle-komentoja-master-slave-yhteyden-yli-08042024-klo-1445---14-56-eet)
+d) [ Idempotentit komennot master-slave yhteyden yli](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h2_Soitto_kotiin.md#d-aja-useita-idempotentteja-statesingle-komentoja-master-slave-yhteyden-yli---08042024-klo-1445---14-56-eet)
 
-e) [ Orjien tekniset tiedot](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h2_Soitto_kotiin.md#e-ker%C3%A4%C3%A4-teknist%C3%A4-tietoa-orjista-verkon-yli-grainsitem-08042024-klo-1459---1501-eet)
+e) [ Orjien tekniset tiedot](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h2_Soitto_kotiin.md#e-ker%C3%A4%C3%A4-teknist%C3%A4-tietoa-orjista-verkon-yli-grainsitem---08042024-klo-1459---1501-eet)
 
 f) [ Hello, IaC](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h2_Soitto_kotiin.md#f-hello-iac-08042024-klo-1505---1530-eet)
 
