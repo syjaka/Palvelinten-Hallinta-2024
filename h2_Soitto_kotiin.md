@@ -4,13 +4,21 @@
 
 
 a) [ Kaksi virtuaalikonetta samassa verkossa ]()
+
 b) [ Saltin herra-orja arkkitehtuuri toimii verkon yli ]()
+
 c) [ Shell-komento orjalla]()
+
 d) [ Idempotentit komennot master-slave yhteyden yli]()
+
 e) [ Orjien tekniset tiedot]()
+
 f) [ Hello, IaC]()
+
 2x)[ Lue ja tiivistä]()
+
 y) [ Käyttöympäristö]()
+
 z) [ Alkutoimet]()
 
 ---
@@ -55,25 +63,28 @@ Saltin avulla voidaan hallinnoida tuhansia koneita Iac'n avulla. Tämä artikkel
  - Tarkistus että kaikki toteutettiin kuin piti onnistuu `ls /tmp/hellotero`.
  - Loppuun avataan vielä idempotenssin konseptia esittämällä että järjestelmän tilan pitäisi pysyä muuttumattomana, vaikka samaa moduulia sovellettaisiin useita kertoja. Kun suoritat "hello" tilan uudelleen, muutoksia ei enää tehdä, koska järjestelmä on jo oikeassa tilassa.
 
-   
-
+[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h2_Soitto_kotiin.md#h2-soitto-kotiin)
 
 ---
 
 ## y) Käyttöympäristö
+
 Tehtävä toteutettiin MacBook Retina 12-inch, koneella jossa, host OS on Ventura 13.6.1 käyttöjärjestelmä Suomen maa-asetuksilla ja suomen kielellä. Koneessa on 1,3GHz kaksiytiminen Intel Core i5 prosessori ja 8Gt 1867 MHz LPDDR3 muistia. Näytönohjain on Intel HD Graphics 615 jossa VRAM 1536 Mt.
 
 
 ---
 ## z) Alkutoimet
+
 Koneen ja pääte-työkalun käynnistys.
 
 Kaikki seuraavien osion tehtävänannot ovat peräisin Tero Karvisen - Infra As a Code - Palvelinten hallinta 2024 kurssisivulta.
 
+[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h2_Soitto_kotiin.md#h2-soitto-kotiin)
 
 ---
 
 ## a) Kaksi virtuaalikonetta samassa verkossa - 08.04.2024 klo 13.11. - 13.35 EET
+
 Asenna kaksi virtuaalikonetta samaan verkkoon. Osoita, että pystyt käyttämään kumpaakin konetta (esim 'vagrant ssh t001'). Osoita, että koneet voivat pingata toisiaan. (Tämä tehtävä on helpointa tehdä Vagrantilla)(Karvinen 2024).
 
 1. Koneessani oli jo Vagrant asennettu, joten aloitin tehtävän suoraan uuden projektihakemiston luonnilla - `mkdir twohost/`.
@@ -85,11 +96,12 @@ Asenna kaksi virtuaalikonetta samaan verkkoon. Osoita, että pystyt käyttämä�
    > ![h2_0021]()
 (Karvinen 2021)
 
-[Takaisin ylös]()
+[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h2_Soitto_kotiin.md#h2-soitto-kotiin)
 
 ___
 
 ## b) Asenna Saltin herra-orja arkkitehtuuri toimimaan verkon yli - 08.04.2024 klo 13.45 - 14.20 EET.
+
 Verkko voi olla virtuaalinen verkko paikallisten virtuaalikoneiden välillä, kuten muissakin alakohdissa (Karvinen 2024).
 
 1. Siirryin k001 koneelle `vagrant ssh 001`
@@ -107,14 +119,66 @@ Verkko voi olla virtuaalinen verkko paikallisten virtuaalikoneiden välillä, ku
 11.  Testaan `sudo salt '*' cmd.run 'whoami'` joka kysyy kaikkia kuulolla olevia minioneita vastaamaan. Tuloksena minionk1 vastaa.
 ![h2_005]()
     
+[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h2_Soitto_kotiin.md#h2-soitto-kotiin)
+
+---
+
+## c) Aja shell-komento orjalla Saltin master-slave yhteyden yli. 08.04.2024 klo 14.30 - 14.39 EET.
+
+1. `sudo salt '*' state.single file.managed '/tmp/network-master-greets-minions` luo network-master-greets-minions tiedoston minionin tmp-hakemistoon
+![h2_006]()
+Komento `sudo salt '*' cmd.run 'ls -l /tmp/'`  todentaa luonnin onnistuneen
+[h2_007]()
+
+[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h2_Soitto_kotiin.md#h2-soitto-kotiin)
+
+---
+
+## d) Aja useita idempotentteja (state.single) komentoja master-slave yhteyden yli. 08.04.2024 klo 14.45 - 14. 56 EET.
+
+1. Yllä esitetyn komennon `sudo salt '*' state.single file.managed '/tmp/network-master-greets-minions` uudelleenajo todisti komennon olevan idempotentti
+![h2_008]()
+2. Komento `sudo salt '*' state.single user.present name=minon-clone`luo minonille käyttäjän minion-clone hja komennen uudelleenajo näyttää idempotentin luonteen ajamalla komennon muuttamatta mitään
+![h2_009]()
+3. Komento ``toimii samoin
+![h2_010]()
+![h2_011]()
+
+[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h2_Soitto_kotiin.md#h2-soitto-kotiin)
+
+---
+
+## e) Kerää teknistä tietoa orjista verkon yli (grains.item) 08.04.2024 klo 14.59 - 15.01
+
+Komento `sudo salt '*' grains.item os ipv4 master osfinger`palauttaa seuraavat:
+![h2_012]()
+
+[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h2_Soitto_kotiin.md#h2-soitto-kotiin)
+
+---
+
+## f) Hello, IaC 08.04.2024 klo 15.05 - 
+Tee infraa koodina kirjoittamalla /srv/salt/hello/init.sls. Aja tila jollekin orjalle. Tila voi esimerkiksi tehdä esimerkkitiedoston johonkin hakemistoon. Testaa toisella komennolla, että pyytämäsi muutos on todella tehty (Karvinen 2024).
+
+1. Aloitin asentamalla micron `sudo apt-get -y install micro` ja määritän sen defaultiksi `export EDITOR=micro`
+2. Luon uuden kansion hello `sudo mkdir -p /srv/salt/hello/` ja siirryn sinne `cd /srv/salt/hello/`
+3. Luon siellä init.sls tiedoston `sudoedit init.sls` jonne tallennan
+![h02_013]()
+4. Yo. toimet ovat siis luoneet hello moduulin/kansion saltin srv hakemiostossa.
+5. komennolla `sudo salt '*' state.apply hello` suoritan
+6. Koska hakemisto oli jo aiemmin luotu ei muutoksia tehty mutta komennon ajo onnistui.
+![h2_014]()
+7. Muokkaan luotavan hakemiston nimeä - IaC ja testaan uudelleen
+![h2_015]()
+Ensimmäinen ajo osoittaa että uusi hakemisto luotiin, toinen että muutoksia ei tarvinnut tehdä.
+9. `sudo salt '*' cmd.run 'ls -l /tmp/'` tarkisti että hakemistot ovat luotu kuten pitää.
+![h2_016]()
+10. Orjalla tehty tuplatsekkaus paljastaa että näin todella on
+![h2_017]()
+
+(Karvinen 2024).
 
 
-
-
-## c) Aja shell-komento orjalla Saltin master-slave yhteyden yli.
-## d) Aja useita idempotentteja (state.single) komentoja master-slave yhteyden yli.
-## e) Kerää teknistä tietoa orjista verkon yli (grains.item)
-## f) Hello, IaC. Tee infraa koodina kirjoittamalla /srv/salt/hello/init.sls. Aja tila jollekin orjalle. Tila voi esimerkiksi tehdä esimerkkitiedoston johonkin hakemistoon. Testaa toisella komennolla, että pyytämäsi muutos on todella tehty.
 
 ## Lähteet
 
