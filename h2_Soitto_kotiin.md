@@ -11,7 +11,7 @@ c) [ Shell-komento orjalla](https://github.com/syjaka/Palvelinten-Hallinta-2024/
 
 d) [ Idempotentit komennot master-slave yhteyden yli](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h2_Soitto_kotiin.md#d-aja-useita-idempotentteja-statesingle-komentoja-master-slave-yhteyden-yli-08042024-klo-1445---14-56-eet)
 
-e) [ Orjien tekniset tiedot](https://github.com/syjaka/Palvelinten-Hallinta-2024/edit/main/h2_Soitto_kotiin.md#e-ker%C3%A4%C3%A4-teknist%C3%A4-tietoa-orjista-verkon-yli-grainsitem-08042024-klo-1459---1501-eet)
+e) [ Orjien tekniset tiedot](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h2_Soitto_kotiin.md#e-ker%C3%A4%C3%A4-teknist%C3%A4-tietoa-orjista-verkon-yli-grainsitem-08042024-klo-1459---1501-eet)
 
 f) [ Hello, IaC](https://github.com/syjaka/Palvelinten-Hallinta-2024/edit/main/h2_Soitto_kotiin.md#f-hello-iac-08042024-klo-1505---1530-eet)
 
@@ -90,8 +90,8 @@ Asenna kaksi virtuaalikonetta samaan verkkoon. Osoita, että pystyt käyttämä�
 1. Koneessani oli jo Vagrant asennettu, joten aloitin tehtävän suoraan uuden projektihakemiston luonnilla - `mkdir twohost/`.
 2. Luonnin jälkeen siirryin kyseiseen hakemistoon ja loin sinne vagrantfilen:
    > ![h2_001](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_001.png)
-3. Komennolla `vagrant up` luon virtuaalikoneet käyttämällä äsken luotu conf-tiedostoa- Lopputuloksena minulla on kaksi virtuaalikonetta k001 ja k002.
-4. Testaan että pystyn käyttämään molempia luotuja koneita loggautumalla niille ja pingaan toinen toistaan, sekä googlen nimipalvelimen.
+3. Komennolla `vagrant up` loin virtuaalikoneet käyttämällä äsken luotua conf-tiedostoa. Lopputuloksena minulla oli kaksi virtuaalikonetta k001 ja k002.
+4. Testasin että pystyn käyttämään molempia luotuja koneita loggautumalla niille ja pingasin toinen toistaan, sekä googlen nimipalvelinta.
    > ![h2_002](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_002.png)
    > ![h2_0021](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_0021.png)
 (Karvinen 2021)
@@ -111,37 +111,37 @@ Verkko voi olla virtuaalinen verkko paikallisten virtuaalikoneiden välillä, ku
 4.  Poistuin Masterista `exit` ja siirryin k002-koneelle `vagrant ssh k002`. Siellä aluksi päivitin paketit `sudo apt-get update`.
 5.  `sudo apt-get install salt-minion` asensi Salt-minionin.
 6.  Seuraavaksi lisäsin minionin asetustiedostoon masterin IP-osoitteen sekä annoin minionille oman id:n `sudoedit /etc/salt/minion`.
- ![h02_004](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_004.png)
-7. `sudo systemctl restart salt-minion.service`potkasi minionin, jotta muutokset tulee käyttöön.
+>  ![h02_004](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_004.png)
+7. `sudo systemctl restart salt-minion.service` potkasi minionin, jotta muutokset tulivat käyttöön.
 9.  Siirryn masteriin `exit` ja `vagrant ssh k001`.
-10.  `sudo salt-key -A` ja `y` hyväksyy orjan salakirjoitusavaimen.
+10.  `sudo salt-key -A` ja `y` hyväksyi orjan salakirjoitusavaimen.
 11.  Testaan `sudo salt '*' cmd.run 'whoami'` joka kysyy kaikkia kuulolla olevia minioneita vastaamaan. Tuloksena minionk1 vastaa.
-![h2_005](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_005.png)
+>  ![h2_005](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_005.png)
     
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h2_Soitto_kotiin.md#h2-soitto-kotiin)
 
 ---
 
-## c) Aja shell-komento orjalla Saltin master-slave yhteyden yli, 08.04.2024 klo 14.30 - 14.39 EET.
+## c) Aja shell-komento orjalla Saltin master-slave yhteyden yli - 08.04.2024 klo 14.30 - 14.39 EET.
 
-1. `sudo salt '*' state.single file.managed '/tmp/network-master-greets-minions` luo network-master-greets-minions tiedoston minionin tmp-hakemistoon.
-![h2_006](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_006.png)
+1. `sudo salt '*' state.single file.managed '/tmp/network-master-greets-minions` loi network-master-greets-minions tiedoston minionin tmp-hakemistoon.
+>  ![h2_006](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_006.png)
 Komento `sudo salt '*' cmd.run 'ls -l /tmp/'` todentaa luonnin onnistuneen.
-[h2_007](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_007.png)
+>  ![h2_007](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_007.png)
 
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h2_Soitto_kotiin.md#h2-soitto-kotiin)
 
 ---
 
-## d) Aja useita idempotentteja (state.single) komentoja master-slave yhteyden yli, 08.04.2024 klo 14.45 - 14. 56 EET.
+## d) Aja useita idempotentteja (state.single) komentoja master-slave yhteyden yli - 08.04.2024 klo 14.45 - 14. 56 EET.
 
-1. Yllä esitetyn komennon `sudo salt '*' state.single file.managed '/tmp/network-master-greets-minions` uudelleenajo todisti komennon olevan idempotentti.
-![h2_008](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_008.png)
-2. Komento `sudo salt '*' state.single user.present name=minon-clone`luo minonille käyttäjän minion-clone hja komennen uudelleenajo näyttää idempotentin luonteen ajamalla komennon muuttamatta mitään.
-![h2_009](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_009.png)
-3. Komento `sudo salt '*' state.single pkg.installed name=cowsay` toimii samoin
-![h2_010](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_010.png)
-![h2_011](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_011.png)
+1. Komennon `sudo salt '*' state.single file.managed '/tmp/network-master-greets-minions` uudelleenajo todisti komennon olevan idempotentti, sillä onnistuneesta ajosta huolimatta muutoksia ei tehty.
+>  ![h2_008](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_008.png)
+2. Komento `sudo salt '*' state.single user.present name=minon-clone` loi minonille käyttäjän `minion-clone` ja komennen uudelleenajo näytti idempotentin luonteen ajamalla komennon onnistuneesti, muuttamatta mitään.
+>  ![h2_009](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_009.png)
+3. Komento `sudo salt '*' state.single pkg.installed name=cowsay` toimi samoin.
+>  ![h2_010](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_010.png)
+>  ![h2_011](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_011.png)
 
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h2_Soitto_kotiin.md#h2-soitto-kotiin)
 
