@@ -13,7 +13,7 @@ d) [ Idempotentit komennot master-slave yhteyden yli](https://github.com/syjaka/
 
 e) [ Orjien tekniset tiedot](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h2_Soitto_kotiin.md#e-ker%C3%A4%C3%A4-teknist%C3%A4-tietoa-orjista-verkon-yli-grainsitem-08042024-klo-1459---1501-eet)
 
-f) [ Hello, IaC](https://github.com/syjaka/Palvelinten-Hallinta-2024/edit/main/h2_Soitto_kotiin.md#f-hello-iac-08042024-klo-1505---1530-eet)
+f) [ Hello, IaC](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h2_Soitto_kotiin.md#f-hello-iac-08042024-klo-1505---1530-eet)
 
 x)[ Lue ja tiivistä](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h2_Soitto_kotiin.md#x-lue-ja-tiivist%C3%A4)
 
@@ -147,10 +147,10 @@ Komento `sudo salt '*' cmd.run 'ls -l /tmp/'` todentaa luonnin onnistuneen.
 
 ---
 
-## e) Kerää teknistä tietoa orjista verkon yli (grains.item), 08.04.2024 klo 14.59 - 15.01 EET.
+## e) Kerää teknistä tietoa orjista verkon yli (grains.item) - 08.04.2024 klo 14.59 - 15.01 EET.
 
-Komento `sudo salt '*' grains.item os ipv4 master osfinger` palauttaa seuraavat:
-![h2_012](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_012.png)
+Komento `sudo salt '*' grains.item os ipv4 master osfinger` palautti seuraavat pyydetyt tiedot:
+>  ![h2_012](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_012.png)
 
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h2_Soitto_kotiin.md#h2-soitto-kotiin)
 
@@ -162,22 +162,23 @@ Tee infraa koodina kirjoittamalla /srv/salt/hello/init.sls. Aja tila jollekin or
 1. Aloitin asentamalla micron `sudo apt-get -y install micro` ja määritin sen defaultiksi `export EDITOR=micro`
 2. Loin uuden kansion hello `sudo mkdir -p /srv/salt/hello/` ja siirryin sinne `cd /srv/salt/hello/`
 3. Loin siellä init.sls tiedoston `sudoedit init.sls` jonne tallensin
-![h02_013](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_013.png)
-4. Yo. toimet ovat siis luoneet hello moduulin/kansion saltin srv hakemistossa.
+>  ![h02_013](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_013.png)
+4. Yo. toimet ovat siis luoneet hello moduulin/kansion saltin srv hakemistoon.
 5. Komennolla `sudo salt '*' state.apply hello` suoritin luodun moduulin.
 6. Koska hakemisto oli jo aiemmin luotu ei muutoksia tehty mutta komennon ajo onnistui.
-![h2_014](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_014.png)
+>  ![h2_014](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_014.png)
 7. Muokkasin luotavan hakemiston nimeä - IaC ja testsin uudelleen
-![h2_015](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_015.png)
+>  ![h2_015](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_015.png)
 Ensimmäinen ajo osoitti, että uusi hakemisto luotiin, toinen että muutoksia ei tarvinnut tehdä.
-9. `sudo salt '*' cmd.run 'ls -l /tmp/'` tarkisti että hakemistot ovat luotu kuten pitää.
-![h2_016](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_016.png)
+9. `sudo salt '*' cmd.run 'ls -l /tmp/'` tarkisti että hakemistot ovat luotu kuten piti.
+>  ![h2_016](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_016.png)
 10. Orjalla tehty tuplatsekkaus paljasti, että näin todella on.
-![h2_017](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_017.png)
-
+>  ![h2_017](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h2_017.png)
 (Karvinen 2024).
 
+[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h2_Soitto_kotiin.md#h2-soitto-kotiin)
 
+---
 
 ## Lähteet
 
@@ -193,5 +194,5 @@ Karvinen T. Salt Quickstart – Salt Stack Master and Slave on Ubuntu Linux 2018
 
 Karvinen T. Two Machine Virtual Network With Debian 11 Bullseye and Vagrant 2021. Luettavissa: https://terokarvinen.com/2021/two-machine-virtual-network-with-debian-11-bullseye-and-vagrant/. Luettu 08.04.2024
 
-
+[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h2_Soitto_kotiin.md#h2-soitto-kotiin)
 
