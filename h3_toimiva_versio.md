@@ -131,7 +131,7 @@ En ollut ihan varma tehtävän lopullisesta tarkoituksesta kun tehty tyhmä muut
 
 ---
 
-## d) Tukki 
+## d) Tukki - 11.04.2024 klo 14.45 - 15.05 EET.
 Tarkastele ja selitä varastosi lokia. Tarkista, että nimesi ja sähköpostiosoitteesi näkyy haluamallasi tavalla ja korjaa tarvittaessa.
 
 1. Varaston loki tulee esiin `git log --patch --color|less -R`
@@ -152,13 +152,12 @@ Tarkastele ja selitä varastosi lokia. Tarkista, että nimesi ja sähköpostioso
 
 ---
 
-## e) Suolattu rakki
+## e) Suolattu rakki - 11.04.2024 klo 15.10 - 17.40 EET.
 Aja Salt-tiloja omasta varastostasi. (Salt tiedostot mistä vain hakemistosta "--file-root teronSaltHakemisto". Esimerkiksi 'sudo salt-call --local --file-root srv/salt/ state.apply', huomaa suhteellinen polku.)
 
-Tähän tehtävään otin käyttöön viime tehtävässä h2 luodut Salt masterin k001 ja salt minionin k002.
-1. Aloitin määrittämällä masterin k001 käyttämään gitiä:
-   - Siirryin koneellani kansioon `cd twohost` ja otin päätteen eri välilehdille yhteydet `vagrant sshk001`ja `vagrant sshk002`
-   - Työskentelen `k001`ja tavoitteena on
+Tähän tehtävään otin käyttöön viime tehtävässä h2 luodun virtuaalikoneen k002 jossa Salt oli valmiina.
+1. Aloitin määrittämällä koneen:
+   - Siirryin emokoneellani kansioon `cd twohost` ja otin päätteen eri välilehdille yhteydet `vagrant  ssh k002`
    - Aloitin asentamalla gitin ja muutamia muita ohjelmia:
      - `sudo apt-get update` ja `sudo apt-get -y install bash-completion pwgen micro git ssh tree`
    - Loin ssh avainparin `ssh-keygen`+ `3xreturn`
@@ -169,14 +168,14 @@ Tähän tehtävään otin käyttöön viime tehtävässä h2 luodut Salt masteri
    - Siirryin kloonattuun repooin ja kaikki näyttää olevan kunnossa
      ![h03-12]()
    
-4. Aloitin testaamalla Hello worldilla.
+2. Aloitin testaamalla Hello worldilla.
    - Loin suolaxkadi hakemistoon srv/salt halemiston `mkdir - p srv/salt` ja sinne loin `mkdir hello`.
    - `micro init.sls`luo tiedoston, jonne tallensin
          /tmp/GitSalt-greets:
            file.managed
-5. Testasin `sudo salt-call --local --file-root srv/salt/ state.apply hello`joka palautti onnistuneesti yhden tehdyn muutoksen:
+   - Testasin `sudo salt-call --local --file-root srv/salt/ state.apply hello`joka palautti onnistuneesti yhden tehdyn muutoksen:
 ![h3-013]()
-6. `git add . && git commit; git pull && git push` komento palautti virheen eli lisään aluksi nimen ja meilin.
+   - `git add . && git commit; git pull && git push` komento palautti virheen eli lisään aluksi nimen ja meilin.
    
        vagrant@k002:~/code/suolaxkadi$ git add . && git commit; git pull && git push
        Author identity unknown
@@ -193,33 +192,53 @@ Tähän tehtävään otin käyttöön viime tehtävässä h2 luodut Salt masteri
     
        fatal: empty ident name (for <vagrant@k002>) not allowed
    
-8. `git config --global user.email "kadriye.syrja@myy.haaga-helia.fi"` ja `git config --global user.name "Kadi Syrjä @k001"` ja uudelleen kokeilen `git add . && git commit; git pull && git push` joka onnistuneesti päästi tallentamaan commitin.
-![03-014]()
-9.  Lopputuloksena myös githubissa näkyy luotu moduuli. (väärä aikaleima harmitti. päivitin sen `sudo apt-get -y install ntp`ja `sudo systemctl enable --now ntp` tarkistin vielä `date`että kone on ajan tasalla.
+   - `git config --global user.email "kadriye.syrja@myy.haaga-helia.fi"` ja `git config --global user.name "Kadi Syrjä @k001"` ja uudelleen kokeilen `git add . && git commit; git pull && git push` joka onnistuneesti päästi tallentamaan commitin.
+     ![03-014]()
+   - Lopputuloksena myös githubissa näkyy luotu moduuli. (väärä aikaleima harmitti. päivitin sen `sudo apt-get -y install ntp`ja `sudo systemctl enable --now ntp` tarkistin vielä `date`että kone on ajan tasalla.
 `
-11. Seuraavaksi tein lempparit moduulin joka ajaa kaikki suosikkiohjelmat uutta konetta käyttöönottaessa `mkdir lempparit`
-12. `cd lempparit`ja `micro init.sls` jonne tallensin:
+3. Seuraavaksi tein lempparit moduulin joka ajaa kaikki suosikkiohjelmat uutta konetta käyttöönottaessa `mkdir lempparit`
+    - `cd lempparit`ja `micro init.sls` jonne tallensin:
     
-        favourite-packages:
-          pkg.installed
-            - pkgs:
-            - git
-            - bash-completion
-            - pwgen
-            - micro
-            - ssh
-            - tree
-            - cowsay
-            - cmatrix
-            - trash-cli
-            - wget
-            - curl
-14. Testasin `sudo salt-call --local -l info --file-root srv/salt/ state.apply lempparit`
-   - Lopputuloksena onnistunut ajo:
+          favourite-packages:
+            pkg.installed
+              - pkgs:
+              - git
+              - bash-completion
+              - pwgen
+              - micro
+              - ssh
+              - tree
+              - cowsay
+              - cmatrix
+              - trash-cli
+              - wget
+              - curl
+    - Testasin `sudo salt-call --local -l info --file-root srv/salt/ state.apply lempparit`
+    - Lopputuloksena onnistunut ajo:
      ![03-015]()
      ![03-016]()
+    - `git add . && git commit; git pull && git push` tallensin muutokset ja tarkistin että ne siirtyivät Githubiin onnistuneesti.
 
-11. Seuraavaksi loin makefilen joka ajaa `make` komennolla filessä olevat komennot. File luotiin repon päähakemistossa `micro Makefile` ja sinne tallensin lempparit moduulin ajokomennon.
+4. Seuraavaksi loin makefilen joka ajaa `make` komennolla filessä olevat komennot. File luotiin repon päähakemistossa `micro Makefile` ja sinne tallensin lempparit moduulin ajokomennon.
+
+        all:
+             sudo salt-call --local -l info --file-root srv/salt/ state.apply lempparit
+   - Komento `make`antoi palautteena että command not found ja google kertoi että se pitää asentaa komennolla `sudo apt-get install make` jonka jälkeen `make` toimi odotetusti. (Ramuglia 2024)
+![h3-017]()
+
+5. Tein vielä topfilen jolle voi antaa eri konetyyppejä joille voi asentaa eri moduuleja.
+   - Poistin Makefilen ajettavasta komennosta ajettavan moduulin nimen, jolloin komennoksi jäi `sudo salt-call --local -l info --file-root srv/salt/ state.apply`
+   - siirryin `srv/salt`hakemistoon ja siellä `micro top.sls`komennolla luon topfilen, jonne tallennan:
+
+         base:
+            '*':
+               - hello
+               - lempprit
+      - Tämä sisältö ajaa Hello ja lempparit moduulit kaikille `'*'` koneille. `make`suolaxkadi-hakemistossa paljasti että homma toimii
+       
+6. Vielä viimeiseksi `git add . && git commit; git pull && git push`
+   
+Osion lähteinä käytetty 10.04.2024 luentomuistiinpanoja sekä Tero Karvisen suolax-repoa joka tehtiin luennolla. (Karvinen 2024)
 
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h3_toimiva_versio.md#h3-toimiva-versio)
 
@@ -227,6 +246,15 @@ Tähän tehtävään otin käyttöön viime tehtävässä h2 luodut Salt masteri
 
 ## f) Vapaaehtoinen ykkönen - Se toinen järjestelmä
 Kokeile Gittiä eri käyttöjärjestelmällä kuin sillä, millä teit muut harjoitukset. Selitä niin, että kyseistä järjestelmää osaamatonkin onnistuu. Mahdollisuuksia on runsaasti: Debian, Fedora, Windows, OSX...
+
+Kokeilin Gittiä oman koneeni käyttöjärjestelmällä. Minulla on jo brew asennettu, joten asensin sen avulla gitin käyttäen komentoa `brew install git`. Mikäli Brewtä ei olisi ollut olisi sen asennus onnistunut komennolla `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
+1. Koneen autentikointi Githubiin ja edellisen *summer* repon kloonaaminen paikallisesti koneeseen.
+   - SSH-avainparin luonti onnistui komennolla `ssh-keygen -t rsa -b 4096` joka luo RSA-tyypin 4096 bittiä pitkän avaimen.
+   - `cat /Users/kadriyesamaletdin/.ssh/id_rsa.pub`tulostaa julkisen avaimen terminaaliin josta kopioin sen Githubini asetuksien SSH-avainten listaan.
+   - `mkdir git` luo git-nimisen hakemiston jonnne kloonaan summer-repon SSH linkin `git clone git@github.com:syjaka/summer.git`
+   - `cd summer`ja siellä `ls`tuo esiin saman hakemistorakenteen kuin a-tehtävässä tehty 
+
+
 
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h3_toimiva_versio.md#h3-toimiva-versio)
 
@@ -252,6 +280,10 @@ Git documentation - b, git-commit 2024. Luettavissa: https://git-scm.com/docs/gi
 Git documentation - c, git-pull 2024. Luettavissa: https://git-scm.com/docs/git-pull. Luettu 11.04.2024
 
 Git documentation - d, git-push 2024. Luettavissa: https://git-scm.com/docs/git-pull. Luettu 11.04.2024
+
+Karvinen T. Github Suolax 2024. mLuettavissa:https://github.com/terokarvinen/suolax/tree/main. Luettu 10.04.2024.
+
+Ramuglia G, Intro to ‘make’ Linux Command: Installation and Usage 2024. Luettavissa: https://ioflood.com/blog/install-make-command-linux/. Luettu 11.04.2024.
 
 Syjaka Palvelinten hallinta 2024/h2_Soitto kotiin 2024. Luettavissa: https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h2_Soitto_kotiin.md#f-hello-iac-08042024-klo-1505---1530-eet. Luettu 11.04.2024
 
