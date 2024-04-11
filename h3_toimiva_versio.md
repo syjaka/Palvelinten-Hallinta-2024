@@ -39,18 +39,17 @@ z) [ Alkutoimet]()
 2. Gitin käyttö on lähinnä 'git add . && git commit; git pull && git push'. 
   -Selitä tuon komennon jokainen osa. Käytä apuna itse valitsemiasi lähteitä ja viittaa niihin.
 
-   1. *git add*
     - `git add` Kun projektin tehdään muutoksia ne tulee "manuaalisti" sisällyttää seuraavaan committiin, eli lavastaa commitoitavaksi. Tämä tapahtuu  `git add`-komennolla. Komennon seurauksena git on päivittänyt indeksinsä vastaamaan komennon suorittamisen aikaista tilaa. Kyseisen komennon voi suorittaa useita kertoja ennen varsinaista committia. (Git documentation -a 2024)
-   2. `git commit` On luontainen seuraus edelliselle komennolle joka on lavastanut muutokset commitoitavaksi. Eli komento luo uuden commitin joka sisältää nykyisen indexin ja annetun lokiviestin commitista. Uusin kommit on yleensä nykyisen haaran kärki ja haara päivitetään automaattisesti osoittamaan siihen. (Git documentation - b 2024)
-   3. `git pull` - komento yhdistää muutokset etävarastosta paikalliseen varaston nykyiseen haaraan. Mikäli haarat ovat erkaantuneet tulee haarat sovittaa yhteen `rebase` tai `--no rebase` toiminnoilla (Git documentation - c 2024).
-   4. `git push` päivittää etävarastot käyttäen paikallisia varastoja. Komennon yhteydessä on annettava toivottuja konfiguraatioita tai komentorivin määrityksiä komennolla. Mikäli näitä ei anneta, työnnetään nykyinen haara vastaavaan ylähaaraan. Jos ylähaaran nimi ei vastaa paikallista keskeytetään komento (Git documentation - d 2024).
+    - `git commit` On luontainen seuraus edelliselle komennolle joka on lavastanut muutokset commitoitavaksi. Eli komento luo uuden commitin joka sisältää nykyisen indexin ja annetun lokiviestin commitista. Uusin kommit on yleensä nykyisen haaran kärki ja haara päivitetään automaattisesti osoittamaan siihen. (Git documentation - b 2024)
+    - `git pull` - komento yhdistää muutokset etävarastosta paikalliseen varaston nykyiseen haaraan. Mikäli haarat ovat erkaantuneet tulee haarat sovittaa yhteen `rebase` tai `--no rebase` toiminnoilla (Git documentation - c 2024).
+    - `git push` päivittää etävarastot käyttäen paikallisia varastoja. Komennon yhteydessä on annettava toivottuja konfiguraatioita tai komentorivin määrityksiä komennolla. Mikäli näitä ei anneta, työnnetään nykyinen haara vastaavaan ylähaaraan. Jos ylähaaran nimi ei vastaa paikallista keskeytetään komento (Git documentation - d 2024).
 
    
 4. Varaston [terokarvinen/suolax/](https://github.com/terokarvinen/suolax/) historia - 11.4 klo 12.45 - 13.30 EET
   - eli loki ja muutokset. Kätevimmin komentokehotteesta 'git clone https://github.com/terokarvinen/suolax.git; cd suolax/; git log --patch --color|less -R'. Wepistäkin saattaa onnistua kliksuttelemalla "Commits". (Karvinen 2024)
 
-  Tein tehtävän komentorivin kautta.
-  1. Avasin ssh yjteyden aiemmin Vagrantilla luotuun virtuaalikoneeseen joka sijaitsi koneeni kotihakemistossa. komennolla `vagrant ssh`. Koneelle oli git asennettu jo tunnilla.
+   Tein tehtävän komentorivin kautta.
+  1. Avasin ssh yhteyden aiemmin Vagrantilla luotuun virtuaalikoneeseen joka sijaitsi koneeni kotihakemistossa. komennolla `vagrant ssh`. Koneelle oli git asennettu jo tunnilla.
   2. Etäyhteyden avauduttua siirryin `cd code ` - hakemistoon, annoin komennon `git clone https://github.com/terokarvinen/suolax.git` ja siirryin komennot tuomaan suolax hakemistoon `cd suolax`.
     ![h3-001]()
   3. Komento `git log --patch --color|less -R` tulosti kyseisen varaston historian.
@@ -85,21 +84,41 @@ Koneen ja pääte-työkalun käynnistys.
 
 Kaikki seuraavien osion tehtävänannot ovat peräisin Tero Karvisen - [Infra As a Code - Palvelinten hallinta 2024 kurssisivulta](https://terokarvinen.com/2024/configuration-management-2024-spring/#h3-toimiva-versio).
 
-## a) Online. 
+## a) Online - 11.04.2024 klo 13.30 - 13.43 EET.
 Tee uusi varasto GitHubiin (tai Gitlabiin tai mihin vain vastaavaan palveluun). Varaston nimessä ja lyhyessä kuvauksessa tulee olla sana "summer". Aiemmin tehty varasto ei kelpaa. (Muista tehdä varastoon tiedostoja luomisvaiheessa, esim README.md ja GNU General Public License 3)
 
+1. Omaan Githubiini kirjautuneena sivuston pääsivulta valitsin `new`
+2. Avautuvasta ikkunasta annoin varastolle nimen *summer*. Jätin varaston näkyvyyden julkiseksi. Valitsin README-filen lisättäväksi sekä valitsin lisenssiksi GNU General Public Licensen. Viimeistelin luonnin `Create repository`.
+3. Lopputuloksena Githubissa on uuso repo nimeltään *summer*
+![h3-005]()
+
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h3_toimiva_versio.md#h3-toimiva-versio)
 
 ---
 
-## b) Dolly
+## b) Dolly  11.04.2024 klo 13.45 - 14.06 EET
 Kloonaa edellisessä kohdassa tehty uusi varasto itsellesi, tee muutoksia omalla koneella, puske ne palvelimelle, ja näytä, että ne ilmestyvät weppiliittymään.
+Jatkoin tässä tehtävässä työskentelyä samalla virtuaalikoneella kuin kohdassa x.
 
+1. Kopioin repon etusivulla `code-painikkeen` local- välilehdeltä löytyvän repon SSH-osoitteen jonka liitän myöhemmin  `git clone`-komentoon.
+![h3-006]()
+2. Siirryin kotihakemistossa sijaitsevaan code hakemistoon `cd ..`
+3. Komennolla `git clone git@github.com:syjaka/summer.git` kopioin luodun repon paikalliseen virtuaalikoneeseeni.
+![03-007]()
+4. `cd summer` siirryin kopioituun repoon.
+5. `micro vamos` loi vamos nimisen tiedoston
+6. `git add . && git commit` tunkee tiedostosn ja commitin etärepoon.
+7. Paitsi ei tunkenutkaan vaan vain "lavasti" ja teki commitin. Eli lisäsin myös `git push` komennon, ja homma toimi.
+![h03-008]()
+8. Aavistuksen erikoiselta tosin selaimessa näytti aikajanat jossa lisenssi ja README oli lisätty noin puoli tuntia sitten ja juuri lisäämäni vamos 14 tuntia sitten
+9. Lokia tarkastellessa tämäkin selittyi. Virtuaalikoneeni on vielä eilisessä.
+![h3-009]()
+   
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h3_toimiva_versio.md#h3-toimiva-versio)
 
 ---
 
-## c) Doh! 
+## c) Doh! 11.04.2024 klo 14.18 - 
 Tee tyhmä muutos gittiin, älä tee commit:tia. Tuhoa huonot muutokset ‘git reset --hard’. Huomaa, että tässä toiminnossa ei ole peruutusnappia.
 
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h3_toimiva_versio.md#h3-toimiva-versio)
