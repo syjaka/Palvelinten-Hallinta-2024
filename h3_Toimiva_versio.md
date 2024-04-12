@@ -1,4 +1,3 @@
-# Keskeneräinen
 
 # h3 Toimiva versio
 
@@ -34,7 +33,7 @@ z) [ Alkutoimet](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h
 
 
 ### 2. Gitin käyttö on lähinnä 'git add . && git commit; git pull && git push'. 
-  -Selitä tuon komennon jokainen osa. Käytä apuna itse valitsemiasi lähteitä ja viittaa niihin.
+Selitä tuon komennon jokainen osa. Käytä apuna itse valitsemiasi lähteitä ja viittaa niihin.
 
    - `git add` Kun projektin tehdään muutoksia, tulee ne "manuaalisti" sisällyttää seuraavaan committiin, eli lavastaa commitoitavaksi. Tämä tapahtuu `git add`-komennolla. Komennon seurauksena git on päivittänyt indeksinsä vastaamaan komennon suorittamisen aikaista tilaa. Kyseisen komennon voi suorittaa useita kertoja ennen varsinaista committia. (Git documentation -a 2024)
    - `git commit` On luontainen seuraus edelliselle komennolle, joka on lavastanut muutokset commitoitavaksi. Eli komento luo uuden commitin joka sisältää nykyisen indexin ja annetun lokiviestin commitista. Uusin kommit on yleensä nykyisen haaran kärki ja haara päivitetään automaattisesti osoittamaan siihen. (Git documentation - b 2024)
@@ -42,10 +41,10 @@ z) [ Alkutoimet](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h
    - `git push` päivittää etävarastot käyttäen paikallisia varastoja. Komennon yhteydessä on annettava toivottuja konfiguraatioita tai komentorivin määrityksiä komennolla. Mikäli näitä ei anneta, työnnetään nykyinen haara vastaavaan ylähaaraan. Jos ylähaaran nimi ei vastaa paikallista keskeytetään komento (Git documentation - d 2024).
 
    
-## 3. Varaston [terokarvinen/suolax/](https://github.com/terokarvinen/suolax/) historia - 11.4 klo 12.45 - 13.30 EET
-   - eli loki ja muutokset (Karvinen 2024).
+### 3. Varaston [terokarvinen/suolax/](https://github.com/terokarvinen/suolax/) historia - 11.4 klo 12.45 - 13.30 EET
+eli loki ja muutokset (Karvinen 2024).
 
-   Tein tehtävän komentorivin kautta.
+   - Tein tehtävän komentorivin kautta.
    1. Avasin ssh yhteyden aiemmin Vagrantilla luotuun virtuaalikoneeseen *Bookworm*, joka sijaitsi koneeni kotihakemistossa. Tein tämän komennolla `vagrant ssh`. Tälle koneelle oli Git asennettu jo tunnilla.
    2. Etäyhteyden avauduttua siirryin `cd code ` - hakemistoon (joka oli myös tunnilla luotu)
    3. Toin githubin opettajan repon tuonne hakemistoon kloonaamalla sen komennolla `git clone https://github.com/terokarvinen/suolax.git` ja siirryin komennot tuomaan suolax hakemistoon `cd suolax`.
@@ -58,7 +57,7 @@ z) [ Alkutoimet](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h
       - Seuraavilla riveillä kerrotaan lisenssitiedon lisäämisestä, lisättyjen rivien määrä, sekä viimeiseksi vihreällä koko lisätty teksti. Kuvakaappauksessa on vain kaksi ensimmäistä riviä lisenssistä, mutta rivit  jatkuvat seuraavat 1 672 riviä lisää.
       - Lisenssitekstin jälkeen tulee vielä README-tiedostoa koskeva lisenssitiedoston lisäämistä vastaava info joka kuuluu samaan committiin.
 
-      ![h3-003](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h3-003.png)
+         ![h3-003](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h3-003.png)
       - Tässä lokissa on pääpiirteissään vastaavat tiedot kuin edellisessä.
       - Poikkeuksena commitille annettu message " Improve usage instructions"
       - Punaisella lokissa näkyy "poistettu" rivi ja vihreällä "lisätty". Eli jokainen muutettu rivi tulostuu aina kokonaisuudessaan, vaikka muutos olisi pelkän pisteen lisääminen.
@@ -113,7 +112,7 @@ Jatkoin tässä tehtävässä työskentelyä samalla virtuaalikoneella kuin kohd
 4. `cd summer` siirryin kopioituun repoon.
 5. `micro vamos` avasi microlla vamos nimisen tiedoston ja `ctrl+s` & `ctrl+q` tallensi la lopetti micron.
 6. `git add . && git commit` tunkee tiedoston ja commitin etärepoon.
-7. Paitsi ei tunkenutkaan vaan vain "lavasti" ja teki commitin. Eli lisäsin myös `git push` komennon, ja homma toimi.
+7. Paitsi ei tunkenutkaan, vaan vain "lavasti" ja teki commitin. Eli lisäsin myös `git push` komennon, ja homma toimi.
 ![h03-008](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h03-008.png)
 8. Selaimessa aikaleimat  näyttivät erikoiselta. Lisenssi ja README oli lisätty noin puoli tuntia sitten ja juuri lisäämäni vamos 14 tuntia sitten.
 9. Lokia tarkastellessa tämä selittyi. Virtuaalikoneeni oli vielä eilisessä (korjasin tämän vasta myöhemmin tehtävässä).
@@ -141,16 +140,17 @@ Tarkastele ja selitä varastosi lokia. Tarkista, että nimesi ja sähköpostioso
 
 1. Varaston loki tuli esiin `git log --patch --color|less -R`.
 ![h3-011](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h3-011.png)
-2. Analyysiä tästä.
-    - **Commit** on kyseisen commitin yksilöllinen tunniste - SHA-1 arvo.
-    - **Author** näyttää nimeni ja meiliosoitteeni. Nämä säädin oikeaksi jo eilisellä tunnilla komennoilla `git config --global user.email "mun meili"` ja `git config --global user.name "mun nimi"`.
-    - **Date** antoi commitin ajankohdan. Tässä ekan ja tokan välillä ristiriita, sillä virtuaalikoneeni ei ollut ajan tasalla.
-    - Seuraavaksi näkyi Commit message, tässä kahden commitin **initial commit** ja **add file vamos**.
+2. Analyysiä 
+    - **Commit** on kyseisen commitin yksilöllinen tunniste eli SHA-1 arvo.
+    - **Author** näytti nimeni ja meiliosoitteeni. Nämä säädin oikeaksi jo eilisellä tunnilla käyttäen komentoja `git config --global user.email "mun meili"` ja `git config --global user.name "mun nimi"`.
+    - **Date** kertoi commitin ajankohdan. Tässä ekan ja tokan välillä ristiriita, sillä virtuaalikoneeni ei ollut ajan tasalla.
+    - Seuraavaksi näkyi Commit messaget, tässä kahden commitin **initial commit** ja **add file vamos**.
     - **diff --git a/vamos b/vamos** identifioi tiedoston ennen ja jälkeen muutoksen.
     - **new file mode 100644** kertoi uudesta tiedostosta ja sen oikeuksista.
     - **index 0000000..64cbbea** viittasi tiedoston index-tilaan.
     - **+++ b/vamos** ja **+++ B/LICENSE** kertoi lisätyt tiedostot.
     - **@@ -0,0 +1 @@** ja **@@ -0,0 +1,674 @@** kertoi lisättyjen rivien lukumäärän ja viimeiseksi vihreällä näkyi lisätyt rivit sisältöineen.
+    - Kuvassa jää **Initial commit** vajaaksi sillä lisenssin 1 674 rivin jälkeen siellä näkyy vielä commitin README-filen lisäysosuus.
 
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h3_Toimiva_versio.md#h3-toimiva-versio)
 
@@ -162,12 +162,12 @@ Aja Salt-tiloja omasta varastostasi. (Salt tiedostot mistä vain hakemistosta "-
 Tämän osion lähteinä on käytetty 10.04.2024 luentomuistiinpanoja, sekä Tero Karvisen suolax-repoa, joka tehtiin luennolla. Muut lähteet ovat merkitty tekstiviitteisiin. 
 
 Tähän tehtävään otin käyttöön viime viikon tehtävässä h2 luodun virtuaalikoneen k002, jossa Salt oli valmiina.
-1. Aloitin määrittämällä koneen:
+1. Aloitin asentamalla Gitin ja muuta, sekä Määrittämällä Githubin repon koneen käyttöön:
    - Siirryin emokoneellani kansioon `cd twohost` ja otin yhteyden koneeseen `vagrant  ssh k002`
    - Aloitin asentamalla Gitin ja muutamia muita ohjelmia:
      - `sudo apt-get update` ja `sudo apt-get -y install bash-completion pwgen micro git ssh tree`
    - Loin ssh avainparin `ssh-keygen`+ `3xreturn`
-   - Kopioin julkisen avaimen `cat /home/vagrant/.ssh/id_rsa.pub` ja liitin sen Githubin settings sivun SSH and GPG keyes - osioon.
+   - Kopioin julkisen avaimen `cat /home/vagrant/.ssh/id_rsa.pub` ja liitin sen Githubin settings sivun SSH and GPG keyes - osioon. Tämä autentikoin k002 muokkaamaan **syjaka*-tilin Githubia.
    - Loin Githubissa uuden repon **suolaxkadi** ja kopioin sieltä SSH-osoitteen. Tämän liitin ao. komentoon.
    - Loin kotihakemistoon code kansion, jonne laitan vastaisuudessakin kaikki repot `mkdir code` ja siirryin sinne `cd code`.
    - Annoin koneelle komennon `git clone  git@github.com:syjaka/suolaxkadi.git` joka kloonasi Githubiin luodun repon.
@@ -199,7 +199,7 @@ Tähän tehtävään otin käyttöön viime viikon tehtävässä h2 luodun virtu
     
          fatal: empty ident name (for <vagrant@k002>) not allowed
    
-   - Annoin komennot `git config --global user.email "kadriye.syrja@myy.haaga-helia.fi"` ja `git config --global user.name "Kadi Syrjä @k001"` ja kokeilin  uudelleen `git add . && git commit; git pull && git push`, joka onnistuneesti päästi tallentamaan commitin. Kuivassa lopputulos Githubissa.
+   - Annoin komennot `git config --global user.email "kadriye.syrja@myy.haaga-helia.fi"` ja `git config --global user.name "Kadi Syrjä @k001"` ja kokeilin  uudelleen `git add . && git commit; git pull && git push`, joka onnistuneesti päästi tallentamaan commitin. Kuvassa lopputulos Githubissa.
      ![03-014](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h3-014.png)
    - Väärä aikaleima harmitti, joten päivitin sen `sudo apt-get -y install ntp`ja `sudo systemctl enable --now ntp`
  ja  tarkistin vielä `date` että kone on ajan tasalla.
@@ -236,7 +236,7 @@ Tähän tehtävään otin käyttöön viime viikon tehtävässä h2 luodun virtu
    - Komento `make`antoi palautteena, että command not found ja google kertoi, että se pitää asentaa komennolla `sudo apt-get install make` jonka jälkeen `make` toimi odotetusti. (Ramuglia 2024)
 ![h3-017](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h3-017.png)
 
-5. Tein vielä topfilen, jolle voi antaa eri konetyyppejä, joiden mukaan taas se osaa asentaa eri konetuyypeille määrätyt moduulit.
+5. Tein vielä topfilen, jolle voi antaa eri konetyyppejä, joiden mukaan taas se osaa asentaa eri konetyypeille määrätyt moduulit.
    - Poistin Makefilen ajettavasta komennosta, ajettavan moduulin nimen, jolloin komennoksi jäi `sudo salt-call --local -l info --file-root srv/salt/ state.apply`
    - siirryin `srv/salt` hakemistoon ja siellä `micro top.sls` komennolla luon topfilen, jonne tallensin:
 
@@ -247,7 +247,7 @@ Tähän tehtävään otin käyttöön viime viikon tehtävässä h2 luodun virtu
      
       - Tämä sisältö ajaa Hello ja lempparit moduulit kaikille `'*'` koneille. `make` suolaxkadi-hakemistossa paljasti, että homma toimii.
        
-6. Vielä viimeiseksi `git add . && git commit; git pull && git push`
+6. Vielä viimeiseksi `git add . && git commit; git pull && git push`.
    
 
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h3_Toimiva_versio.md#h3-toimiva-versio)
@@ -257,7 +257,7 @@ Tähän tehtävään otin käyttöön viime viikon tehtävässä h2 luodun virtu
 ## f) Vapaaehtoinen ykkönen - Se toinen järjestelmä - 12.04.2024 klo 09.45 - 10.25 EET.
 Kokeile Gittiä eri käyttöjärjestelmällä kuin sillä, millä teit muut harjoitukset. Selitä niin, että kyseistä järjestelmää osaamatonkin onnistuu. Mahdollisuuksia on runsaasti: Debian, Fedora, Windows, OSX... (Karvinen 2024).
 
-Kokeilin Gittiä oman koneeni käyttöjärjestelmällä. Minulla on jo *brew* asennettu, joten asensin sen avulla, Gitin käyttäen komentoa `brew install git`. Mikäli Brewtä ei olisi ollut, olisi sen asennus onnistunut komennolla `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
+Kokeilin Gittiä oman emokoneeni käyttöjärjestelmällä. Minulla on jo *brew* asennettu, joten asensin sen avulla Gitin käyttäen komentoa `brew install git`. Mikäli **brewtä** ei olisi ollut, olisi sen asennus onnistunut komennolla `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
 1. Koneen autentikointi Githubiin ja edellisen osion *summer* repon kloonaaminen paikallisesti koneeseen.
    - SSH-avainparin luonti onnistui komennolla `ssh-keygen -t rsa -b 4096`, joka loi RSA-tyypin 4096 bittiä pitkän avaimen.
    - `cat /Users/kadriyesamaletdin/.ssh/id_rsa.pub` tulosti julkisen avaimen terminaaliin, josta kopioin sen Githubini asetuksien SSH-avainten listaan.
@@ -265,7 +265,7 @@ Kokeilin Gittiä oman koneeni käyttöjärjestelmällä. Minulla on jo *brew* as
    - `cd summer` siellä `ls` tuo esiin saman hakemistorakenteen kuin a-tehtävässä tehty.
       ![h3-018](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h3-018.png)
    - Loin vielä uuden kansion ja tiedoston ja synkkasin ne Githubiin kuten aiemminkin tehtävissä olin tehnyt.
-   - Commit-ruutu aukesi *vimillä*, sillä en ollut asentanut microa koneelle.
+   - Commit-ruutu aukesi **vimillä**, sillä en ollut asentanut microa koneelle.
 
          # Please enter the commit message for your changes. Lines starting
          # with '#' will be ignored, and an empty message aborts the commit.
@@ -286,7 +286,7 @@ Kokeilin Gittiä oman koneeni käyttöjärjestelmällä. Minulla on jo *brew* as
    -  Asensin micron ja asetin sen oletukseksi, koska sitä on mukavampi käyttää.
       - `brew install micro` asensi micron.
       - `echo "export EDITOR='micro'" >> ~/.zshrc` Tämä asetti micron oletuseditoriksi määrittelemällä sen EDITOR-ympäristömuuttujaan. Koska käytössä on zsh-shell oikea tiedosto on kotihakemistostani löytyvä .zshrc.
-   - Testasin vielä muokkaamalla *macilla.uusi* tiedostoa ja synkkaamalla sen Githubiin. Nyt aukesi toivottu editori. 
+   - Testasin vielä muokkaamalla **makilla.uusi** tiedostoa ja synkkaamalla sen Githubiin. Nyt aukesi toivottu editori. 
      ![h3-021](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h3-021.png)
    - Kirjoitin commit viestin ja `ctrl+s` ja `ctrl+q` tallensi ja poistui editorista. Synkkaus meni läpi ja Githubissa näkyi uusi commit-viesti.
      ![h3-022](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h3-022.png)
