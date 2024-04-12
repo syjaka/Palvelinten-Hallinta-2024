@@ -26,8 +26,6 @@ z) [ Alkutoimet]()
 
 ## x) Lue ja tiivistä. 
 
-(Tässä x-alakohdassa ei tarvitse tehdä testejä tietokoneella, vain lukeminen tai kuunteleminen ja tiivistelmä riittää. Tiivistämiseen riittää muutama ranskalainen viiva. Kannattaa lisätä mukaan myös jokin oma havainto, idea tai kysymys.)
-
 1 . [Chacon and Straub 2014: Pro Git, 2ed: 1.3 Getting Started - What is Git?](https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F)
 
  Kirjan kappaleessa 1.3 opetetaan Gitin perusteita toiminnan logiikasta ja Gitin eroista muihin varsionhallintajärjestelmiin. Tekstissä tuodaan esiin Gitin ainutlaatuisuutta tavassa käsitellä datan muutoksia enemmänkin tiedostojen tilannevedoksina, kuin aina uusina tiedostoina ja tiedostoina tehdyistä muutoksista. 
@@ -68,7 +66,7 @@ z) [ Alkutoimet]()
  - Vertailun vuoksi alla githubista poimittu sama loki.
   ![h03-004]()
 
-[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h3_toimiva_versio.md#h3-toimiva-versio)
+[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h3_Toimiva_versio.md#h3-toimiva-versio)
 
 ---
 
@@ -92,7 +90,7 @@ Tee uusi varasto GitHubiin (tai Gitlabiin tai mihin vain vastaavaan palveluun). 
 3. Lopputuloksena Githubissa on uuso repo nimeltään *summer*
 ![h3-005]()
 
-[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h3_toimiva_versio.md#h3-toimiva-versio)
+[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h3_Toimiva_versio.md#h3-toimiva-versio)
 
 ---
 
@@ -114,7 +112,7 @@ Jatkoin tässä tehtävässä työskentelyä samalla virtuaalikoneella kuin kohd
 9. Lokia tarkastellessa tämäkin selittyi. Virtuaalikoneeni on vielä eilisessä.
 ![h3-009]()
    
-[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h3_toimiva_versio.md#h3-toimiva-versio)
+[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h3_Toimiva_versio.md#h3-toimiva-versio)
 
 ---
 
@@ -127,7 +125,7 @@ En ollut ihan varma tehtävän lopullisesta tarkoituksesta kun tehty tyhmä muut
 4. Lopuksi `git reset --hard` poisti tuon muutoksen.
 ![h3-010]()
 
-[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h3_toimiva_versio.md#h3-toimiva-versio)
+[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h3_Toimiva_versio.md#h3-toimiva-versio)
 
 ---
 
@@ -148,7 +146,7 @@ Tarkastele ja selitä varastosi lokia. Tarkista, että nimesi ja sähköpostioso
     - *@@ -0,0 +1 @@* ja *@@ -0,0 +1,674 @@* kertoo lisättyjen rivien lukumäärän ja viimeiseksi vihreällä näkyy lisätyt rivit sisältöineen
     - 
 
-[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h3_toimiva_versio.md#h3-toimiva-versio)
+[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h3_Toimiva_versio.md#h3-toimiva-versio)
 
 ---
 
@@ -240,30 +238,64 @@ Tähän tehtävään otin käyttöön viime tehtävässä h2 luodun virtuaalikon
    
 Osion lähteinä käytetty 10.04.2024 luentomuistiinpanoja sekä Tero Karvisen suolax-repoa joka tehtiin luennolla. (Karvinen 2024)
 
-[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h3_toimiva_versio.md#h3-toimiva-versio)
+[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h3_Toimiva_versio.md#h3-toimiva-versio)
 
 ---
 
-## f) Vapaaehtoinen ykkönen - Se toinen järjestelmä
+## f) Vapaaehtoinen ykkönen - Se toinen järjestelmä - 12.04.2024 klo 09.45 - 
 Kokeile Gittiä eri käyttöjärjestelmällä kuin sillä, millä teit muut harjoitukset. Selitä niin, että kyseistä järjestelmää osaamatonkin onnistuu. Mahdollisuuksia on runsaasti: Debian, Fedora, Windows, OSX...
 
 Kokeilin Gittiä oman koneeni käyttöjärjestelmällä. Minulla on jo brew asennettu, joten asensin sen avulla gitin käyttäen komentoa `brew install git`. Mikäli Brewtä ei olisi ollut olisi sen asennus onnistunut komennolla `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
 1. Koneen autentikointi Githubiin ja edellisen *summer* repon kloonaaminen paikallisesti koneeseen.
    - SSH-avainparin luonti onnistui komennolla `ssh-keygen -t rsa -b 4096` joka luo RSA-tyypin 4096 bittiä pitkän avaimen.
-   - `cat /Users/kadriyesamaletdin/.ssh/id_rsa.pub`tulostaa julkisen avaimen terminaaliin josta kopioin sen Githubini asetuksien SSH-avainten listaan.
-   - `mkdir git` luo git-nimisen hakemiston jonnne kloonaan summer-repon SSH linkin `git clone git@github.com:syjaka/summer.git`
-   - `cd summer`ja siellä `ls`tuo esiin saman hakemistorakenteen kuin a-tehtävässä tehty 
+   - `cat /Users/kadriyesamaletdin/.ssh/id_rsa.pub` tulostaa julkisen avaimen terminaaliin, josta kopioin sen Githubini asetuksien SSH-avainten listaan.
+   - `mkdir git` luo git-nimisen hakemiston jonnne kloonaan summer-repon SSH linkin komennolla `git clone git@github.com:syjaka/summer.git`
+   - `cd summer` siellä `ls` tuo esiin saman hakemistorakenteen kuin a-tehtävässä tehty.
+      ![h3-018]()
+   - Luon vielä uuden kansion ja tiedoston ja synkkaan ne Githubiin.
+   - Commit-ruutu aukeaa vimillä, sillä en ollut asentanut microa koneelle.
 
+         # Please enter the commit message for your changes. Lines starting
+         # with '#' will be ignored, and an empty message aborts the commit.
+         #
+         # On branch main
+         # Your branch is up to date with 'origin/main'.
+         #
+         # Changes to be committed:
+         #       new file:   uusi
+         #
+         add new folder makilla, add new file uusi
+   -  Viestin kirjoittamisen jälkeen tallennan ja suljen editorin. `esc` palaa normaalitilaan ja `:wq`ja return tallentaa ja sulkee editorin.
+      ![h3-019]()
+   -  Sama muutos näkyy githubissa
+      ![h3-020]()
+      
+   -  Asennan samalla micron ja asetan sen oletukseksi macilla, koska sitä on  mukavampi käyttää.
+      - `brew install micro` asentaa micron
+      - `echo "export EDITOR='micro'" >> ~/.zshrc` Tämä asettaa micron oletuseditoriksi määrittelemällä sen EDITOR-ympäritömuuttujaan. Koska käytössä on zsh-shell oikea tiedosto on kotihakemistostani öytyvä .zshrc.
+   - Testaan vielä muokkaamalla macilla.uusi tiedostoa ja synkkaamalla sen Githubiin. Nyt aukeaa toivottu editori. 
+     ![h3-021]()
+   - Kirjoitin commit viestin ja `ctrl+s`ja `ctrl+q`tallentaa ja poistuu editorista. Synkkaus meni läpi ja Githubissa näkyy uusi commit-viesti
+     ![h3-022]()
 
-
-[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h3_toimiva_versio.md#h3-toimiva-versio)
+[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h3_Toimiva_versio.md#h3-toimiva-versio)
 
 ---
 
 ## g) Vapaaehtoinen kakkonen - Yhteistyöbonus, eli ota kaveri mukaan
 Anna kaverillesi (tai alter egollesi) oikeus kirjoittaa varastoosi (commit access). Tehkää molemmat muutoksia varastoon gitillä.
 
-[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h3_toimiva_versio.md#h3-toimiva-versio)
+Kurssin tehtäväsivulle oli Anja lähettänyt oman reponsa [osoitteen](https://github.com/anha2/configdemo). Oletin että tätä tehtävää ajatellen. Annoin Anjalle oikeuden kirjoittaa minun summer repoon. 
+1. Siirryin repon pääsivulle ja sieltä valitsin settings.
+h3-023
+2. Asetuksista klikkasin `Collaborators`.
+h3-024
+3. Täällä valitsin ensin add people ja avautuvaan ruutuun kirjoitin `anja2` ja `add anhs2to ...` jolloin repossa näkyi että yksi kutsu voimassa.
+h3-025
+h3-026
+6. Jatkan tehtävää palautuksen jälkeen kun saan muokkausoikeudet jonkun toisen repoon.
+
+[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h3_Toimiva_versio.md#h3-toimiva-versio)
 
 ---
 
