@@ -68,7 +68,42 @@ Tehtävä toteutettiin MacBook Retina 12-inch, koneella jossa, host OS on Ventur
 
 ## z) Alkutoimet
 Koneen ja pääte-ohjelman käynnistys.
-Aloitan tämän tehtävänannon tyhjältä pöydältä. Joten loin ensin Virtuaalikoneet ja asensin niille Saltin seuraten tehtävärapsani h2_Soitto_kotiin [- Kaksi vituaalikonetta samassa verkossa - ](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h2_Soitto_kotiin.md#a-kaksi-virtuaalikonetta-samassa-verkossa---08042024-klo-1311---1335-eet)steppejä.
+Aloitan tämän tehtävänannon tyhjältä pöydältä. Joten loin ensin virtuaalikoneet k001 ja k002 Vagrantilla kansioon /Vagrant/Demonit komennolla `vagrant up`. Ennen komentoa tallensin demonit-hakemistoon vagrantfilen kuten alla:
+
+    # -*- mode: ruby -*-
+    # vi: set ft=ruby :
+    # Lahde josta muokattu /copyright 2019-2021 Tero Karvinen http://TeroKarvinen.com
+    
+    $tscript = <<TSCRIPT
+    set -o verbose
+    apt-get update
+    apt-get -y install ufw curl netcat micro bash-completion
+    # echo "export EDITOR='micro'" >> /etc/bash.bashrc
+    
+    
+    echo "valmista"
+    TSCRIPT
+    
+    
+    Vagrant.configure("2") do |config|
+    	config.vm.synced_folder ".", "/vagrant", disabled: true
+  
+    	config.vm.provision "shell", inline: $tscript
+    	config.vm.box = "debian/bullseye64"
+    
+    	config.vm.define "k001" do |k001|
+    		k001.vm.hostname = "k001"
+    		k001.vm.network "private_network", ip: "192.168.88.101"
+    	end
+    
+    	config.vm.define "k002", primary: true do |k002|
+    		k002.vm.hostname = "k002"
+    		k002.vm.network "private_network", ip: "192.168.88.102"
+    	end
+    	
+    end
+    
+Koneiden luonnin jälkeen jälkeen asensin niille Saltin seuraten tehtävärapsani h2_Soitto_kotiin [- Kaksi vituaalikonetta samassa verkossa - ](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h2_Soitto_kotiin.md#b-asenna-saltin-herra-orja-arkkitehtuuri-toimimaan-verkon-yli---08042024-klo-1345---1420-eet) steppejä.
 
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h4_Demoni.md#h4-demoni)
 
