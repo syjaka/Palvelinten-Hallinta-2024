@@ -29,12 +29,12 @@ Kaikki seuraavien osioiden tehtävänannot ovat peräisin Tero Karvisen - [Infra
 ---
 ## x) Lue ja tiivistä. 
 
-1. Karvinen 2023: [Salt Vagrant - automatically provision one master and two slaves](https://terokarvinen.com/2023/salt-vagrant/#infra-as-code---your-wishes-as-a-text-file), vain kohdat
+#### 1. Karvinen 2023: [Salt Vagrant - automatically provision one master and two slaves](https://terokarvinen.com/2023/salt-vagrant/#infra-as-code---your-wishes-as-a-text-file), vain kohdat
   -  Infra as Code - Your wishes as a text file
       - Luodaan hakemisto Saltin conffille, luodaan ja muokataan Saltin tilatiedosto jonne määritellään file.managed-tila ja sovelletaan luotua tilaa käyttäen Saltia.
   -  top.sls - What Slave Runs What States
     - Top-file on tiedosto joka määrittää mitkä tilat milläkin koneella ajetaan. Tekstissä ensin keskeytetään mahdollinen käynnissä ollut komento. Tämän jälkeen luodaan/muokataan top-file, siten että se ajaa kaikille (`'*'`) Saltin hallinnassa oleville koneille **hello** tilan. Lopuksi *state apply* ajaa top-filessa määritellyt tilat `'*'`-koneille.
-2. Salt contributors: [Salt overview](https://docs.saltproject.io/salt/user-guide/en/latest/topics/overview.html#rules-of-yaml), kohdat
+#### 2. Salt contributors: [Salt overview](https://docs.saltproject.io/salt/user-guide/en/latest/topics/overview.html#rules-of-yaml), kohdat
   -  Rules of YAML & Lists and dictionaries - YAML block structures
     - YAML on merkintäkieli jota Saltissa käytetään conffien hallintaan. Siihen liittyy muutamia perusperiaatteita joita ovat mm:
      - Tieto on järjestetty **avain: arvo** pareihin.
@@ -46,11 +46,11 @@ Kaikki seuraavien osioiden tehtävänannot ovat peräisin Tero Karvisen - [Infra
       - **Lists** - Avain jota seuraa luettelo arvoista
       - **Dictonary** - Kokoelma avain:arvo - pareja ja listoja
 
-3. Karvinen 2018: [Pkg-File-Service – Control Daemons with Salt – Change SSH Server Port](https://terokarvinen.com/2018/04/03/pkg-file-service-control-daemons-with-salt-change-ssh-server-port/?fromSearch=karvinen%20salt%20ssh)
+#### 3. Karvinen 2018: [Pkg-File-Service – Control Daemons with Salt – Change SSH Server Port](https://terokarvinen.com/2018/04/03/pkg-file-service-control-daemons-with-salt-change-ssh-server-port/?fromSearch=karvinen%20salt%20ssh)
 Artikkelissa esitellään miten SSH-portin vaihtaminen automatisoidaan Salt-tilan avulla. Tekstissä on luotu SSH-tila, joka alkuun varmistaa rttä SSH-server on asennettu. Sen jälkeen se korvaa SSHoletusconf-tiedoston `sshd_config` tiedostolla, jota on muokattu poistamalla kommentti ja vaihtamalla portti 8888. Loppuun määritellään että sshd-palvelun tulee olla käynnissä ja asetetaan `watch`-parametri havaitsemaan m,ahdolliset conf-tiedostoon tehdyt muutokset ja näitä havaitessaan käynnistämään palvelun uudelleen.
 Tilan luonnin jälkeen se suoritetaan ja lopputulosta testataan kahdella eri menetelmällä.
 
-### 5. Silmäile Saltin ohjeet tilafunktioille pkg, file ja service. Nämä artikkelit ovat pitkiä, riittää kun luet vain johdannon ja silmäilet maintut komennot. Ei kannata yrittää opetella satoja itselle tarpeettomia parametreja ulkoa. (Less-vinkit alla)
+#### 4. Silmäile Saltin ohjeet tilafunktioille pkg, file ja service.
   1. Saltin paketinhallintatoiminnot.
      -Salt käyttää `pkg`-tilamoduulia ohjelmistopakettien hallinnassa. Tämän avulla voi mm. määrittää asennettavat, päivitettävät, tai poistettavat ohjelmistot.
      
@@ -88,6 +88,7 @@ Tilan luonnin jälkeen se suoritetaan ja lopputulosta testataan kahdella eri men
 Tehtävä toteutettiin MacBook Retina 12-inch, koneella jossa, host OS on Ventura 13.6.1 käyttöjärjestelmä Suomen maa-asetuksilla ja suomen kielellä. Koneessa on 1,3GHz kaksiytiminen Intel Core i5 prosessori ja 8Gt 1867 MHz LPDDR3 muistia. Näytönohjain on Intel HD Graphics 615 jossa VRAM 1536 Mt.
 
 - Koneeseen asennettu Vagrant versio on 2.4.1.
+- z- kohdassa määritetyt virtuaalikoneet ovat Linux Bullseye 5.10.0-28-amd64.
 
 ## z) Alkutoimet
 Koneen ja pääte-ohjelman käynnistys.
@@ -193,7 +194,7 @@ Tee top.sls niin, että useita valitsemiasi tiloja ajetaan automaattisesti, esim
 ---
 
 ## c) Apache easy mode. 
-Tehtävän suoritus 19.04.2024 klo 16.00 - 18.21 ja 
+Tehtävän suoritus 19.04.2024 klo 16.00 - 18.32 ja 19.00 - 19-27 EET. Tehtävän suoritin kokonaan salt Masterilla.
 Asenna Apache, korvaa sen testisivu ja varmista, että demoni käynnistyy.
 Ensin käsin, vasta sitten automaattisesti.
 Kirjoita tila sls-tiedostoon.
@@ -241,7 +242,8 @@ Tässä ei tarvita service:ssä watch, koska index.html ei ole asetustiedosto (K
           vagrant@doh001:~/publicsites$ mkdir kadi
       
      
-   - vaihdoin tilan sisällöksi ao,  jonka jälkeen sama testi asensi apachen.
+   - vaihdoin tilan sisällöksi ao. Tätä init-tiedostoa muokatessa testasin joka lisäyksen jälkeen, että toimii.
+
 
           apache2:
             pkg.installed
@@ -249,22 +251,56 @@ Tässä ei tarvita service:ssä watch, koska index.html ei ole asetustiedosto (K
           /etc/apache2/sites-available/kadi.conf:
             file.managed:
               - source: "salt://apache/kadi.conf"
+         /etc/apache2/sites-enabled/000-default.conf:
+            file.absent
+              
+         /etc/apache2/sites-enabled/kadi.conf:
+            file.symlink:
+              -target: "/etc/apache2/sites-enabled/kadi.conf"
             
           apache2.service:
             service.running
+  
+     (Salt man)
              
-
-5. 
+     - Loppuun poistin apachen `sudo apt-get purge apache2` ja suoritin `sudo salt-call --local -l info --state-output=terse state.apply apache`
+     - !h4-018
+  
 
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h4_Demoni.md#h4-demoni)
 
 ---
 
 ## d) SSHouto. 
+Tehtävän suoritus 19.04.2024 klo 19.30 - 20.08 EET.
 Lisää uusi portti, jossa SSHd kuuntelee.
 Jos käytät Vagrantia, muista jättää portti 22/tcp auki - se on oma yhteytesi koneeseen. SSHd:n asetustiedostoon voi tehdä yksinkertaisesti kaksi "Port" riviä, molemmat portit avataan.
 Löydät oikean asetuksen katsomalla SSH:n asetustiedostoa
 Nyt tarvitaan service-watch, jotta demoni käynnistetään uudelleen, jos asetustiedosto muuttuu masterilla
+
+1. sshd_config tiedoston luonti
+   - Kopioin sshd conf-tiedoston `sudo cp /etc/ssh/sshd_config /srv/salt/sshd/sshd_config`.
+   - Poistin portista kommentoinnin ja lisäsin uuden portin
+     !h4-019
+     
+3. SSH-tilan luonti
+   - /srv/salt hakemistossa `micro sshd.sls` ja sinne tallensin:
+
+         openssh-server:
+           pkg.installed
+         /etc/ssh/sshd_config:
+           file.managed:
+             - source: salt://sshd_config
+         sshd:
+           service.running:
+             - watch:
+               - file: /etc/ssh/sshd_config
+   - `sudo salt '*' state.apply sshd -l info --state-output=terse`suoritti onnistuneen ajon. Itse ssh oli jo asennettu alkutoimien kohdalla.
+     !h4-020
+4. Testi
+   - `nc -vz 192.168.88.102 8888` komento antoi onnistuneen palautteen
+     !h4-021
+
 
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h4_Demoni.md#h4-demoni)
 
