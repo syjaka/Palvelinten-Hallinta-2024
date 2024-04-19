@@ -50,11 +50,34 @@ Kaikki seuraavien osioiden tehtävänannot ovat peräisin Tero Karvisen - [Infra
 Artikkelissa esitellään miten SSH-portin vaihtaminen automatisoidaan Salt-tilan avulla. Tekstissä on luotu SSH-tila, joka alkuun varmistaa rttä SSH-server on asennettu. Sen jälkeen se korvaa SSHoletusconf-tiedoston `sshd_config` tiedostolla, jota on muokattu poistamalla kommentti ja vaihtamalla portti 8888. Loppuun määritellään että sshd-palvelun tulee olla käynnissä ja asetetaan `watch`-parametri havaitsemaan m,ahdolliset conf-tiedostoon tehdyt muutokset ja näitä havaitessaan käynnistämään palvelun uudelleen.
 Tilan luonnin jälkeen se suoritetaan ja lopputulosta testataan kahdella eri menetelmällä.
 
-5. Silmäile Saltin ohjeet tilafunktioille pkg, file ja service. Nämä artikkelit ovat pitkiä, riittää kun luet vain johdannon ja silmäilet maintut komennot. Ei kannata yrittää opetella satoja itselle tarpeettomia parametreja ulkoa. (Less-vinkit alla)
-   
-        $ sudo salt-call --local sys.state_doc pkg # johdanto + silmäile pkg.installed, pkg.purged, pkgs
-        $ sudo salt-call --local sys.state_doc file # johdanto + silmäile file.managed, file.absent, file.symlink
-        $ sudo salt-call --local sys.state_doc service # johdanto + silmäile service.running, service.dead, enable
+### 5. Silmäile Saltin ohjeet tilafunktioille pkg, file ja service. Nämä artikkelit ovat pitkiä, riittää kun luet vain johdannon ja silmäilet maintut komennot. Ei kannata yrittää opetella satoja itselle tarpeettomia parametreja ulkoa. (Less-vinkit alla)
+  1. Saltin paketinhallintatoiminnot.
+     -Salt käyttää `pkg`-tilamoduulia ohjelmistopakettien hallinnassa. Tämän avulla voi mm. määrittää asennettavat, päivitettävät, tai poistettavat ohjelmistot.
+     
+    $ sudo salt-call --local sys.state_doc pkg # johdanto + silmäile pkg.installed, pkg.purged, pkgs
+ 
+   - `pkg.installed` varmistaa että nimetty paketti on asennettu.
+   - `pkg.purged` poistaa asennukset täydellisesti
+   - `pkgs` argumentti sallii useamman paketin hallinnan samalla.
+
+  2. Saltin tiedostonhallinnan toiminnot.
+        - `file` moduuli nimensä mukaisesti hallinnoi tiedostoja. Tila mahdollistaa mm. tiedostojen lataamisen Salt masterilta kohdekoneille.
+    
+    $ sudo salt-call --local sys.state_doc file # johdanto + silmäile file.managed, file.absent, file.symlink
+    
+   - `file.managed` mahdollistaa tiedostojen dynaamisen muokkauksen käyttäen eri mallinnustyökaluja.
+   - `file.absent` varmistaa että tietty tiedosto ei ole määritellyssä sijainnissa
+   - `file.symlink` luo symbolisen linkin tiedostoon
+     
+     3. Service moduulin toiminnot
+        - Service -tilat mahdollistavat Saltin palveluyiden hallinnan. Sillä voi mm käynnistää, pysäyttää ta tarkistaa tila.
+
+    $ sudo salt-call --local sys.state_doc service # johdanto + silmäile service.running, service.dead, enable
+
+   - `service running` varmistaa nimetyn palvelu käynnissä olemisen
+   - `service.dead` on päinvastainen, eli se varmistaa ettei tila ole käynnissä
+   - `enable` määrittää tuleeko jokin palvelu käynnistyä automaattisesti järjestelmän käynnistyessä
+
 
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h4_Demoni.md#h4-demoni)
 
@@ -116,8 +139,8 @@ Seuraavaksi  asensin Saltin (minion koneelle k002 ja master koneelle k001) seura
 ---
 
 ## a) Hello SLS! 
-Tehtävän suoritus 19.04.2024 klo 11.28 - 
-Tee Hei maailma -tila kirjoittamalla se tekstitiedostoon, esim /srv/salt/hello/init.sls. 
+Tehtävän suoritus 19.04.2024 klo 11.28 - 14.52 EET.
+Tee Hei maailma -tila kirjoittamalla se tekstitiedostoon, esim /srv/salt/hello/init.sls (Karvinen 2024). 
 
 1. Loin uuden kansion **hello** polkuun `master$ sudo mkdir /srv/salt/hello/` ja siirryin sinne.
 2. Loin **hello* halkemistoon tiedoston init.sls
@@ -138,32 +161,100 @@ Tee Hei maailma -tila kirjoittamalla se tekstitiedostoon, esim /srv/salt/hello/i
    - Näissä ei ollut mitään muita tapahtumia kuin uudelleenkäynnistys. Tarkastin että molemmat ovat varmasti käynnissä:
     !h4-005
     !h4-006
-   - Pingasin uudelleen ja minion vastaa. Pitkällisen googlettelun ja ratkaisunetsinnän jälkeen oivalsin että isäntäkoneen toisessa hakemistossa on samannimiset koneet, poistin kaikiken ja aloitin alusta. Eli suoritin uudelleen virtuaalikoneiden luonnin ja saltin asennuksen kuten yllä. Tällä kertaa nimesin koneet doh001 ja doh002.
-   - Vagrantfileä muokatessa huomasin mahdollisen virheeni. Olen luonut Vagrantfilestä templaten ja alkuperäinrn oli kopioitu Teron sivuilta. Templateen oli jäänyt t001 vaikka piti olla k001 kohdissa vm.hostname. Yllä koodissa se on kuitenkin korjattu. Eli käytinkö suoraan templatea vai olinko sen kuitenkin korjannut ja kopioinut tänne. Asia jäänee mysteeriksi.
-   - 
-
-
-
-
-     
+   - Pingasin uudelleen ja minion vastaa. Pitkällisen googlettelun ja ratkaisunetsinnän jälkeen oivalsin että isäntäkoneen toisessa hakemistossa on samannimiset koneet, poistin kaikiken ja aloitin alusta.
+   - Suoritin uudelleen virtuaalikoneiden luonnin ja saltin asennuksen kuten yllä. Tällä kertaa nimesin koneet doh001 ja doh002. Uudelleentehdessä huomasin virheeni. Olin luonut polun **/srv/salt/hello/** manuaalisti askel kerrallaan **/home/vagrant** hakemistoon juuren sijasta. Uusi asennus auttoi ja luotu tila toimi.
+4. Testin suoritin uudelleen komennolla `master$ sudo salt '*' state.apply hello` ja nyt sasin toivotun vastauksen.
+   !h4-007
 
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h4_Demoni.md#h4-demoni)
 
 ---
 
 ## b) Top. 
-Tee top.sls niin, että useita valitsemiasi tiloja ajetaan automaattisesti, esim komennolla "sudo salt '*' state.apply" tai "sudo salt-call --local state.apply".
+Tehtävän suoritus 19.04.2024 klo 14.54 - 15.47
+Tee top.sls niin, että useita valitsemiasi tiloja ajetaan automaattisesti, esim komennolla "sudo salt '*' state.apply" tai "sudo salt-call --local state.apply" (Karvinen 2024). 
 
+1. Tein ensin tilat samoin kuin yllä **hello**-tilan.
+   - Favorites ohjelmat
+   - Luo käyttäjä tilan
+   - 
+2. Loin topfilen jonne määritelin nämä kaksi sekä aiemmin luodun **hello*n. Nyt /srv/salt hakemisto sisältöineen on kuten kuvassa.
+   !h4-008
+3.  Ajoin luodut tilat topfilen avulla käyttäen komentoa `sudo salt '*' state.apply`
+    - Lopputuloksena onnistunut ajo
+      !h4-009
+      !h4-010
+      (lempparit muutokset ei kyvassa pituutensa vuoksi)
+    - Kokeilin vielä muokattuna komentoa niin että se näyttää mitä tapahtuu ja että lopputulos olisi lyhyempi `sudo salt '*' state.apply -l info --state-output=terse`. Nyt tietenkin kun muutoksia ei tehty, ei toiminnotkaan tulostu.
+      !h4-011
+       
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h4_Demoni.md#h4-demoni)
 
 ---
 
 ## c) Apache easy mode. 
+Tehtävän suoritus 19.04.2024 klo 16.00 - 18.21 ja 
 Asenna Apache, korvaa sen testisivu ja varmista, että demoni käynnistyy.
 Ensin käsin, vasta sitten automaattisesti.
 Kirjoita tila sls-tiedostoon.
 pkg-file-service
-Tässä ei tarvita service:ssä watch, koska index.html ei ole asetustiedosto
+Tässä ei tarvita service:ssä watch, koska index.html ei ole asetustiedosto (Karvinen 2024)
+
+1. Alkuun asensin käsin
+   - Alkutilanne osoittaa että apache ei ole asennettu:
+     !h4-016
+   - `sudo apt-get install apache2` asensi apachen
+   - Alussa olin jo aukottanut palomuurin, joten se ei ole nyt tarpeen.
+   - Korvasin defaultsivun sisällön `echo "Default"|sudo tee /var/www/html/index.html`ja testasin että apache vastaa.
+     !h4-014
+   - `mkdir -p /home/vagrant/publicsites/testisivu.example.com/` loi testisivulle hakemiston
+   - `echo tämä on testisivu > /home/vagrant/publicsites/testisivu.example.com/index.html` loi tiedoston **index.html** jonne sivun sisältö "tämä on testisivu" tallennetaan.
+      !h4-012
+   - `sudoedit /etc/apache2/sites-available/testisivu.example.com.conf`luo conf-tiedoston joka ohjaa verkkokyselyt äsken luotuun sisältöön
+      !h4-013
+   - Nyt saatavilla oli vain defaultsivu. Poistin sen käytöstä `sudo a2dissite 000-default.conf` ja otin luomani confin käyttöön `sudo a2ensite testisivu.example.com.conf`
+   - Potkaisin apachen uudelleen käyntiin jotta muutokset tulee voimaan `sudo systemctl restart apache2`.
+   - `curl localhost` toi testisivu.example.com hakemistoon luodun index.html-sivun näkyviin.
+   - Apachen poisto komennolla `sudo apt-get purge apache2` ja testisivu hakemisto komennolla `rm -r testisivu.example.com/` suoritettuna publicsites hakemistossa
+      !h4-015
+
+2. Seuraavaksi automatisoin saman
+   - **/srv/salt/** hakemistoon uusi hakemisto `sudo mkdir apache` ja sinne `sudoedit init.sls`
+   - Testasin ensin että tämä vastaa **Hello worldillä** luomalla lyhyen file.managed tilan.
+   - `sudo salt-call --local -l info state.apply apache`komentoon apache-tila vastasi onnistuneella suorituksella.
+     !h4-017 
+   - Koska edellisessä tehtävässä olin poistanut kaikki apachen määritykset, loin uuden conf-tiedoston kadi.conf ja hakemiston sivuston sisällölle.
+
+         vagrant@doh001:/etc/apache2/sites-available$ cat kadi.conf 
+         <VirtualHost *:80>
+              DocumentRoot /home/vagrant/publicsites/kadi/
+              <Directory /home/vagrant/publicsites/kadi/>
+                  Require all granted
+              </Directory>
+          </VirtualHost>
+      ja
+
+          vagrant@doh001:/etc/apache2/sites-available$ cd
+          vagrant@doh001:~$ ls
+          publicsites  shared
+          vagrant@doh001:~$ cd publicsites/
+          vagrant@doh001:~/publicsites$ mkdir kadi
+      
+     
+   - vaihdoin tilan sisällöksi ao,  jonka jälkeen sama testi asensi apachen.
+
+          apache2:
+            pkg.installed
+          
+          /etc/apache2/sites-available/kadi.conf:
+            file.managed:
+              - source: "salt://apache/kadi.conf"
+            
+          apache2.service:
+            service.running
+             
+
+5. 
 
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h4_Demoni.md#h4-demoni)
 
@@ -210,5 +301,13 @@ Karvinen T. 2023, Salt Vagrant - automatically provision one master and two slav
 
 Salt Contributors 2024, Salt Overviev. Luettavissa: https://docs.saltproject.io/salt/user-guide/en/latest/topics/overview.html#rules-of-yaml.mLuettu 18.04.2024
 
+Salt user guides, States 2024. Luettavissa: https://docs.saltproject.io/salt/user-guide/en/latest/topics/states.html. Luettu 19.04.2024
 
+<VirtualHost *:80>
+    DocumentRoot /home/vagrant/publicsites/testisivu.example.com/
+    <Directory /home/vagrant/publicsites/testisivu.example.com/>
+        Require all granted
+    </Directory>
+</VirtualHost>
 
+ 
