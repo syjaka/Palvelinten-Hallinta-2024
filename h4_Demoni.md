@@ -82,7 +82,7 @@ Aloitan tämän tehtävänannon tyhjältä pöydältä. Joten loin ensin virtuaa
     
     
     echo "valmista"
-    TSCRIPT
+    TSCRIPT 
     
     
     Vagrant.configure("2") do |config|
@@ -103,14 +103,49 @@ Aloitan tämän tehtävänannon tyhjältä pöydältä. Joten loin ensin virtuaa
     	
     end
     
-Koneiden luonnin jälkeen jälkeen asensin niille Saltin seuraten tehtävärapsani h2_Soitto_kotiin [- Kaksi vituaalikonetta samassa verkossa - ](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h2_Soitto_kotiin.md#b-asenna-saltin-herra-orja-arkkitehtuuri-toimimaan-verkon-yli---08042024-klo-1345---1420-eet) steppejä.
+Koneiden luonnin jälkeen jälkeen asensin niille ensin palomuurit aukkoineen toimintaan komennoilla:
+              
+    sudo ufw allow 22,80,4505,4506/tcp
+    sudo ufw enable
+    sudo systemctl restart ufw
+    
+Seuraavaksi  asensin Saltin (minion koneelle k002 ja master koneelle k001) seuraten tehtävärapsani h2_Soitto_kotiin [- Kaksi vituaalikonetta samassa verkossa - ](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h2_Soitto_kotiin.md#b-asenna-saltin-herra-orja-arkkitehtuuri-toimimaan-verkon-yli---08042024-klo-1345---1420-eet) steppejä.
 
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h4_Demoni.md#h4-demoni)
 
 ---
 
 ## a) Hello SLS! 
-Tee Hei maailma -tila kirjoittamalla se tekstitiedostoon, esim /srv/salt/hello/init.sls.
+Tehtävän suoritus 19.04.2024 klo 11.28 - 
+Tee Hei maailma -tila kirjoittamalla se tekstitiedostoon, esim /srv/salt/hello/init.sls. 
+
+1. Loin uuden kansion **hello** polkuun `master$ sudo mkdir /srv/salt/hello/` ja siirryin sinne.
+2. Loin **hello* halkemistoon tiedoston init.sls
+  !h4-001
+3. Testasin luotua tilaa `master$ sudo salt '*' state.apply hello` ja sain virheen.
+  !h4-002
+   - Tarkistin ensin että yhteys varmasti on kunnossa
+     !h4-003
+   - Poistin `#` kommentoinnin `sudoedit /etc/saslt/master` - tiedoston **file_roots**-kohdasta jotta varmistan oikean hakemiston käytön - ei auttanut eli sama herja jatkuu.
+   - Tarkistin kaikki oikeudet, että miniuonilla on pääsy tiedostoon ja ne on kunnossa.
+   - Tarkistin että polku on varmasti oikea.
+     !h4-004
+   - Testasin onnistuuko tiedoston luonti suoralla komennolla `master$ sudo salt '*' state.single file.managed '/tmp/network-broblem-solving`. Tämä jäi kellottamaan pitkäksi aikaa joka viitta yhteysongelmiin.
+   - Keskeytin suorituksen `ctrl c` ja käynnistin molemmat uudelleen `minion$ sudo systemctl restart salt-minion`/`master$ sudo systemctl restart salt-master` ja tarkistin lokin `master$ sudo tail -f /var/log/salt/master` ja `minion$ sudo tail -f /var/log/salt/minion`
+    
+         2024-04-19 09:56:42,004 [salt.utils.parsers:1104][WARNING ][10684] Master received a SIGTERM. Exiting. #Masterin
+         2024-04-19 09:56:30,569 [salt.utils.parsers:1104][WARNING ][4274] Minion received a SIGTERM. Exiting.. #Minionin
+   - Näissä ei ollut mitään muita tapahtumia kuin uudelleenkäynnistys. Tarkastin että molemmat ovat varmasti käynnissä:
+    !h4-005
+    !h4-006
+   - Pingasin uudelleen ja minion vastaa. Pitkällisen googlettelun ja ratkaisunetsinnän jälkeen oivalsin että isäntäkoneen toisessa hakemistossa on samannimiset koneet, poistin kaikiken ja aloitin alusta. Eli suoritin uudelleen virtuaalikoneiden luonnin ja saltin asennuksen kuten yllä. Tällä kertaa nimesin koneet doh001 ja doh002.
+   - Vagrantfileä muokatessa huomasin mahdollisen virheeni. Olen luonut Vagrantfilestä templaten ja alkuperäinrn oli kopioitu Teron sivuilta. Templateen oli jäänyt t001 vaikka piti olla k001 kohdissa vm.hostname. Yllä koodissa se on kuitenkin korjattu. Eli käytinkö suoraan templatea vai olinko sen kuitenkin korjannut ja kopioinut tänne. Asia jäänee mysteeriksi.
+   - 
+
+
+
+
+     
 
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h4_Demoni.md#h4-demoni)
 
@@ -174,5 +209,6 @@ Karvinen T. 2018, Pkg-File-Service – Control Daemons with Salt – Change SSH 
 Karvinen T. 2023, Salt Vagrant - automatically provision one master and two slaves. Luettavissa: https://terokarvinen.com/2023/salt-vagrant/#infra-as-code---your-wishes-as-a-text-file. Luettu 18.04.2024
 
 Salt Contributors 2024, Salt Overviev. Luettavissa: https://docs.saltproject.io/salt/user-guide/en/latest/topics/overview.html#rules-of-yaml.mLuettu 18.04.2024
+
 
 
