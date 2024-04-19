@@ -256,7 +256,7 @@ Tässä ei tarvita service:ssä watch, koska index.html ei ole asetustiedosto (K
               
          /etc/apache2/sites-enabled/kadi.conf:
             file.symlink:
-              -target: "/etc/apache2/sites-enabled/kadi.conf"
+              -target: "/etc/apache2/sites-available/kadi.conf"
             
           apache2.service:
             service.running
@@ -307,7 +307,123 @@ Nyt tarvitaan service-watch, jotta demoni käynnistetään uudelleen, jos asetus
 ---
 
 ## e) Vapaaehtoinen: Apache. 
+Tehtävän suoritus 19.04.2024 klo 20.15 
 Asenna Apache tarjoilemaan weppisivua. Weppisivun tulee näkyä palvelimen etusivulla (localhost). HTML:n tulee olla jonkun käyttäjän kotihakemistossa, ja olla muokattavissa normaalin käyttäjän oikeuksin, ilman sudoa.
+
+Jatkan osion c automatisoinnin pohjalta, eli ryhdyn muokkaamaan apachen hakemistossa sijaitsevaa init tiedostoa.
+  Tavoitteena on luoda sinne tilat jotka luovat polun /home/vagrant/**publicfiles/kadi** ja sinne **index.html** tiedoston. Tämän lisäksi nämä tulee olla tavallisen käyttäjän muokattavisaa, eli oikeuksia pitää säätää. Käytän lähteenä salt- manualia.
+   
+1. Ensiksi lisäsin index.html tiedoston luonnin init.sls tilaan ja testasin `sudo salt-call --local -l info --state-output=terse state.apply apache`
+
+        /home/vagrant/publicsites/kadi/index.html:
+          file.managed:
+            - source: "salt://apache/index.html"
+   !h4-022 
+2. Seuraavaksi sallin kansiorakenteen luonnin tiedostonluonnin yhteydessä lisäämällä äsken lisättyyn.
+
+        /home/vagrant/publicsites/kadi/index.html:
+          file.managed:
+            - source: "salt://apache/index.html"
+            - makedirs: True
+    !h4-023 
+4. Seuraavaksi määritän kansiorakenteen ja tiedoston käyttäjäksi tavallisen käyttäjän. Sitä varten muokkasin aiemmin b-osiossa luotua user tilaa seuraavasti:
+
+       create_group:
+         group.present:
+           - name: basic_group
+      
+       create_user:
+         user.present:
+            - name: basic_user
+            - password: ############ Tämä piti generoida erikseen komennolla **openssl passwd -1 "salasana"**
+            - gid: basic_group
+            - shell: /bin/bash
+            - home: /home/basic_user
+   
+   Lisäksi lisäsin apache-moduulin file.managed toimintoon määrityksen käyttäjälle:
+   
+        /home/vagrant/publicsites/kadi/index.html:
+          file.managed:
+            - source: "salt://apache/index.html"
+            - makdirs: True
+            - user: basic_user
+            - group: basic_group
+            - mode: 644
+   Nyt piti myös topfile päivittää ja ajaa tila sen kautta
+   !h4-024
+   !h4-025
+6. Lopputuloksena onnistunut suoritus mutta **publicsites/kadi** ovat yhä rootin omistuksessa
+   !h4-026
+7. Muutin **apache** moduulia siten että hakemisto määritellään erikseen. Nyt koko moduuli näytti tältä
+
+       apache2:
+          pkg.installed
+        
+       /etc/apache2/sites-available/kadi.conf:
+          file.managed:
+            - source: "salt://apache/kadi.conf"
+        
+       /etc/apache2/sites-enabled/000-default.conf:
+          file.absent
+            
+       /etc/apache2/sites-enabled/kadi.conf:
+          file.symlink:
+            - target: "/etc/apache2/sites-enabled/kadi.conf"
+        
+       /home/vagrant/publicsites/kadi:
+          file.directory:
+            - name: /home/vagrant/publicsites/kadi/
+            - user: basic_user
+            - group: basic_group
+            - dir_mode: 755
+ 
+       /home/vagrant/publicsites/kadi/index.html:
+          file.managed:
+            - source: "salt://apache/index.html"
+            - user: basic_user
+            - group: basic_group
+            - mode: 644
+   Ja suoritus onnistui,
+    !h4-027
+   Mutta basic_userin **publicsites** oli yhä rootin. En ollut huomannut määritellä sen omistajuutta. Lisäsin init.sls-tiedostoon:
+
+        /home/vagrant/publicsites:
+          file.directory:
+            - user: basic_user
+            - group: basic_group
+            - dir_mode: 755 
+   
+
+9. Tämä tepsi ja nyt kaikki saltilla luodut hakemistot ja tiedostot ovat oikeilla oikeuksilla
+   !h4-028
+10. `curl localhost`ei kutenkaan tuonut toivottua lopputulosta, sillä se vastasi yhä oletussivulla "default".
+    Tarkisitn kaikki tiedostot ja oikeudet, jotka ovat kunnossa. Seuraavaksi tarkistin conf-tiedoston joka sekin kunnossa, mutta `/sites.enabled/kadi.conf` näytti oudolta.
+    !h4-029
+12. Palasin tarkastelemaan apache-moduulia jossa virhe löytyi. Jossain vaiheessa tiedostoa muokatessa linkki oli vaihtunut viittaamaan itseensä
+    
+        /etc/apache2/sites-enabled/kadi.conf:
+          file.symlink:
+            - target: "/etc/apache2/sites-enabled/kadi.conf"
+14. Korjasin sen oikeaan muotoon ja samalla huomasin että palvelun boottaus oli tippunut lopusta. Lisäsin senkin *watchilla* höystettynä.
+    
+        /etc/apache2/sites-available/kadi.conf:
+          file.symlink:
+            - target: "/etc/apache2/sites-enabled/kadi.conf"
+
+        apache2.service:
+          service.running:
+            - name: apache2
+            - enable: True
+            - reload: True
+            - watch:
+              - file: /etc/apache2/sites-available/kadi.conf
+              - file: /etc/apache2/sites-enabled/kadi.conf
+              - file: /home/vagrant/publicsites/kadi/index.html
+15. Uusi ajo päivitti linkin
+    
+16. 
+
+17. 
 
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h4_Demoni.md#h4-demoni)
 
