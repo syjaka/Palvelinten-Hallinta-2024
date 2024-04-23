@@ -436,14 +436,45 @@ Jatkan osion c automatisoinnin pohjalta, eli ryhdyn muokkaamaan apachen hakemist
 24. Päätin testata onnistuisinko lisäämään time moduulin joka tekisi tämän automaattisesti ennen apache-moduulin ajoa.
     - Tein uuden moduulin **time** /srv/salt- hakemistoon komennilla `sudo mkdir ntp` ja loin sinne `sudo micro init.sls`.
     - Tiedostoon tallensin seuraavat:
-        ntp:
-        pkg.installed
-  
-        ntp.service:
-        service.running:
-        - name: ntp
-        - enable: True
-        - restart: True 
+
+          ntp:
+            pkg.installed
+    
+          ntp.service:
+            service.running:
+              - name: ntp
+              - enable: True
+              - restart: True 
+    - Testasin paikallisesti `sudo salt-call --local -l info state.apply apache`jonka lopputuloksena onnistunut ajo:
+      !h4-037
+    - Muokkasin osiossa **b)** luotua topfilea lisäämällä sinne ntp-moduulin.
+      !h4-038
+    - Testasin topfileä paikallisesti komennilla `sudo salt-call --local -l info state.apply` joka onnistui. Alla kuvassa ainoat muutoskset jotka johtuivat basic_userin tekemästä testistä
+      !h4-039
+    -  Testasin minionille `sudo salt '*' state.apply` mutta ntp-paketin ajo ei onnistunut koneen väärän ajan johdosta.
+       !h4-040
+    -  Pitkän googlettelun jälkeen päädyin kyselemään chatGPT:ltä apua, sillä en keksinyt miten ajan voi päivittää jos aikatyökalua ei saa asennettua. Se ehdotti ntp-moduulin muokkaamista seuraavasti:
+      
+            sync_time:
+              cmd.run:
+                - name: ntpdate pool.ntp.org
+            
+            ntp:
+              pkg.installed:
+                - require:
+                  - cmd: sync_time
+            
+            ntp.service:
+              service.running:
+                - name: ntp
+                - enable: True
+                - restart: True
+                - require:
+                  - pkg: ntp
+
+    -  Korjauksen jälkeen uusi testi joka tietenkin epäonnistui koska en oll
+      
+
       
 
           
