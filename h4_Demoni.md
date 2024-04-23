@@ -1,5 +1,3 @@
-# Keskeneräinen
-
 # h4 Demoni
 
 a) [Hello SLS](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h4_Demoni.md#a-hello-sls)
@@ -12,9 +10,9 @@ d) [SSHouto](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h4_De
 
 e) [Vapaaehtoinen: Apache](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h4_Demoni.md#e-vapaaehtoinen-apache)
 
-f) [Vapaaehtoinen: Caddy](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h4_Demoni.md#f-vapaaehtoinen-caddy)
+f) [Vapaaehtoinen: Caddy](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h4_Demoni.md#f-vapaaehtoinen-caddy) - Keskeneräinen
 
-g) [Vapaaehtoinen: Nginx](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h4_Demoni.md#g-vapaaehtoinen-nginx)
+g) [Vapaaehtoinen: Nginx](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h4_Demoni.md#g-vapaaehtoinen-nginx) - Keskeneräinen
 
 X ) [Lue ja tiivistä](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h4_Demoni.md#x-lue-ja-tiivist%C3%A4)
 
@@ -481,7 +479,24 @@ Jatkoin osion **c** automatisoinnin pohjalta, eli ryhdyin muokkaamaan apachen ha
 ---
 
 ## f) Vapaaehtoinen: Caddy. 
-Asenna Caddy tarjoilemaan weppisivua. Weppisivun tulee näkyä palvelimen etusivulla (localhost). HTML:n tulee olla jonkun käyttäjän kotihakemistossa, ja olla muokattavissa normaalin käyttäjän oikeuksin, ilman sudoa.
+Asenna Caddy tarjoilemaan weppisivua. Weppisivun tulee näkyä palvelimen etusivulla (localhost). HTML:n tulee olla jonkun käyttäjän kotihakemistossa, ja olla muokattavissa normaalin käyttäjän oikeuksin, ilman sudoa (Karvinen 2024)
+
+Aloitin ensin Caddyn käyttöönoton manuaalisti. 
+- Ensin Caddyn asennus
+
+      sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https curl
+      curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+      curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
+      sudo apt-get update
+      sudo apt install caddy
+  (Caddy install 2024)
+- Ja sitten käyttöönotto. 
+  - Caddy käyntiin `caddy run`.
+  - 
+- 
+- 
+
+  
 
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h4_Demoni.md#h4-demoni)
 
@@ -495,6 +510,8 @@ Asenna Nginx (lausutaan engine-X) tarjoilemaan weppisivua. Weppisivun tulee näk
 ---
 
 ## Lähteet: 
+
+Caddy Documentation 2024, Install caddy. Luettavissa https://caddyserver.com/docs/install. Luettu 23.04.2024.
 
 Karvinen T. 2024, Infra as Code - Palvelinten hallinta 2024. Luettavissa: https://terokarvinen.com/2024/configuration-management-2024-spring/#h4-demoni. Luettu 18.04.2024
 
