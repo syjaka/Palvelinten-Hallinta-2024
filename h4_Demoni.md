@@ -8,7 +8,7 @@ b) [Top](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h4_Demoni
 
 c) [Apache easy mode](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h4_Demoni.md#c-apache-easy-mode)
 
-d) [SSHouto](https://github.com/syjaka/Palvelinten-Hallinta-2024/edit/main/h4_Demoni.md#d-sshouto)
+d) [SSHouto](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h4_Demoni.md#d-sshouto)
 
 e) [Vapaaehtoinen: Apache](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h4_Demoni.md#e-vapaaehtoinen-apache)
 
