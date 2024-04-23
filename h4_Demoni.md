@@ -145,27 +145,27 @@ Tee Hei maailma -tila kirjoittamalla se tekstitiedostoon, esim /srv/salt/hello/i
 
 1. Loin uuden kansion **hello** polkuun `master$ sudo mkdir /srv/salt/hello/` ja siirryin sinne.
 2. Loin **hello* halkemistoon tiedoston init.sls
-  !h4-001
+  ![h4-001](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-001.png)
 3. Testasin luotua tilaa `master$ sudo salt '*' state.apply hello` ja sain virheen.
-  !h4-002
+  ![h4-002](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-002.png)
    - Tarkistin ensin että yhteys varmasti on kunnossa
-     !h4-003
+     ![h4-003](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-003.png)
    - Poistin `#` kommentoinnin `sudoedit /etc/saslt/master` - tiedoston **file_roots**-kohdasta jotta varmistan oikean hakemiston käytön - ei auttanut eli sama herja jatkuu.
    - Tarkistin kaikki oikeudet, että miniuonilla on pääsy tiedostoon ja ne on kunnossa.
    - Tarkistin että polku on varmasti oikea.
-     !h4-004
+     ![h4-004](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-004.png)
    - Testasin onnistuuko tiedoston luonti suoralla komennolla `master$ sudo salt '*' state.single file.managed '/tmp/network-broblem-solving`. Tämä jäi kellottamaan pitkäksi aikaa joka viitta yhteysongelmiin.
    - Keskeytin suorituksen `ctrl c` ja käynnistin molemmat uudelleen `minion$ sudo systemctl restart salt-minion`/`master$ sudo systemctl restart salt-master` ja tarkistin lokin `master$ sudo tail -f /var/log/salt/master` ja `minion$ sudo tail -f /var/log/salt/minion`
     
          2024-04-19 09:56:42,004 [salt.utils.parsers:1104][WARNING ][10684] Master received a SIGTERM. Exiting. #Masterin
          2024-04-19 09:56:30,569 [salt.utils.parsers:1104][WARNING ][4274] Minion received a SIGTERM. Exiting.. #Minionin
    - Näissä ei ollut mitään muita tapahtumia kuin uudelleenkäynnistys. Tarkastin että molemmat ovat varmasti käynnissä:
-    !h4-005
-    !h4-006
+    ![h4-005](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-005.png)
+    ![h4-006](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-006.png)
    - Pingasin uudelleen ja minion vastaa. Pitkällisen googlettelun ja ratkaisunetsinnän jälkeen oivalsin että isäntäkoneen toisessa hakemistossa on samannimiset koneet, poistin kaikiken ja aloitin alusta.
    - Suoritin uudelleen virtuaalikoneiden luonnin ja saltin asennuksen kuten yllä. Tällä kertaa nimesin koneet doh001 ja doh002. Uudelleentehdessä huomasin virheeni. Olin luonut polun **/srv/salt/hello/** manuaalisti askel kerrallaan **/home/vagrant** hakemistoon juuren sijasta. Uusi asennus auttoi ja luotu tila toimi.
 4. Testin suoritin uudelleen komennolla `master$ sudo salt '*' state.apply hello` ja nyt sasin toivotun vastauksen.
-   !h4-007
+   ![h4-007](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-007.png)
 
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h4_Demoni.md#h4-demoni)
 
@@ -180,14 +180,14 @@ Tee top.sls niin, että useita valitsemiasi tiloja ajetaan automaattisesti, esim
    - Luo käyttäjä tilan
    - 
 2. Loin topfilen jonne määritelin nämä kaksi sekä aiemmin luodun **hello*n. Nyt /srv/salt hakemisto sisältöineen on kuten kuvassa.
-   !h4-008
+   ![h4-008](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-008.png)
 3.  Ajoin luodut tilat topfilen avulla käyttäen komentoa `sudo salt '*' state.apply`
     - Lopputuloksena onnistunut ajo
-      !h4-009
-      !h4-010
+      ![h4-009](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-009.png)
+      ![h4-010](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-010.png)
       (lempparit muutokset ei kyvassa pituutensa vuoksi)
     - Kokeilin vielä muokattuna komentoa niin että se näyttää mitä tapahtuu ja että lopputulos olisi lyhyempi `sudo salt '*' state.apply -l info --state-output=terse`. Nyt tietenkin kun muutoksia ei tehty, ei toiminnotkaan tulostu.
-      !h4-011
+      ![h4-011](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-011.png)
        
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h4_Demoni.md#h4-demoni)
 
@@ -203,27 +203,27 @@ Tässä ei tarvita service:ssä watch, koska index.html ei ole asetustiedosto (K
 
 1. Alkuun asensin käsin
    - Alkutilanne osoittaa että apache ei ole asennettu:
-     !h4-016
+     ![h4-016](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-016.png)
    - `sudo apt-get install apache2` asensi apachen
    - Alussa olin jo aukottanut palomuurin, joten se ei ole nyt tarpeen.
    - Korvasin defaultsivun sisällön `echo "Default"|sudo tee /var/www/html/index.html`ja testasin että apache vastaa.
-     !h4-014
+     ![h4-014](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-014.png)
    - `mkdir -p /home/vagrant/publicsites/testisivu.example.com/` loi testisivulle hakemiston
    - `echo tämä on testisivu > /home/vagrant/publicsites/testisivu.example.com/index.html` loi tiedoston **index.html** jonne sivun sisältö "tämä on testisivu" tallennetaan.
-      !h4-012
+      ![h4-012](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-012.png)
    - `sudoedit /etc/apache2/sites-available/testisivu.example.com.conf`luo conf-tiedoston joka ohjaa verkkokyselyt äsken luotuun sisältöön
-      !h4-013
+      ![h4-013](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-013.png)
    - Nyt saatavilla oli vain defaultsivu. Poistin sen käytöstä `sudo a2dissite 000-default.conf` ja otin luomani confin käyttöön `sudo a2ensite testisivu.example.com.conf`
    - Potkaisin apachen uudelleen käyntiin jotta muutokset tulee voimaan `sudo systemctl restart apache2`.
    - `curl localhost` toi testisivu.example.com hakemistoon luodun index.html-sivun näkyviin.
    - Apachen poisto komennolla `sudo apt-get purge apache2` ja testisivu hakemisto komennolla `rm -r testisivu.example.com/` suoritettuna publicsites hakemistossa
-      !h4-015
+      ![h4-015](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-015.png)
 
 2. Seuraavaksi automatisoin saman
    - **/srv/salt/** hakemistoon uusi hakemisto `sudo mkdir apache` ja sinne `sudoedit init.sls`
    - Testasin ensin että tämä vastaa **Hello worldillä** luomalla lyhyen file.managed tilan.
    - `sudo salt-call --local -l info state.apply apache`komentoon apache-tila vastasi onnistuneella suorituksella.
-     !h4-017 
+     ![h4-017](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-017.png) 
    - Koska edellisessä tehtävässä olin poistanut kaikki apachen määritykset, loin uuden conf-tiedoston kadi.conf ja hakemiston sivuston sisällölle.
 
          vagrant@doh001:/etc/apache2/sites-available$ cat kadi.conf 
@@ -264,7 +264,7 @@ Tässä ei tarvita service:ssä watch, koska index.html ei ole asetustiedosto (K
      (Salt man)
              
      - Loppuun poistin apachen `sudo apt-get purge apache2` ja suoritin `sudo salt-call --local -l info --state-output=terse state.apply apache`
-     - !h4-018
+     - ![h4-018](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-018.png)
   
 
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h4_Demoni.md#h4-demoni)
@@ -281,7 +281,7 @@ Nyt tarvitaan service-watch, jotta demoni käynnistetään uudelleen, jos asetus
 1. sshd_config tiedoston luonti
    - Kopioin sshd conf-tiedoston `sudo cp /etc/ssh/sshd_config /srv/salt/sshd/sshd_config`.
    - Poistin portista kommentoinnin ja lisäsin uuden portin
-     !h4-019
+     ![h4-019](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-019.png)
      
 3. SSH-tilan luonti
    - /srv/salt hakemistossa `micro sshd.sls` ja sinne tallensin:
@@ -296,10 +296,10 @@ Nyt tarvitaan service-watch, jotta demoni käynnistetään uudelleen, jos asetus
              - watch:
                - file: /etc/ssh/sshd_config
    - `sudo salt '*' state.apply sshd -l info --state-output=terse`suoritti onnistuneen ajon. Itse ssh oli jo asennettu alkutoimien kohdalla.
-     !h4-020
+     ![h4-020](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-020.png)
 4. Testi
    - `nc -vz 192.168.88.102 8888` komento antoi onnistuneen palautteen
-     !h4-021
+     ![h4-021](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-021.png)
 
 
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h4_Demoni.md#h4-demoni)
@@ -307,7 +307,7 @@ Nyt tarvitaan service-watch, jotta demoni käynnistetään uudelleen, jos asetus
 ---
 
 ## e) Vapaaehtoinen: Apache. 
-Tehtävän suoritus 19.04.2024 klo 20.15 
+Tehtävän suoritus 19.04.2024 klo 20.15 - 22.15 ja 23.04 klo 9.30 - 
 Asenna Apache tarjoilemaan weppisivua. Weppisivun tulee näkyä palvelimen etusivulla (localhost). HTML:n tulee olla jonkun käyttäjän kotihakemistossa, ja olla muokattavissa normaalin käyttäjän oikeuksin, ilman sudoa.
 
 Jatkan osion c automatisoinnin pohjalta, eli ryhdyn muokkaamaan apachen hakemistossa sijaitsevaa init tiedostoa.
@@ -318,15 +318,15 @@ Jatkan osion c automatisoinnin pohjalta, eli ryhdyn muokkaamaan apachen hakemist
         /home/vagrant/publicsites/kadi/index.html:
           file.managed:
             - source: "salt://apache/index.html"
-   !h4-022 
+   ![h4-022](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-022.png) 
 2. Seuraavaksi sallin kansiorakenteen luonnin tiedostonluonnin yhteydessä lisäämällä äsken lisättyyn.
 
         /home/vagrant/publicsites/kadi/index.html:
           file.managed:
             - source: "salt://apache/index.html"
             - makedirs: True
-    !h4-023 
-4. Seuraavaksi määritän kansiorakenteen ja tiedoston käyttäjäksi tavallisen käyttäjän. Sitä varten muokkasin aiemmin b-osiossa luotua user tilaa seuraavasti:
+    ![h4-023](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-023.png) 
+4. Seuraavaksi määritin kansiorakenteen ja tiedoston käyttäjäksi tavallisen käyttäjän. Sitä varten muokkasin aiemmin b-osiossa luotua user tilaa seuraavasti:
 
        create_group:
          group.present:
@@ -350,10 +350,10 @@ Jatkan osion c automatisoinnin pohjalta, eli ryhdyn muokkaamaan apachen hakemist
             - group: basic_group
             - mode: 644
    Nyt piti myös topfile päivittää ja ajaa tila sen kautta
-   !h4-024
-   !h4-025
+   ![h4-024](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-024.png)
+   ![h4-025](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-025.png)
 6. Lopputuloksena onnistunut suoritus mutta **publicsites/kadi** ovat yhä rootin omistuksessa
-   !h4-026
+   ![h4-026](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-026.png)
 7. Muutin **apache** moduulia siten että hakemisto määritellään erikseen. Nyt koko moduuli näytti tältä
 
        apache2:
@@ -384,7 +384,7 @@ Jatkan osion c automatisoinnin pohjalta, eli ryhdyn muokkaamaan apachen hakemist
             - group: basic_group
             - mode: 644
    Ja suoritus onnistui,
-    !h4-027
+    ![h4-027](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-027.png)
    Mutta basic_userin **publicsites** oli yhä rootin. En ollut huomannut määritellä sen omistajuutta. Lisäsin init.sls-tiedostoon:
 
         /home/vagrant/publicsites:
@@ -395,11 +395,11 @@ Jatkan osion c automatisoinnin pohjalta, eli ryhdyn muokkaamaan apachen hakemist
    
 
 9. Tämä tepsi ja nyt kaikki saltilla luodut hakemistot ja tiedostot ovat oikeilla oikeuksilla
-   !h4-028
+   ![h4-028](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-028.png)
 10. `curl localhost`ei kutenkaan tuonut toivottua lopputulosta, sillä se vastasi yhä oletussivulla "default".
     Tarkisitn kaikki tiedostot ja oikeudet, jotka ovat kunnossa. Seuraavaksi tarkistin conf-tiedoston joka sekin kunnossa, mutta `/sites.enabled/kadi.conf` näytti oudolta.
-    !h4-029
-12. Palasin tarkastelemaan apache-moduulia jossa virhe löytyi. Jossain vaiheessa tiedostoa muokatessa linkki oli vaihtunut viittaamaan itseensä
+    ![h4-029](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-029.png)
+12. Palasin tarkastelemaan apache-moduulia jossa virhe löytyi. Jossain vaiheessa tiedostoa muokatessa linkki oli vaihtunut viittaamaan itseensä, jolloin se ei tietenkään voinut toimia.
     
         /etc/apache2/sites-enabled/kadi.conf:
           file.symlink:
@@ -413,17 +413,40 @@ Jatkan osion c automatisoinnin pohjalta, eli ryhdyn muokkaamaan apachen hakemist
         apache2.service:
           service.running:
             - name: apache2
-            - enable: True
-            - reload: True
+            - enable: Truecd 
+            - restart: True
             - watch:
               - file: /etc/apache2/sites-available/kadi.conf
               - file: /etc/apache2/sites-enabled/kadi.conf
               - file: /home/vagrant/publicsites/kadi/index.html
-15. Uusi ajo päivitti linkin
-    
-16. 
+    Tässä vaiheessa keskeytin työn ja palasin tehtävään 23.04.
+16. Nyt conf-tiedoston korjauksien myötä tei uudelleenajon `sudo salt-call --local -l info state.apply apache`. Se ei mennyt odotetusti. Alla virhe joka viittasi vikaan ajankohdassa. Tarkistin koneen ajan ja se oli kolme päivää jäljessä:
+    !h4-030
+17. Tämän virheen takia tietenkään muutkaan apacheen liittyvät toimet eivät onnistuneet. Korjasin ajan, ja tarkistin että se on nyt oikeassa:
+    !h4-031
+    !h4-032
+19. `sudo salt-call --local -l info state.apply apache`testasin uudelleen, ja lopputulos oli toivotun mukainen.
+    !h4-033
+20. Testasin `curl localhost` joka palautti toivotun lopputuloksen.
+    !h4-034
+22. Kävin vielä basic_userina muokkaamassa **index.html**-tiedostoa ja varmistin että toimii.
+    !h4-035
+23. Viimeiseksi testasin ajamalla saman komennon **doh002**-minionille `sudo salt '*' state.apply apache`mutta sain saman virheen väärästä ajasta joka olikin saman kolme päivää myöhässä.
+    !h4-036
+24. Päätin testata onnistuisinko lisäämään time moduulin joka tekisi tämän automaattisesti ennen apache-moduulin ajoa.
+    - Tein uuden moduulin **time** /srv/salt- hakemistoon komennilla `sudo mkdir ntp` ja loin sinne `sudo micro init.sls`.
+    - Tiedostoon tallensin seuraavat:
+        ntp:
+        pkg.installed
+  
+        ntp.service:
+        service.running:
+        - name: ntp
+        - enable: True
+        - restart: True 
+      
 
-17. 
+          
 
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h4_Demoni.md#h4-demoni)
 
