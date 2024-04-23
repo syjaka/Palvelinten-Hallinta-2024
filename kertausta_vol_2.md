@@ -170,6 +170,14 @@ Pääosin materiaali koostuu omasta kokemuksesta ja kokeilusta. Selvitystyössä
 > - `export PS1="\W\$ "`lyhentää promptin kattamaan vain nykyisen hakemiston
 >   - `cp -r alkup_hakemisto kopio`
 
+10. MD
+
+<Details closed>
+piilotettu details teksti
+
+</details>
+
+
 
  Lähteet:
 
