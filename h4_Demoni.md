@@ -307,7 +307,7 @@ Nyt tarvitaan service-watch, jotta demoni käynnistetään uudelleen, jos asetus
 ---
 
 ## e) Vapaaehtoinen: Apache. 
-Tehtävän suoritus 19.04.2024 klo 20.15 - 22.15 ja 23.04 klo 9.30 - 
+Tehtävän suoritus 19.04.2024 klo 20.15 - 22.15 ja 23.04 klo 9.30 - 12.00
 Asenna Apache tarjoilemaan weppisivua. Weppisivun tulee näkyä palvelimen etusivulla (localhost). HTML:n tulee olla jonkun käyttäjän kotihakemistossa, ja olla muokattavissa normaalin käyttäjän oikeuksin, ilman sudoa.
 
 Jatkan osion c automatisoinnin pohjalta, eli ryhdyn muokkaamaan apachen hakemistossa sijaitsevaa init tiedostoa.
@@ -419,20 +419,20 @@ Jatkan osion c automatisoinnin pohjalta, eli ryhdyn muokkaamaan apachen hakemist
               - file: /etc/apache2/sites-available/kadi.conf
               - file: /etc/apache2/sites-enabled/kadi.conf
               - file: /home/vagrant/publicsites/kadi/index.html
-    Tässä vaiheessa keskeytin työn ja palasin tehtävään 23.04.
+    Tässä vaiheessa keskeytin työn ja palasin tehtävään 23.04. aamusta.
 16. Nyt conf-tiedoston korjauksien myötä tei uudelleenajon `sudo salt-call --local -l info state.apply apache`. Se ei mennyt odotetusti. Alla virhe joka viittasi vikaan ajankohdassa. Tarkistin koneen ajan ja se oli kolme päivää jäljessä:
-    !h4-030
+    ![h4-030](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-030.png)
 17. Tämän virheen takia tietenkään muutkaan apacheen liittyvät toimet eivät onnistuneet. Korjasin ajan, ja tarkistin että se on nyt oikeassa:
-    !h4-031
-    !h4-032
+    ![h4-031](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-031.png)
+    ![h4-032](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-032.png)
 19. `sudo salt-call --local -l info state.apply apache`testasin uudelleen, ja lopputulos oli toivotun mukainen.
-    !h4-033
+    ![h4-033](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-033.png)
 20. Testasin `curl localhost` joka palautti toivotun lopputuloksen.
-    !h4-034
+    ![h4-034](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-034.png)
 22. Kävin vielä basic_userina muokkaamassa **index.html**-tiedostoa ja varmistin että toimii.
-    !h4-035
+    ![h4-035](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-035.png)
 23. Viimeiseksi testasin ajamalla saman komennon **doh002**-minionille `sudo salt '*' state.apply apache`mutta sain saman virheen väärästä ajasta joka olikin saman kolme päivää myöhässä.
-    !h4-036
+    ![h4-036](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-036.png)
 24. Päätin testata onnistuisinko lisäämään time moduulin joka tekisi tämän automaattisesti ennen apache-moduulin ajoa.
     - Tein uuden moduulin **time** /srv/salt- hakemistoon komennilla `sudo mkdir ntp` ja loin sinne `sudo micro init.sls`.
     - Tiedostoon tallensin seuraavat:
@@ -446,38 +446,20 @@ Jatkan osion c automatisoinnin pohjalta, eli ryhdyn muokkaamaan apachen hakemist
               - enable: True
               - restart: True 
     - Testasin paikallisesti `sudo salt-call --local -l info state.apply apache`jonka lopputuloksena onnistunut ajo:
-      !h4-037
+      ![h4-037](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-037.png)
     - Muokkasin osiossa **b)** luotua topfilea lisäämällä sinne ntp-moduulin.
-      !h4-038
+      ![h4-038](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-038.png)
     - Testasin topfileä paikallisesti komennilla `sudo salt-call --local -l info state.apply` joka onnistui. Alla kuvassa ainoat muutoskset jotka johtuivat basic_userin tekemästä testistä
-      !h4-039
+      ![h4-039](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-039.png)
     -  Testasin minionille `sudo salt '*' state.apply` mutta ntp-paketin ajo ei onnistunut koneen väärän ajan johdosta.
-       !h4-040
-    -  Pitkän googlettelun jälkeen päädyin kyselemään chatGPT:ltä apua, sillä en keksinyt miten ajan voi päivittää jos aikatyökalua ei saa asennettua. Se ehdotti ntp-moduulin muokkaamista seuraavasti:
+       ![h4-040](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-040.png)
+    -  Pitkän googlettelun jälkeen päädyin kyselemään chatGPT:ltä apua, sillä en keksinyt miten ajan voi päivittää jos aikatyökalua ei saa asennettua. Se ehdotti ntp-moduulin muokkaamista eri tavoin joista jokainen tuotti eri errorin. Tässä vaiheessa luovutin ja päivitin ajan manuaalisti, sillä se ei ollut osa tehtävää kuitenkaan. Ajan päivitin kuten edellä päivitin masterin. Lisäksi poistin ntp-moduulin top-filestä.
+    -  Uuden testin jälkeen sain onnistuneen lopputuloksen
+       ![h4-041](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-041.png)
+       ![h4-042](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-042.png)
+    - Vielä testaus minionilla
+      ![h4-043](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h4-043.png)
       
-            sync_time:
-              cmd.run:
-                - name: ntpdate pool.ntp.org
-            
-            ntp:
-              pkg.installed:
-                - require:
-                  - cmd: sync_time
-            
-            ntp.service:
-              service.running:
-                - name: ntp
-                - enable: True
-                - restart: True
-                - require:
-                  - pkg: ntp
-
-    -  Korjauksen jälkeen uusi testi joka tietenkin epäonnistui koska en oll
-      
-
-      
-
-          
 
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h4_Demoni.md#h4-demoni)
 
@@ -509,11 +491,4 @@ Salt Contributors 2024, Salt Overviev. Luettavissa: https://docs.saltproject.io/
 
 Salt user guides, States 2024. Luettavissa: https://docs.saltproject.io/salt/user-guide/en/latest/topics/states.html. Luettu 19.04.2024
 
-<VirtualHost *:80>
-    DocumentRoot /home/vagrant/publicsites/testisivu.example.com/
-    <Directory /home/vagrant/publicsites/testisivu.example.com/>
-        Require all granted
-    </Directory>
-</VirtualHost>
 
- 
