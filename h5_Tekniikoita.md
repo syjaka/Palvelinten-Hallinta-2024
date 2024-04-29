@@ -2,23 +2,23 @@
 
 # h5 Tekniikoita
 
-a) [Asenna Salt Macille.](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h5_Tekniikoita.md#a-asenna-salt-macille)
+a) [Asenna Salt Macille](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h5_Tekniikoita.md#a-asenna-salt-macille)
 
-b) [Kerää Mac-koneesta tietoa grains.items -toiminnolla.](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h5_Tekniikoita.md#b-ker%C3%A4%C3%A4-mac-koneesta-tietoa-grainsitems--toiminnolla)
+b) [Kerää Mac-koneesta tietoa grains.items -toiminnolla](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h5_Tekniikoita.md#b-ker%C3%A4%C3%A4-mac-koneesta-tietoa-grainsitems--toiminnolla)
 
-c) [Kokeile Saltin file -toimintoa Macilla](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h5_Tekniikoita.md#c-kokeile-saltin-file--toimintoa-macilla).
+c) [Kokeile Saltin file -toimintoa Macilla](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h5_Tekniikoita.md#c-kokeile-saltin-file--toimintoa-macilla)
 
-d) [CSI Kerava.](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h5_Tekniikoita.md#d-csi-kerava)
+d) [CSI Kerava](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h5_Tekniikoita.md#d-csi-kerava)
 
 e) [Komennus.](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h5_Tekniikoita.md#e-komennus-tee-salt-tila-joka-asentaa-j%C3%A4rjestelm%C3%A4%C3%A4n-uuden-komennon)
 
-f) [Vapaaehtoinen: Gui2fs.](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h5_Tekniikoita.md#f-vapaaehtoinen-gui2fs)
+f) [Vapaaehtoinen: Gui2fs](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h5_Tekniikoita.md#f-vapaaehtoinen-gui2fs)
 
-g) [Vapaaehtoinen: Ämpärillinen.](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h5_Tekniikoita.md#g-vapaaehtoinen-%C3%A4mp%C3%A4rillinen)
+g) [Vapaaehtoinen: Ämpärillinen](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h5_Tekniikoita.md#g-vapaaehtoinen-%C3%A4mp%C3%A4rillinen)
 
-x) [Lue ja tiivistä. ](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h5_Tekniikoita.md#x-lue-ja-tiivist%C3%A4)
+x) [Lue ja tiivistä ](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h5_Tekniikoita.md#x-lue-ja-tiivist%C3%A4)
 
-y) [Käyttöympäristö.](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h5_Tekniikoita.md#y-k%C3%A4ytt%C3%B6ymp%C3%A4rist%C3%B6)
+y) [Käyttöympäristö](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h5_Tekniikoita.md#y-k%C3%A4ytt%C3%B6ymp%C3%A4rist%C3%B6)
 
 
 ##  x) Lue ja tiivistä. 
@@ -53,6 +53,7 @@ Koneeseen asennettu Vagrant versio on 2.4.1.
   
 ##  a) Asenna Salt Macille. 
 Tehtävän suoritus 29.04.2024 klo 12.55 - 14.10 EET.
+
 Osoita 'salt-call --local' komentoa ajamalla, että asennus on onnistunut. (Jos olet asentanut jo aiemmin, tässä riittää pelkkä asennuksen testaaminen, eikä asennusta tarvitse tehdä uudelleen.)(Karvinen 2024)
 - Olin suorittanut asennuksen jo heti luennon jälkeen joten en tee sitä uudelleen. Maciin asennettaessa asennus erosi siinä määrin Linuxista, että SRV-hakemistoa ei Macin omien turvallisuusrajoitusten vuoksi voi sisällyttää juurihakemistoon. Sen vuoksi loin hakemistopolun `/Library/srv/salt` jonne tallennan vastaisuudessa saltin tilatiedostot.
 - Jotta Salt löytää luodut tilatiedostot piti masterfileen sisällyttää tämä polku.
@@ -66,16 +67,17 @@ Osoita 'salt-call --local' komentoa ajamalla, että asennus on onnistunut. (Jos 
 
 ## b) Kerää Mac-koneesta tietoa grains.items -toiminnolla.
 Tehtävän suoritus 29.04.2024 klo 14.10 - 14.20 EET.
+
 Poimi 'grains.item' perään muutamia keskeisiä tietoja ja analysoi ne, eli selitä perusteellisesti mitä ne ovat. Kuvaile ja vertaile numeroita(Karvinen 2024).
 
 - Komento `sudo salt-call --local grains.items` näyttää kaikki saatavilla olevat tiedot järjestelmästä avain-arvo pareina.
-- Annoin komennon `sudo salt-call --local grains.item saltversioninfo saltpath virtual`, jolla valtisin näytettävät seikat. Komento näytti:
+- Annoin komennon `sudo salt-call --local grains.item saltversioninfo saltpath virtual`, jolla valitsin näytettävät seikat. Komento näytti:
   ![h5-003](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-003.png)
-  1. **saltversioninfo**
+  - **saltversioninfo**
      Saltin versiotiedot jossa 3007 edustaa pääversiota ja ,0 aliversiota.
-  3. **saltpath**
+  - **saltpath**
      Kertoo saltin asennuskansion polun.
-  5. **virtual**
+  -  **virtual**
      Kertoo järjestelmän virtualisoinnin tilan joka on tällä hetkellä physical eli ei virtualisointia.
 
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h5_Tekniikoita.md#h5-tekniikoita)
@@ -105,14 +107,14 @@ Näytä 'find' avulla viimeisimmäksi muokatut tiedostot /etc/-hakemistosta ja k
 
 Tehtävää suorittaessa piti palata Karvisen 17.04 luentomuistiinpanoihin joissa CSI-Kerava oli selitetty. Sieltä löysin avun Find-komennon jäsentämisen alkuun, siten että tulostetta olisi mahdollista jatkojalostaa.
 
-1. Aloitin tehtävän siirtymällä viime viikon tehtävässä luotuun **doh001** virtuaalikoneeseen. Tätä varten siirryin ensin kansioon jossa koneiden vagrantfile on eli `cd /Users/kadriyesamaletdin/VagrantVMs/h4Demonit` ja siellä komento `vagrant up` käynnisti molemmat koneet määritellyn vagrantfilen perusteella.
+1. Aloitin tehtävän siirtymällä viime viikon tehtävässä luotuun **doh001** virtuaalikoneeseen. Tätä varten siirryin ensin kansioon, jossa koneiden vagrantfile on eli `cd /Users/kadriyesamaletdin/VagrantVMs/h4Demonit` ja siellä komento `vagrant up` käynnisti molemmat koneet kansiossa olevan vagrantfilen määritysten mukaisesti.
 2. `vagrant ssh doh001` otti yhteyden **doh001** koneeseeni.
 3. Yhteyden saatuani siirryin `cd /etc`-hakemistoon ja kokeilin ensin `find|nl`-komentoa joka tulosti kaikki tiedostot ja hakemistot työhakemistossa omille riveilleen numeroituina(`nl`). Näitä oli 1316 joten sorttaamista tarvittiin.
 4. Avasin komentoriviltä findin manuaalin `man find`. Helpin kautta löytyi ohje hakusanahakuun, eli /hakusana ja `n` tai `Shift + n` selasi tuloksia eteen ja taakse.
 6. Teron 17.04 luennolta olin poiminut talteen komennon `find -printf '%T+ %p\n'|sort `, jonka toimia selvittelin **man find** avulla:
    - `-printf` on printformat eli tulostaa hakutulokset omien pyydettyjen parametrien mukaisesti.
    - `'%T+ %p\n'` jossa `%T` esittää tiedoston muokkauksen viimeisen ajankohdan, `+` määrittää tämän ajankohdan päivämääräformaatin ISO806 formaattiin, `%p` tulostaa tiedostonimen ja  `/n` eli new line määrittää tulosteen tiedostot omille rivilleen.
-   - Lisäsin komennon loppuun vielä seuraavat `|sort |tail -10 |nl`, jossa`|sort` lajittelee päivämääräjärjestyksessä `|näyttää 10 viimeistä` sekä `|nl` numeroi rivit.
+   - Lisäsin komennon loppuun vielä seuraavat `|sort |tail -10 |nl`, jossa`|sort` lajittelee päivämääräjärjestyksessä `|tail -10 ` näyttää 10 viimeistä sekä `|nl` numeroi rivit.
    Tämä komento tulostaa siis ym. parametreillä työhakemiston tiedostot kuten alla:
    ![h5-007](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-007.png)
 7. Tehtävänannossa pyydettiin etc-hakemiston sekä kotihakemiston **tiedostot** joten komentoon tuli lisätä `/etc /home` ja rajaus vain tiedostoihin `-type f`. Lisäksi edellinen hakutulos antoi yhteen tiedostoon *permission denied* joten lisäsin sudon komennon alkuun. Näin ollen komento `sudo find /etc /home -type f -printf '%T+ %p\n'|sort |tail -10 |nl`näytti
@@ -132,7 +134,7 @@ Jatkoin tehtävää edellisen tehtävän **doh001**-virtuaalikoneella.
 
 1. Aloitin luomalla uuden komennon.
    - Siirryin kotihakemistooni `cd` ja loin sinne oman hakemiston komennoille `mkdir komennot`.
-   - Siirryin luotuun hakemistoon `mkdir komennot` ja loin sinne uuden tiedoston `micro tervehdi`.
+   - Siirryin luotuun hakemistoon `cd komennot` ja loin sinne uuden tiedoston `micro tervehdi`.
    - Tallensin tiedostoon scriptin, joka tervehtii käyttäjää ja ketoo ajankohdan:
 
          #!/usr/bin/bash
@@ -161,9 +163,9 @@ Jatkoin tehtävää edellisen tehtävän **doh001**-virtuaalikoneella.
              file.managed: # suoritettava toimi eli lisätään tiedosto
                - source: "/srv/salt/komennot/temp/tervehdi" # lisättävän tiedoston lähde
    - Ennen testaamista poistin aiemmin kopioidun **tervehdi** tiedoston tilan kohdekansiosta `sudo rm -r /usr/local/bin/tervehdi` sekä omasta kotikansiosta `sudo rm -r /home/vagrant/komennot/tervehdi`
-     [!h5-012](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-012.png)
+     ![h5-012](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-012.png)
    - Testasin paikallisesti `sudo salt-call --local state.apply komennot`, sekä `bash tervehdi` ja sain onnistuneen palautteen.
-     [!h5-013](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-013.png)
+     ![h5-013](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-013.png)
    - Ennen minionille testausta avasin toisen komentorivi-ikkunan jossa otin yhteyden minioniin `vagrant ssh doh002`.
    - Testasin minionille `sudo salt '*' state.apply komennot`, joka palautti virheen, että lähdetiedostoa ei löydy annetusta polusta.
      ![h5-014](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-014.png)
