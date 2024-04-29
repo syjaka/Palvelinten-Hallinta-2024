@@ -2,19 +2,19 @@
 
 # h5 Tekniikoita
 
-a) Asenna Salt Macille.
+a) [Asenna Salt Macille.](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h5_Tekniikoita.md#a-asenna-salt-macille)
 
-b) Kerää Windows- tai Mac-koneesta tietoa grains.items -toiminnolla.
+b) [Kerää Mac-koneesta tietoa grains.items -toiminnolla.](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h5_Tekniikoita.md#b-ker%C3%A4%C3%A4-mac-koneesta-tietoa-grainsitems--toiminnolla)
 
-c) Kokeile Saltin file -toimintoa Windowsilla tai Macilla.
+c) [Kokeile Saltin file -toimintoa Macilla](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h5_Tekniikoita.md#c-kokeile-saltin-file--toimintoa-macilla).
 
-d) CSI Kerava.
+d) [CSI Kerava.](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h5_Tekniikoita.md#d-csi-kerava)
 
-e) Komennus.
+e) [Komennus.](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h5_Tekniikoita.md#e-komennus-tee-salt-tila-joka-asentaa-j%C3%A4rjestelm%C3%A4%C3%A4n-uuden-komennon)
 
-f) Vapaaehtoinen: Gui2fs.
+f) [Vapaaehtoinen: Gui2fs.](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h5_Tekniikoita.md#f-vapaaehtoinen-gui2fs)
 
-g) Vapaaehtoinen: Ämpärillinen.
+g) [Vapaaehtoinen: Ämpärillinen.](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h5_Tekniikoita.md#g-vapaaehtoinen-%C3%A4mp%C3%A4rillinen)
 
 x) [Lue ja tiivistä. ](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h5_Tekniikoita.md#x-lue-ja-tiivist%C3%A4)
 
@@ -56,9 +56,9 @@ Tehtävän suoritus 29.04.2024 klo 12.55 - 14.10 EET.
 Osoita 'salt-call --local' komentoa ajamalla, että asennus on onnistunut. (Jos olet asentanut jo aiemmin, tässä riittää pelkkä asennuksen testaaminen, eikä asennusta tarvitse tehdä uudelleen.)(Karvinen 2024)
 - Olin suorittanut asennuksen jo heti luennon jälkeen joten en tee sitä uudelleen. Maciin asennettaessa asennus erosi siinä määrin Linuxista, että SRV-hakemistoa ei Macin omien turvallisuusrajoitusten vuoksi voi sisällyttää juurihakemistoon. Sen vuoksi loin hakemistopolun `/Library/srv/salt` jonne tallennan vastaisuudessa saltin tilatiedostot.
 - Jotta Salt löytää luodut tilatiedostot piti masterfileen sisällyttää tämä polku.
-  [!h5-001](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-001.png)
+  ![h5-001](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-001.png)
 - Olin myös luonut **hello**-tilan jonka toteuttamaa tiedostonimeä muokkasin vähän ja testasin onnistuneesti komennolla `sudo salt-call --local state.apply hello`.
-  [!h5-002](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-002.png)
+  ![h5-002](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-002.png)
 
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h5_Tekniikoita.md#h5-tekniikoita)
 
@@ -70,7 +70,7 @@ Poimi 'grains.item' perään muutamia keskeisiä tietoja ja analysoi ne, eli sel
 
 - Komento `sudo salt-call --local grains.items` näyttää kaikki saatavilla olevat tiedot järjestelmästä avain-arvo pareina.
 - Annoin komennon `sudo salt-call --local grains.item saltversioninfo saltpath virtual`, jolla valtisin näytettävät seikat. Komento näytti:
-  [!h5-003](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-003.png)
+  ![h5-003](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-003.png)
   1. **saltversioninfo**
      Saltin versiotiedot jossa 3007 edustaa pääversiota ja ,0 aliversiota.
   3. **saltpath**
@@ -86,11 +86,11 @@ Poimi 'grains.item' perään muutamia keskeisiä tietoja ja analysoi ne, eli sel
 Tehtävän suoritus 29.04.2024 klo 14.20 - 14.34 EET.
 - Tästä osan olin jo tehnyt kohdassa a), kun käytin hello tilaa.
 - Saman testasin toteuttaa suoralla komennolla `sudo salt-call --local  state.single file.managed /Library/salt/srv/tmp/testi.md`, joka palautti onnistuneen tiedoston luonnin.
-  [!h5-004](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-004.png)
+  ![h5-004](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-004.png)
 - Tarkistus vielä **tmp**-hakemistosta näytti tiedoston olevan paikallaan.
-  [!h5-005](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-005.png)
+  ![h5-005](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-005.png)
 - Tiedoston poisto tapahtui komennolla `sudo salt-call --local -l info state.single file.absent /Library/salt/srv/tmp/testi.md`.
-  [!h5-006](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-006.png)
+  ![h5-006](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-006.png)
 (Karvinen 2021)
 
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h5_Tekniikoita.md#h5-tekniikoita)
@@ -114,9 +114,9 @@ Tehtävää suorittaessa piti palata Karvisen 17.04 luentomuistiinpanoihin joiss
    - `'%T+ %p\n'` jossa `%T` esittää tiedoston muokkauksen viimeisen ajankohdan, `+` määrittää tämän ajankohdan päivämääräformaatin ISO806 formaattiin, `%p` tulostaa tiedostonimen ja  `/n` eli new line määrittää tulosteen tiedostot omille rivilleen.
    - Lisäsin komennon loppuun vielä seuraavat `|sort |tail -10 |nl`, jossa`|sort` lajittelee päivämääräjärjestyksessä `|näyttää 10 viimeistä` sekä `|nl` numeroi rivit.
    Tämä komento tulostaa siis ym. parametreillä työhakemiston tiedostot kuten alla:
-   [!h5-007](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-007.png)
+   ![h5-007](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-007.png)
 7. Tehtävänannossa pyydettiin etc-hakemiston sekä kotihakemiston **tiedostot** joten komentoon tuli lisätä `/etc /home` ja rajaus vain tiedostoihin `-type f`. Lisäksi edellinen hakutulos antoi yhteen tiedostoon *permission denied* joten lisäsin sudon komennon alkuun. Näin ollen komento `sudo find /etc /home -type f -printf '%T+ %p\n'|sort |tail -10 |nl`näytti
-   [!h5-008](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-008.png)
+   ![h5-008](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-008.png)
    
 Osion lähteet Karvisen 17.04.2024 luentomuistiinpanot sekä Find manuaali.
 
@@ -145,12 +145,12 @@ Jatkoin tehtävää edellisen tehtävän **doh001**-virtuaalikoneella.
           
          echo "Tänään on $PAIVA ja kello on $AIKA +3UCT."
    - Komento `bash tervehdi Kadi`testasi ja osoitti komennon toimivuuden
-     [!h5-009](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-009.png)
+     ![h5-009](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-009.png)
    - Seuraavaksi muutin komennon käyttöoikeuksia siten, että kaikilla käyttäjillä on oikeudet ajaa komento `chmod ugo+rx tervehdi`.
-    [!h5-010](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-010.png)
+    ![h5-010](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-010.png)
    - `sudo cp tervehdi /usr/local/bin/` kopioi komennon sijaintiin, jossa sen suorittaminen on mahdollista käyttäjästä riippumatta.
    - Testasin vielä luomalla uuden käyttäjän "tavis" `sudo adduser tavis`, vaihtamalla käyttäjäksi tavis `su tavis` ja ajamalla komennon `bash tervehdi Maailman kuningas`. 
-     [!h5-011](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-011.png)
+     ![h5-011](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-011.png)
      (nyt huomasin että koneeni kello on UCT ajassa joten komennon tulosteen aikavyöhykeleiman voisi korjata pois)
 2. Seuraavaksi Salt-tilan luonti.
    - Siirryin Saltin srv hakemistoon `cd /srv/salt/` ja loin sinne uuden hakemiston `sudo mkdir -p komennot/temp`.
@@ -166,9 +166,9 @@ Jatkoin tehtävää edellisen tehtävän **doh001**-virtuaalikoneella.
      [!h5-013](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-013.png)
    - Ennen minionille testausta avasin toisen komentorivi-ikkunan jossa otin yhteyden minioniin `vagrant ssh doh002`.
    - Testasin minionille `sudo salt '*' state.apply komennot`, joka palautti virheen, että lähdetiedostoa ei löydy annetusta polusta.
-     [!h5-014](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-014.png)
+     ![h5-014](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-014.png)
    - Palasin tarkastelemaan edellisen viikon repoani ja lähdetiedoston viitettä ja huomasin eroavaisuuden suoran tiedostopolun suhteen. Muokkasin lähdetiedoston polun muotoon `- source: "salt://komennot/temp/tervehdi"` ja testasin `sudo salt '*' state.apply komennot`, sekä onnistuneen suorituksen jälkeen minionilla `bash tervehdi` (syjaka 2024).
-   - [!h5-015](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-015.png)
+   - ![h5-015](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-015.png)
    
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h5_Tekniikoita.md#h5-tekniikoita)
 
@@ -181,14 +181,14 @@ Muokkaa asetuksia jostain graafisen käyttöliittymän (GUI) ohjelmasta käyttä
 
 Tätä tehtävää varten käynnistin ensin virtualboxin ja sieltä viime periodilla asennetun debianin **KadinDeb**. 
 - Debianin GUIn auettua valitsin vasemman yläreunan applications valikosta settings ja desktop jossa muutin työpöydän ikonien kokoa sekä työpöydän taustakuvaa.
-  [!h5-016](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-016.png)
+  ![h5-016](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-016.png)
 - Siirryin komentoriville ja komennolla `sudo find  -type f -printf '%T+ %p\n'|sort |nl` hain muokatut tiedostot lajiteltuna uusin muokkaus ensin.
-  [!h5-017](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-017.png)
+  ![h5-017](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-017.png)
 - Hakutulos siis paljasti tiedostot joissa työpöytäasetuksien muutokset ovat näyttämällä viimeiseksi muokatut tiedostot.
 - Tarkastelin ensimmäisen sisältöä `cat .config/xfce4/desktop/icons.screen0-1204x957.rc`. Tähän oli tallentunut muutoksia joiota tein työpöydän ikonien kokoon.
-  [!h5-018](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-018.png)
+  ![h5-018](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-018.png)
 - Toisen tiedoston sisältö näytti taustakuvan määritykset ´cat ./.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml` Tiedoston backgroung kohdasta löysin taustakuvan asetuksen
-  [!h5-019](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-019.png)
+  ![h5-019](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-019.png)
 
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h5_Tekniikoita.md#h5-tekniikoita)
 
@@ -200,11 +200,11 @@ Tehtävän suoritus 29.04 klo 19.05 - 20.05 EET.
 Tee Salt-tila, joka asentaa järjestelmään kansiollisen komentoja. Tee tila käytten recurse (tms) parametria niin, että et joudu luettelemaan jokaista asennettua komentoa ja skriptiä eriksiin sls-tiedostossa (Karvinen 2024).
 
 1. Jatkoin tehtävää koneella **doh002** jonne alkuun loin kansion `sudo mkdir -r amparillinen/temp`.
-   [!h5-020](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-020.png)
+   ![h5-020](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-020.png)
 2. Temp kansioon loin komennot `backup`, `koneinfo`, `tervehdi` ja `update`. Jokaisen komennon luonnin jälkeen testasin myös niiden toiminnan.
-   [!h5-021](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-021.png)
+   ![h5-021](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-021.png)
 3. Annoin riittävät oikeudet tiedostoihin komennolla `sudo chmod u=rwx,g=rx,o=rx backup  koneinfo  tervehdi  update` ja tarkistin että luoduolla kansioilla on riittävät oikeudet.
-   [!h5-022](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-022.png)
+   ![h5-022](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-022.png)
 4.  Seuraavaksi loin **init.sls**-tiedoston **amparillinen**-hakemistoon komennolla `micro init.sls` ja tallensin sinne seuraavat.
 
         kopioi komennot:
@@ -212,14 +212,14 @@ Tee Salt-tila, joka asentaa järjestelmään kansiollisen komentoja. Tee tila k�
             - name: /usr/local/bin
             - source: salt://amparillinen/temp 
 5.  Testasin paikallisesti `sudo salt-call --local state.apply amparillinen` ja vastoin kaikkia odotuksiani testi yllätti ja onnistui.
-    [!h5-023](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-023.png)
+    ![h5-023](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-023.png)
 6.  Testasin minionille `sudo salt '*' state.apply amparillinen` onnistuneesti.
-7.  [!h5-024](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-024.png)
+7.  ![h5-024](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-024.png)
 8.  Vielä viimeiseksi testit minionilla että komennot toimii. Suoritin testin tavallisena käyttäjänä jonka loin **doh002** koneessa `sudo adduser tavis` ja vaihdoin luotuun käyttäjään `su tavis`.
     - Komento `bash backup` toimi kyllä odotetusti, mutta ongelmia tuli itse skriptin kanssa, sehän ei normikäyttäjänä ja minionissa toimi oikein. Korjaan skroptin mahdollisesti myöhemmin.
     - Komennot `bash koneinfo` ja `bash tervehdi` toimivat odotetusti.
     - Komentoa `bash update` varten tajusin vaihtaa rootiksi ja sekin toimi mutkitta.
-    [!h5-025](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-025.png)
+    ![h5-025](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-025.png)
 
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h5_Tekniikoita.md#h5-tekniikoita)
 
