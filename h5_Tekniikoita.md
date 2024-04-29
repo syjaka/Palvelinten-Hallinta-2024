@@ -1,4 +1,3 @@
-# Keskeneräinen
 
 # h5 Tekniikoita
 
@@ -170,7 +169,7 @@ Jatkoin tehtävää edellisen tehtävän **doh001**-virtuaalikoneella.
    - Testasin minionille `sudo salt '*' state.apply komennot`, joka palautti virheen, että lähdetiedostoa ei löydy annetusta polusta.
      ![h5-014](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-014.png)
    - Palasin tarkastelemaan edellisen viikon repoani ja lähdetiedoston viitettä ja huomasin eroavaisuuden suoran tiedostopolun suhteen. Muokkasin lähdetiedoston polun muotoon `- source: "salt://komennot/temp/tervehdi"` ja testasin `sudo salt '*' state.apply komennot`, sekä onnistuneen suorituksen jälkeen minionilla `bash tervehdi` (syjaka 2024).
-   - ![h5-015](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-015.png)
+     ![h5-015](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-015.png)
    
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h5_Tekniikoita.md#h5-tekniikoita)
 
@@ -179,17 +178,18 @@ Jatkoin tehtävää edellisen tehtävän **doh001**-virtuaalikoneella.
 ## f) Vapaaehtoinen: Gui2fs. 
 
 Tehtävän suoritus 29.04 klo 18.05 - 19.02 EET.
+
 Muokkaa asetuksia jostain graafisen käyttöliittymän (GUI) ohjelmasta käyttäen ohjelman valikoita ja dialogeja. Etsi tämä asetus tiedostojärjestelmästä (Karvinen 2024).
 
 Tätä tehtävää varten käynnistin ensin virtualboxin ja sieltä viime periodilla asennetun debianin **KadinDeb**. 
-- Debianin GUIn auettua valitsin vasemman yläreunan applications valikosta settings ja desktop jossa muutin työpöydän ikonien kokoa sekä työpöydän taustakuvaa.
+- Debianin GUIn auettua valitsin vasemman yläreunan **applications** valikosta **settings** ja **desktop** jossa muutin työpöydän ikonien kokoa sekä työpöydän taustakuvaa.
   ![h5-016](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-016.png)
 - Siirryin komentoriville ja komennolla `sudo find  -type f -printf '%T+ %p\n'|sort |nl` hain muokatut tiedostot lajiteltuna uusin muokkaus ensin.
   ![h5-017](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-017.png)
-- Hakutulos siis paljasti tiedostot joissa työpöytäasetuksien muutokset ovat näyttämällä viimeiseksi muokatut tiedostot.
+- Hakutulos siis paljasti tiedostot, joissa työpöytäasetuksien muutokset ovat, näyttämällä viimeiseksi muokatut tiedostot.
 - Tarkastelin ensimmäisen sisältöä `cat .config/xfce4/desktop/icons.screen0-1204x957.rc`. Tähän oli tallentunut muutoksia joiota tein työpöydän ikonien kokoon.
   ![h5-018](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-018.png)
-- Toisen tiedoston sisältö näytti taustakuvan määritykset ´cat ./.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml` Tiedoston backgroung kohdasta löysin taustakuvan asetuksen
+- Toisen tiedoston sisältö näytti taustakuvan määritykset `cat ./.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml` Tiedoston background kohdasta löysin taustakuvan asetuksen
   ![h5-019](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-019.png)
 
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h5_Tekniikoita.md#h5-tekniikoita)
@@ -199,25 +199,27 @@ Tätä tehtävää varten käynnistin ensin virtualboxin ja sieltä viime period
 ## g) Vapaaehtoinen: Ämpärillinen. 
 
 Tehtävän suoritus 29.04 klo 19.05 - 20.05 EET.
+
 Tee Salt-tila, joka asentaa järjestelmään kansiollisen komentoja. Tee tila käytten recurse (tms) parametria niin, että et joudu luettelemaan jokaista asennettua komentoa ja skriptiä eriksiin sls-tiedostossa (Karvinen 2024).
 
-1. Jatkoin tehtävää koneella **doh002** jonne alkuun loin kansion `sudo mkdir -r amparillinen/temp`.
+1. Jatkoin tehtävää koneella **doh001** jonne alkuun loin kansion `sudo mkdir -r amparillinen/temp`.
    ![h5-020](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-020.png)
 2. Temp kansioon loin komennot `backup`, `koneinfo`, `tervehdi` ja `update`. Jokaisen komennon luonnin jälkeen testasin myös niiden toiminnan.
    ![h5-021](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-021.png)
-3. Annoin riittävät oikeudet tiedostoihin komennolla `sudo chmod u=rwx,g=rx,o=rx backup  koneinfo  tervehdi  update` ja tarkistin että luoduolla kansioilla on riittävät oikeudet.
+3. Annoin riittävät oikeudet tiedostoihin komennolla `sudo chmod u=rwx,g=rx,o=rx backup  koneinfo  tervehdi  update` ja tarkistin että luoduilla kansioilla on riittävät oikeudet.
    ![h5-022](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-022.png)
 4.  Seuraavaksi loin **init.sls**-tiedoston **amparillinen**-hakemistoon komennolla `micro init.sls` ja tallensin sinne seuraavat.
 
         kopioi komennot:
           file.recurse: 
             - name: /usr/local/bin
-            - source: salt://amparillinen/temp 
-5.  Testasin paikallisesti `sudo salt-call --local state.apply amparillinen` ja vastoin kaikkia odotuksiani testi yllätti ja onnistui.
+            - source: salt://amparillinen/temp
+    (Saltstack 2016)
+6.  Testasin paikallisesti `sudo salt-call --local state.apply amparillinen` ja vastoin kaikkia odotuksiani testi yllätti ja onnistui.
     ![h5-023](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-023.png)
-6.  Testasin minionille `sudo salt '*' state.apply amparillinen` onnistuneesti.
-7.  ![h5-024](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-024.png)
-8.  Vielä viimeiseksi testit minionilla että komennot toimii. Suoritin testin tavallisena käyttäjänä jonka loin **doh002** koneessa `sudo adduser tavis` ja vaihdoin luotuun käyttäjään `su tavis`.
+7.  Testasin minionille `sudo salt '*' state.apply amparillinen` onnistuneesti.
+    ![h5-024](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h5-024.png)
+9.  Vielä viimeiseksi testit minionilla että komennot toimii. Suoritin testin tavallisena käyttäjänä jonka loin **doh002** koneessa `sudo adduser tavis` ja vaihdoin luotuun käyttäjään `su tavis`.
     - Komento `bash backup` toimi kyllä odotetusti, mutta ongelmia tuli itse skriptin kanssa, sehän ei normikäyttäjänä ja minionissa toimi oikein. Korjaan skroptin mahdollisesti myöhemmin.
     - Komennot `bash koneinfo` ja `bash tervehdi` toimivat odotetusti.
     - Komentoa `bash update` varten tajusin vaihtaa rootiksi ja sekin toimi mutkitta.
@@ -237,6 +239,8 @@ Lindell J. Palvelinten Hallinta - Harjoitus 6 - Windows - 10.05.2021. Luettaviss
 
 Kadi Syrjä/syjaka, Palvelinten-hallinta, h4 Demoni 2024. Luettavissa : https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h4_Demoni.md#e-vapaaehtoinen-apache. Luettu 29.04.2024
 
-Kadi Syrjä h7-maalisuora, 2024. Luettavissa: https://github.com/syjaka/Linux-Palvelimet-2024/blob/main/h7_maalisuora.md#b-seuraavaksi-tein-uuden-skriptin-ja-asetin-sen-kaikkien-saataville. Luettu 29.04.2024.
+SaltStack Configuration Management/GET STARTED TUTORIAL, 2016. Luettavissa: https://docs.saltproject.io/en/getstarted/config/files.html. Luettu 29.04.2024.
+
+Syrjä K. h7-maalisuora, 2024. Luettavissa: https://github.com/syjaka/Linux-Palvelimet-2024/blob/main/h7_maalisuora.md#b-seuraavaksi-tein-uuden-skriptin-ja-asetin-sen-kaikkien-saataville. Luettu 29.04.2024.
 
 
