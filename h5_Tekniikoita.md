@@ -166,15 +166,29 @@ g) Vapaaehtoinen: Ämpärillinen.
 Tehtävän suoritus 29.04 klo 19.05 - 
 Tee Salt-tila, joka asentaa järjestelmään kansiollisen komentoja. Tee tila käytten recurse (tms) parametria niin, että et joudu luettelemaan jokaista asennettaa komentoa ja skriptiä eriksiin sls-tiedostossa (Karvinen 2024).
 
-1. Jatkan tehtävää koneella doh002 jonne alkuun luon kansion `sudo mkdir -r amparillinen/temp`.
+1. Jatkoin tehtävää koneella **doh002** jonne alkuun loin kansion `sudo mkdir -r amparillinen/temp`.
    !h5-020
-3. Temp kansioon luon komennot `backup`, `koneinfo`, `tervehdi` ja `update`
-4. !h5-021
-5. 
+2. Temp kansioon loin komennot `backup`, `koneinfo`, `tervehdi` ja `update`. Jokaisen komennon luonnin jälkeen testasin myös niiden toiminnan.
+   !h5-021
+3. Annoin riittävät oikeudet tiedostoihin komennolla `sudo chmod u=rwx,g=rx,o=rx backup  koneinfo  tervehdi  update` ja tarkistin että luoduolla kansioilla on riittävät oikeudet.
+   !h5-022
+4.  Seuraavaksi loin **init.sls**-tiedoston **amparillinen**-hakemistoon komennolla `micro init.sls`.
+
+        kopioi komennot:
+          file.recurse: 
+            - name: /usr/local/bin
+            - source: salt://amparillinen/temp 
+5.  Testasin paikallisesti `sudo salt-call --local state.apply amparillinen` ja vastoi kaikkia todennäköisyyksiä testi onnistui.
+    !h5-023
+6.  Testasin minionille `sudo salt '*' state.apply amparillinen` onnistuneesti.
+7.  !h5-024
+8.  Vielä viimeiseksi testit minionilla että komennot toimii. Suoritin testin tavallisena käyttäjänä jonka loin doh002 koneessa `sudo adduser tavis`ja vaihdoin luotuun käyttäjään `su tavis`.
+    - Komento `bash backup` toimi kyllä odotetusti, mutta ongelmia tuli itse skriptin kanssa, sehän ei normikäyttäjänä ja minionissa toimi. Korjaan skroptin mahdollisesti myöhemmin.
+    - Komennot `bash koneinfo` ja `bash tervehdi` toimivat odotetusti.
+    - Komentoa `bash update` varten tajusin vaihtaa rootiksi ja sekin toimi mutkitta.
+    !h5-025
 
 ## Lähteet:
-
-
 
 Karvinen T.  Infra as Code - Palvelinten hallinta - Tekniikoita, 2024. Luettavissa: https://terokarvinen.com/2024/configuration-management-2024-spring/#h5-tekniikoita. Luettu 29.04.2024.
 
