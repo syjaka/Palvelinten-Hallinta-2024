@@ -52,7 +52,7 @@ z- kohdassa määritetyt virtuaalikoneet ovat Linux Bullseye 5.10.0-28-amd64.
 ## a) Paketti Windowsia
 Asenna Windowsiin tai Macciin ohjelmia Saltin pkg.installed -funktiolla (Karvinen 2024).
 
-Tehtävän suoritus 02.05.2024 klo 11.35 - 
+Tehtävän suoritus 02.05.2024 klo 11.35 - 12.15 EET.
 
 1. Aloitin tmuxin asennuksella, sillä koen sen olevat hyödyllinen lisä CLI-työskentelyyn
    -  `brew install tmux` kännisti asennuksen. Sen valmistuttua sain palautteen:
@@ -68,55 +68,68 @@ ___
 
 ## b) Benchmark
 
+Tässä tehtävässä en kirjannut aikaa, sillä merkittävän suuri osa tehtävän suoritusta kului sopivien tehtävien etsimiseen.
 Etsi 3-7 keskitetyn hallinnan projektia, esimerkiksi tämän kurssin "Oma moduli" lopputyötä. Työn tulee olla modernia keskitettyä hallintaa (idempotentti, infra koodina, yksi totuus). Esimerkiksi pelkkä shell script ei kelpaa. Työ saa käyttää mitä vain työkalua, esim Salt, Puppet, Ansible, Chef, Conftero, CFEngine (Karvinen 2024).
 #### 1. [samikul - ph-moduuli Githubissa](https://github.com/samikul/ph-moduuli)
 
 1. Tarkoitus
-   - Tämän moduulin taerkoitus on konfiguroida palvelin valmiiksi Flask web-applikaatioiden testikehitykseen ja tuotantoon.
-3. Lisenssi
+   - Tämän moduulin tarkoitus on konfiguroida palvelin valmiiksi Flask web-applikaatioiden testikehitykseen ja tuotantoon.
+2. Lisenssi
    - Lisenssi löytyy heti repon tiedostoissa sekä README tiedoston infosta. Työhön on valittu GNU - General Public License (GPL) joka on vapaiden ohjelmistojen lisenssi. Se antaa käyttäjille oikeuden käyttää jakaa ja muokata ohjelmistoa. Lisenssi myös velvoittaa käyttäjäänsä säilyttämään alkuperäisen tekijän tietoa, sekä jakamaan muokatut versiot samaa lisenssiä käyttäen. Pääasiallinen juridinen vaikutus on se, että mikäli hyödynnät lisenssin vaikutuksen alaista materiaalia, sitoudut samalla noudattamaan sen ehtoja. 
-5. Moduulin tekijä on Sami Kulonpää ja viosi 2021
-6. Riippuvuudet:
-   - Moduuli on toteutettu Linux-käyttöjärjestelmällä. Varsinaista kehitysversiota en kyennyt vahvistamaan, sillä varsinainen työn raportointi ei anetusta linkistä, eikä Samin verkkosivuilta löytynyt. Lisäksi moduuli vaati Salt-Tackin asennuksen ja käyttöönoton.
-8. Kiinnostavaa:
+3. Moduulin tekijä on Sami Kulonpää ja viosi 2021
+4. Riippuvuudet:
+   - Moduuli on toteutettu Linux-käyttöjärjestelmällä. Varsinaista distroa en kyennyt vahvistamaan, sillä varsinainen työn raportointi ei anetusta linkistä, eikä Samin verkkosivuilta löytynyt. Lisäksi moduuli vaati Salt-Tackin asennuksen ja käyttöönoton. Kohdekoneella tulee olla salt minion asennettuna ja se tulee olla conffattuna masterin saavutettavissa.
+5. Kiinnostavaa:
    - Työssä kiinnostavaa oli sen aihe, sillä se on juuri samaa, mitä olemme kurssilla harjoitelleet. Tässä työssä on tiivistettynä kaikki tämän ja Linux-palvelinkurssien hyödyt kauniiseen pakettiin joka tekee työstä myös opiskelijan näkökulmasta hyödylliusen. Lisäksi työn tarkoitus vastaa palttiarallaa sisällöltään sitä, mitä itse olin pyöritellyt oman moduulin aiheeksi. Tämä tietenkin ymmärrettävää, sillä kuten sanottu, työtiivistää ja tarjoilee koko opitun sisällön. 
-10. Avoimet kysymykset:
+6. Avoimet kysymykset:
     - Miten toteuttaa oma moduuli jotta siitä syntyy jollain tasolla originaali ja mahdollisesti hyödyllinen, eikä vain tehdyn toisintoa?
 (Kulonpää 2021)
 
+## 2. [Janne Mustonen - Oma moduuli h7](https://jannelinux.design.blog/2020/05/19/oma-moduuli-h7/)
 1. Tarkoitus
-2. Lisenssi - Missä tuossa työssä se lisenssi lukee - Mitä lisenssi tarkoittaa, eli pääasiallinen jurdiinen vaikutus
+   - Moduulin tyarkoitus on asentaa valitut ohjelmat valmiiksi conffattuna mille tahansa Linuxin distron minionille.
+2. Lisenssi
+   - Lisenssimainitaa en työstö löytänyt.
 3. Tekijä ja vuosi
-4. Riippuvuudet: Alusta (käyttöjärjestelmä, jokin tietty pilvi...), verkkoympäristö tms.
-5. Kiinnostavaa, esim - Hyödyllinen lopputulos - Kiinnostava tekniikka, esim. jokin tapa käyttää Saltia
+   - Janne Mustonen, 2020
+4. Riippuvuudet: Alusta (käyttöjärjestelmä, jokin tietty pilvi...), verkkoympäristö tms
+   - Moduuli on rakennettu toimimaan Linuxin distroilla. Kohdekoneella tulee olla salt minion asennettuna ja se tulee olla conffattuna masterin saavutettavissa.
+5. Kiinnostavaa,
+   - Valittu myös ohjelmia jotka tarvitsevat repositoryn. 
 6. Avoimet kysymykset ja muut huomiot
+   - `state.hightsate`n ja topfilen käyttö. Mietin olisiko tämän voinut ajaa suoraan ilman topfilen määrityksiä?
 
+#### [3. Riku Mannonen - Oma Moduuli](https://rikumannonen935063021.wordpress.com/)
 1. Tarkoitus
-2. Lisenssi - Missä tuossa työssä se lisenssi lukee - Mitä lisenssi tarkoittaa, eli pääasiallinen jurdiinen vaikutus
-3. Tekijä ja vuosi
-4. Riippuvuudet: Alusta (käyttöjärjestelmä, jokin tietty pilvi...), verkkoympäristö tms.
-5. Kiinnostavaa, esim - Hyödyllinen lopputulos - Kiinnostava tekniikka, esim. jokin tapa käyttää Saltia
-6. Avoimet kysymykset ja muut huomiot
-
-Listaa kustakin
-Tarkoitus (eli "mitä hyötyä tästä on" eli "business purpose" eli "miksi haluaisin asentaa tämän".)
-Kyllä näin: (business purpose): "Robotti kuljettaa minulla jääkaapista limpparia"
-Ei näin, tekniikoiden luetteleminen ei ole sovelluksen tarkoitus: "ESP32 ja Arduino ohjaavat servoja, jotka LIDAR:lla väistelevät kappaleita C++-ohjelmalla; tartuntakomponentti käyttää PDI-säädintä..."
-Lisenssi
-Lisenssin nimi
-Missä tuossa työssä se lisenssi lukee
-Mitä lisenssi tarkoittaa, eli pääasiallinen jurdiinen vaikutus
-Tekijä ja vuosi
-Riippuvuudet: Alusta (käyttöjärjestelmä, jokin tietty pilvi...), verkkoympäristö tms.
-Kiinnostavaa, esim
-Hyödyllinen lopputulos
-Kiinnostava tekniikka, esim. jokin tapa käyttää Saltia
-Avoimet kysymykset ja muut huomiot
+   - Rikun moduulin tarkoitus oli asentaa Visual studio code, pip ja flask. Lisäksi haluttiin vscodeen python lisäosa, valita se komentotulkiksi sekä muuttaa vscoden teemaa.
+3. Lisenssi
+   - Sama lisenssi löytyy sekä Tehtävää esittelevän weppisivun teksteistä, kuin githubin moduulin reposta.
+5. Tekijä ja vuosi
+   - Riku Mannonen 2021
+7. Riippuvuudet:
+   Asennettu toimiva salt joka pyörii Linux käyttöjärjestelmän päällä. Distrovaatimuksia en varmaksi osaa sanoa. Testit tehty **Ubuntu 20.04 LTS** ja **Xubuntu 18.04.5 LTS **.
+9. Kiinnostavaa
+    - Testit oli toteutettu paikallisesti. Minua jäi kiinnostamaan onnistuuko sama etähallintaan. Sen vuoksi valitsin tämän.
+11. Avoimet kysymykset ja muut huomiot
 
 ## c) Testbench
-Aja toisen tekemä tila.
-Valitse jokin edellisessä kohdassa tutkimasi moduli. Perustele valintasi.
-Tarkista koodi.
+
+Tehtävän suoritus 02.05.5024 klo 14.30 - 15.30 ja 
+Tehtävässä tuli tarkistaa ajaa ja analysoida jokin yllä esitellyistä (Karvinen 2024). Valitsin Viimeiseksi esitellyn, sillä halusin testata sitä etähallintaan. Lisäksi halusin tarkastella löytyisikö syitä, miksi VSCoden määritykset eivät onnistuneet tilan avulla.
+
+1. Moduulin sisältö.
+   - Aloitin tutkimalla sisältöä Git-hubista. Repoon sisältyi srv/salt hakesmisto, lisenssi, README-tiedosto, sekä high.sh-tiedosto jossa oli kirjattuna hoghstate-komento.
+     !h6-003
+   - **srv/salt**-hakemistossa oli **flask** ja **vscode** moduulit sekä top.sls tiedosto.
+     - vs-code tilassa oli init.sls, Microsoftin GPG-avaintiedosto, microsoftin pakettilähdelista(nämä tarvitaan sillä VSCode ei sisällö Linuxin-jakeluiden oletuspakettivarastoihiun), sekä oletusasetustiedosto jolla vscode määritellään käyttäjän mukaiseksi.
+     - flask tilassa oli vbain flaskin init.sls.
+   - 
+2. Sisällön tarkistamisen jälkeen latasin kyseisen repon virtuaalikoneelleni doh001
+   - Otin uhteyden virtuaalikoneeseen jossa master asennettu siirtymällä hakemistoon jossa vagrantfile on `cd VagrantVMs/h4_demonit`ja siellä käynnistin virtuaalikoneet `vagrant up`. Koneiden käynnistyttyä otin yhteyden `vahrant ssh doh002`.
+4. 
+   - 
+
+Aja toisen tekemä tila. Valitse jokin edellisessä kohdassa tutkimasi moduli. Perustele valintasi. Tarkista koodi.
 Lataako koodi binäärejä? Lataako paketinhallinnan ulkopuolelta? Onko luotettavia ohjelmistolähteitä?
 Aja koodi. Käytä tarvittaessa virtuaaliympäristöä tai muuta eristystä.
 Testaa lopputulos.
@@ -136,5 +149,7 @@ Choi J. Install tmux on OSX and Basics Commands for Beginners, 2018. Luettavissa
 Karvinen T. Infra as Code - Palvelinten hallinta 2024. Luettavissa: https://terokarvinen.com/2024/configuration-management-2024-spring/#h6-benchmark. Luettu 02.05.2024.
 
 Kulonpää S. ph-moduuli 2021. Luettavissa: https://github.com/samikul/ph-moduuli. Luettu 02.05.2024.
+
+Mustonen J. Oma moduuli h7 2020. Luettavissa: https://jannelinux.design.blog/2020/05/19/oma-moduuli-h7/. Luettu 29.04.2024.
 
 Salt Project - Windows package manager 2024. Luettavissa: https://github.com/therealhalonen/PhishSticks/blob/master/notes/ollikainen/windows.md. Luettu 02.05.2024
