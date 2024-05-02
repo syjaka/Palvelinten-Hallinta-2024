@@ -114,7 +114,7 @@ Etsi 3-7 keskitetyn hallinnan projektia, esimerkiksi tämän kurssin "Oma moduli
 
 ## c) Testbench
 
-Tehtävän suoritus 02.05.5024 klo 14.30 - 15.30 ja 
+Tehtävän suoritus 02.05.5024 klo 14.30 - 15.20 ja 
 Tehtävässä tuli tarkistaa ajaa ja analysoida jokin yllä esitellyistä (Karvinen 2024). Valitsin Viimeiseksi esitellyn, sillä halusin testata sitä etähallintaan. Lisäksi halusin tarkastella löytyisikö syitä, miksi VSCoden määritykset eivät onnistuneet tilan avulla.
 
 1. Moduulin sisältö.
@@ -126,8 +126,14 @@ Tehtävässä tuli tarkistaa ajaa ja analysoida jokin yllä esitellyistä (Karvi
    - 
 2. Sisällön tarkistamisen jälkeen latasin kyseisen repon virtuaalikoneelleni doh001
    - Otin uhteyden virtuaalikoneeseen jossa master asennettu siirtymällä hakemistoon jossa vagrantfile on `cd VagrantVMs/h4_demonit`ja siellä käynnistin virtuaalikoneet `vagrant up`. Koneiden käynnistyttyä otin yhteyden `vahrant ssh doh002`.
-4. 
-   - 
+4. Repon tuominen koneelle
+   - Loin Doh002 hakemiston gitin repoille antamalla käyttäjän kotihakemistossa `sudo mkdir code`komennon ja siirryin sinne `cd code`.
+   - Kopioin repon etusivulla `code`-painikkeen local- välilehdeltä löytyvän repon HTTPS - urlin.
+     !h6-004
+   - `git clone https://github.com/riku-mannonen/moduuli.git` kloonasi rikun repon code - hakemistooni... Tai ei kloonannut kun git oli asentamatta. Korjasin tämän `sudo apt-get install git`. Tämän jälkeen kloonaus onnistui.
+   - !h6-005
+   - Siirryin `cd /srv/` hakemistoon, jossa ensin uudelleennimesin olemassaolevan salt-hakemiston `sudo mv -n salt salt_v1.0`.
+   - Kopioin tuodun repon srv/salt hakemiston code hakemistosta srv hakemistoon `cp 
 
 Aja toisen tekemä tila. Valitse jokin edellisessä kohdassa tutkimasi moduli. Perustele valintasi. Tarkista koodi.
 Lataako koodi binäärejä? Lataako paketinhallinnan ulkopuolelta? Onko luotettavia ohjelmistolähteitä?
