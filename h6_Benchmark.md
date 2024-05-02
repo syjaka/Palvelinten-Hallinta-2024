@@ -188,20 +188,20 @@ Tehtävässä tuli tarkistaa ajaa ja analysoida jokin yllä esitellyistä (Karvi
      
 #### 5. Rikun moduulin testaaminen
 
-Siirryin **doh001** koneella `cd /srv/salt`ja annoin Rikun komennon `sudo bash high.sh`
+- Siirryin **doh001** koneella `cd /srv/salt`ja annoin Rikun komennon `sudo salt-call --local state.highstate --file-root srv/salt`. Tämä ei tuottanut toivomaani tulosta.
+- !h6-009
+- Enne täsmällisempää vianetsintää kokeilin suorittaa `sudo salt '*' state.apply` josta sain onnistuneen palautteen.
+  !h6-010
+- Ensiksi tarkistin Flaskin asennuksen.
+  !h6-011
+- Siirryin minionin työpöytäympäristöön josta avasin asennetun VSCoden, mutta kuten Riku totesi hänen luomat conffit eivät toimi. 
+  !h6-012
 
-
-Aja toisen tekemä tila. Valitse jokin edellisessä kohdassa tutkimasi moduli. Perustele valintasi. Tarkista koodi.
-Lataako koodi binäärejä? Lataako paketinhallinnan ulkopuolelta? Onko luotettavia ohjelmistolähteitä?
-Aja koodi. Käytä tarvittaessa virtuaaliympäristöä tai muuta eristystä.
-Testaa lopputulos.
-Ota ruutukaappauksia sopivassa laajuudessa.
-Kommentoi ja arvioi modulia.
-Modulin kaikkia bugeja ei tarvitse korjata, tarkoitus on ajaa modulia ja arvioida sitä.
-Jos jokin moduli vaikuttaa täysin toimimattomalta, kirjaa ylös yrityksesi ja kokeile toista modulia.
 
 
 ## d) Viisi ideaa
+
+1. 
 Listaa viisi ideaa omalle modulille, kurssin lopputehtävälle. Modulilla tulee olla tarkoistus. Sen ei tarvitse silti ratkaista mitään oikeaa liiketoiminnan ongelmaa, vaan tarkoitus voi olla keksitty. Kunkin idean kuvaukseen riittää yksi virke. Ensi kerralla katsomme yhdessä aiheen valintaa ja sopivia vinkkejä. Tarvitsen pohjaksi omia ideoitasi, jotta voin antaa hyödyllisiä ja juuri sinulle sopivia neuvoja.
 
 ## Lähteet
