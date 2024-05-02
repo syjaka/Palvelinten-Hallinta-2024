@@ -85,7 +85,7 @@ Etsi 3-7 keskitetyn hallinnan projektia, esimerkiksi tämän kurssin "Oma moduli
     - Miten toteuttaa oma moduuli jotta siitä syntyy jollain tasolla originaali ja mahdollisesti hyödyllinen, eikä vain tehdyn toisintoa?
 (Kulonpää 2021)
 
-## 2. [Janne Mustonen - Oma moduuli h7](https://jannelinux.design.blog/2020/05/19/oma-moduuli-h7/)
+#### 2. [Janne Mustonen - Oma moduuli h7](https://jannelinux.design.blog/2020/05/19/oma-moduuli-h7/)
 1. Tarkoitus
    - Moduulin tyarkoitus on asentaa valitut ohjelmat valmiiksi conffattuna mille tahansa Linuxin distron minionille.
 2. Lisenssi
@@ -114,26 +114,82 @@ Etsi 3-7 keskitetyn hallinnan projektia, esimerkiksi tämän kurssin "Oma moduli
 
 ## c) Testbench
 
-Tehtävän suoritus 02.05.5024 klo 14.30 - 15.20 ja 
+Tehtävän suoritus 02.05.5024 klo 14.30 - 15.20 ja 20.20 - 
 Tehtävässä tuli tarkistaa ajaa ja analysoida jokin yllä esitellyistä (Karvinen 2024). Valitsin Viimeiseksi esitellyn, sillä halusin testata sitä etähallintaan. Lisäksi halusin tarkastella löytyisikö syitä, miksi VSCoden määritykset eivät onnistuneet tilan avulla.
 
-1. Moduulin sisältö.
+#### 1. Moduulin sisältö.
    - Aloitin tutkimalla sisältöä Git-hubista. Repoon sisältyi srv/salt hakesmisto, lisenssi, README-tiedosto, sekä high.sh-tiedosto jossa oli kirjattuna hoghstate-komento.
      !h6-003
    - **srv/salt**-hakemistossa oli **flask** ja **vscode** moduulit sekä top.sls tiedosto.
      - vs-code tilassa oli init.sls, Microsoftin GPG-avaintiedosto, microsoftin pakettilähdelista(nämä tarvitaan sillä VSCode ei sisällö Linuxin-jakeluiden oletuspakettivarastoihiun), sekä oletusasetustiedosto jolla vscode määritellään käyttäjän mukaiseksi.
      - flask tilassa oli vbain flaskin init.sls.
-   - 
-2. Sisällön tarkistamisen jälkeen latasin kyseisen repon virtuaalikoneelleni doh001
+  
+#### 2. Sisällön tarkistamisen jälkeen latasin kyseisen repon virtuaalikoneelleni doh001
    - Otin uhteyden virtuaalikoneeseen jossa master asennettu siirtymällä hakemistoon jossa vagrantfile on `cd VagrantVMs/h4_demonit`ja siellä käynnistin virtuaalikoneet `vagrant up`. Koneiden käynnistyttyä otin yhteyden `vahrant ssh doh002`.
-4. Repon tuominen koneelle
+
+#### 3. Repon tuominen koneelle
    - Loin Doh002 hakemiston gitin repoille antamalla käyttäjän kotihakemistossa `sudo mkdir code`komennon ja siirryin sinne `cd code`.
    - Kopioin repon etusivulla `code`-painikkeen local- välilehdeltä löytyvän repon HTTPS - urlin.
      !h6-004
-   - `git clone https://github.com/riku-mannonen/moduuli.git` kloonasi rikun repon code - hakemistooni... Tai ei kloonannut kun git oli asentamatta. Korjasin tämän `sudo apt-get install git`. Tämän jälkeen kloonaus onnistui.
-   - !h6-005
-   - Siirryin `cd /srv/` hakemistoon, jossa ensin uudelleennimesin olemassaolevan salt-hakemiston `sudo mv -n salt salt_v1.0`.
-   - Kopioin tuodun repon srv/salt hakemiston code hakemistosta srv hakemistoon `cp 
+   - `git clone https://github.com/riku-mannonen/moduuli.git` kloonasi rikun repon code - hakemistooni... Tai ei kloonannut kun git oli asentamatta. Korjasin tämän `sudo apt-get install git`. Tämän jälkeen kloonaus onnistui, tosin **srv/salt** repo typistyi nimeen **srv**.
+     !h6-005
+    - Siirryin `cd /srv/` hakemistoon, jossa ensin uudelleennimesin olemassaolevan salt-hakemiston `sudo mv -n salt salt_v1.0`, jotta sen sisältö ei suoritu Rikun moduulia testatessa.
+   - Kopioin tuodun repon **srv** hakemiston code hakemistosta srv hakemistoon `sudo cp -r /home/vagrant/code/moduuli/srv salt`.
+
+#### 4. Omien virtuaalikoneiden valmistelu testaamista varten.
+   - Jotta pystyin testaamaan VSCoden asennuksen onnistumista tarvitsin koneen jota voi käyttää GUIn työpöytäympäristön kautta. Löytämässäni [ohjeessa](https://shanemcd.org/2018/12/16/adding-a-gui-to-a-debian-vagrant-box/) (Shane 2018) määriteltiin ensin vagrantfilessä virtuaalikone käynnistymään GUIn kautta tämän jälkeen virtuaalikoneelle oli asennettu XFCE. Itse halusin kokeilla myös tämän automatisointia suoraan Vagrantfilen kautta, joten lisäsin vagrantfileen toisen skriptin doh002 koneelle. Skriptissä asennettiin samat ohjelmat kuin doh001-koneelle, mutta myös tasksel sekä XFCE (GCore 2023).
+      <details>
+        <summary>Avaa muokattu vagrantfile tästä</summary>
+          
+          # -*- mode: ruby -*-
+          # vi: set ft=ruby :
+          
+          $tscript_doh002 = <<TSCRIPT
+          set -o verbose
+          apt-get update
+          apt-get -y install ufw curl netcat micro bash-completion tasksel
+            # Asenna XFCE työpöytäympäristö vain doh002 koneelle
+          sudo tasksel install xfce-desktop
+          echo "XFCE asennettu doh002"
+          TSCRIPT
+          
+          $tscript_doh001 = <<TSCRIPT
+          set -o verbose
+          apt-get update
+          apt-get -y install ufw curl netcat micro bash-completion
+          echo "valmista doh001"
+          TSCRIPT
+          
+          Vagrant.configure("2") do |config|
+          	      config.vm.synced_folder ".", "/vagrant", disabled: true
+          	      config.vm.synced_folder "shared/", "/home/vagrant/shared", create: true
+          	      config.vm.box = "debian/bullseye64"
+          
+          	      config.vm.define "doh001" do |doh001|
+          		            doh001.vm.hostname = "doh001"
+          		            doh001.vm.network "private_network", ip: "192.168.88.101"
+          		            doh001.vm.provision "shell", inline: $tscript_doh001
+          	      end
+          
+              	config.vm.define "doh002", primary: true do |doh002|
+                    		doh002.vm.hostname = "doh002"
+                    		doh002.vm.network "private_network", ip: "192.168.88.102"
+                    		doh002.vm.provision "shell", inline: $tscript_doh002
+                    		doh002.vm.provider "virtualbox" do |vb|
+                    			vb.gui = true
+                    			vb.memory = "2048" 
+                    		end
+          	    end
+           end
+  
+      </details>
+   - Klo 22.30 päivitin koneet `vagrant reload` joka käynnisti myös virtualboxin graafisen ikkunan sekä työpöytäympäristön kirjautumisikkunan klo 22.38. Käyttis ja salasanan vagrant ei toiminut joten kokeilin nollata salasanan CLIn kautta komennolla `sudo passwd vagrant`. Tämä auttoi ja työpöytäympäristö aukesi.
+     !h6-008
+     
+#### 5. Rikun moduulin testaaminen
+
+Siirryin **doh001** koneella `cd /srv/salt`ja annoin Rikun komennon `sudo bash high.sh`
+
 
 Aja toisen tekemä tila. Valitse jokin edellisessä kohdassa tutkimasi moduli. Perustele valintasi. Tarkista koodi.
 Lataako koodi binäärejä? Lataako paketinhallinnan ulkopuolelta? Onko luotettavia ohjelmistolähteitä?
@@ -150,7 +206,11 @@ Listaa viisi ideaa omalle modulille, kurssin lopputehtävälle. Modulilla tulee 
 
 ## Lähteet
 
+Alpine Linux D-Bus, 2023. Luettavissa: https://wiki.alpinelinux.org/wiki/D-Bus. Luettu 02.05.2024.
+
 Choi J. Install tmux on OSX and Basics Commands for Beginners, 2018. Luettavissa: Install tmux on OSX and Basics Commands for Beginners. Luettu 02.05.2024.
+
+GCore, How to Install XFCE on Debian, 2023. Luettavissa: https://gcore.com/learning/how-to-install-xfce-on-debian/. Luettu 02.05.2024.
 
 Karvinen T. Infra as Code - Palvelinten hallinta 2024. Luettavissa: https://terokarvinen.com/2024/configuration-management-2024-spring/#h6-benchmark. Luettu 02.05.2024.
 
@@ -159,3 +219,5 @@ Kulonpää S. ph-moduuli 2021. Luettavissa: https://github.com/samikul/ph-moduul
 Mustonen J. Oma moduuli h7 2020. Luettavissa: https://jannelinux.design.blog/2020/05/19/oma-moduuli-h7/. Luettu 29.04.2024.
 
 Salt Project - Windows package manager 2024. Luettavissa: https://github.com/therealhalonen/PhishSticks/blob/master/notes/ollikainen/windows.md. Luettu 02.05.2024
+
+Shane Adding a GUI to a Debian Vagrant box, 2018. Luettavissa: Adding a GUI to a Debian Vagrant box. Luettu 02.05.2024.
