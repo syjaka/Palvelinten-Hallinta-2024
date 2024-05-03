@@ -101,7 +101,7 @@ Tässä tehtävässä en kirjannut aikaa, sillä merkittävän suuri osa tehtäv
 6. Avoimet kysymykset ja muut huomiot
    - `state.hightsate`n ja topfilen käyttö. Mietin olisiko tämän voinut ajaa suoraan ilman topfilen määrityksiä?
 
-#### [3. Projekti -  Riku Mannonen - Oma Moduuli](https://rikumannonen935063021.wordpress.com/)
+#### 3. Projekti -  [Riku Mannonen - Oma Moduuli](https://rikumannonen935063021.wordpress.com/)
 1. Tarkoitus
    - Rikun moduulin tarkoitus oli asentaa Visual studio code, pip ja flask. Lisäksi haluttiin vscodeen python lisäosa, valita se komentotulkiksi sekä muuttaa vscoden teemaa.
 3. Lisenssi
