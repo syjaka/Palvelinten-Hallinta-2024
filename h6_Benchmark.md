@@ -216,7 +216,7 @@ Tehtävässä tuli tarkistaa ajaa ja analysoida jokin yllä esitellyistä (Karvi
   - Palautteen mukaan asetustiedostoa muutettiin. Avasin VSCoden ja tarkistin.
     ![h6-017](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h6-017.png)
   - Tumma tila oli määrittynyt oikein, myös python löytyi vaikka Code ehdotti toista suositeltua versiota.
-  - ![h6-018](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h6-018.png)
+    ![h6-018](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h6-018.png)
   - Sitä oliko python oletustulkki en osannut päätellä mistään, joten jos tämän tehtävän vertaisarvioijalla on siihen vinkkiä, kuulen hyvin mielelläni.
   
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h6_Benchmark.md#h6-benchmark)
@@ -255,4 +255,4 @@ Mustonen J. Oma moduuli h7 2020. Luettavissa: https://jannelinux.design.blog/202
 
 Salt Project - Windows package manager 2024. Luettavissa: https://github.com/therealhalonen/PhishSticks/blob/master/notes/ollikainen/windows.md. Luettu 02.05.2024
 
-Shane Adding a GUI to a Debian Vagrant box, 2018. Luettavissa: Adding a GUI to a Debian Vagrant box. Luettu 02.05.2024.
+Shane Adding a GUI to a Debian Vagrant box, 2018. Luettavissa: https://shanemcd.org/2018/12/16/adding-a-gui-to-a-debian-vagrant-box/. Luettu 02.05.2024.
