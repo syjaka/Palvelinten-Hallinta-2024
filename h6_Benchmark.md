@@ -12,7 +12,7 @@ d) [Viisi ideaa](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h
 
 x) [Lue ja tiivistä](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h6_Benchmark.md#x-lue-ja-tiivist%C3%A4)
 
-y) [Käyttöympäristö](https://github.com/syjaka/Palvelinten-Hallinta-2024/edit/main/h6_Benchmark.md#y-k%C3%A4ytt%C3%B6ymp%C3%A4rist%C3%B6)
+y) [Käyttöympäristö](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h6_Benchmark.md#y-k%C3%A4ytt%C3%B6ymp%C3%A4rist%C3%B6)
 
 ---
 
