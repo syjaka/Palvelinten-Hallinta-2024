@@ -120,7 +120,7 @@ ___
 
 ## c) Testbench
 
-Tehtävän suoritus 02.05.5024 klo 14.30 - 15.20 ja 20.20 - 23.35 EET.
+Tehtävän suoritus 02.05.5024 klo 14.30 - 15.20 ja 20.20 - 23.35 EET. Lisäksi vianetsintä 03.05.2024 klo 10.00-12.00 EET.
 
 Tehtävässä tuli tarkistaa ajaa ja analysoida jokin yllä esitellyistä (Karvinen 2024). Valitsin Viimeiseksi esitellyn, sillä halusin testata sitä etähallintaan. Lisäksi halusin tarkastella löytyisikö syitä, miksi VSCoden määritykset eivät onnistuneet tilan avulla.
 
