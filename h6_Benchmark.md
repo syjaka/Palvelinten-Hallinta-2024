@@ -56,12 +56,12 @@ Tehtävän suoritus 02.05.2024 klo 11.35 - 12.15 EET.
 
 1. Aloitin tmuxin asennuksella, sillä koen sen olevat hyödyllinen lisä CLI-työskentelyyn
    -  `brew install tmux` kännisti asennuksen. Sen valmistuttua sain palautteen:
-      !h6-001
+      ![h6-001](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h6-001.png)
    -  `tmux` käynnisti ja uusia istuntoja sai joko `ctrl+b ja "`=vaaka ja `ctrl+b ja %`= pysty. `ctrl+b ja nuoli`vaijtaa paneelia ja `ctrl+b ja  x`sulkee paneelin. `ctrl+b ja s` luetteloi istunnon paneelit ja `exit` lopettaa istunnon.
    -  Hyvin toimi ja vaikutti hyödylliseltä (Choi 2028)
 2. Seuraavaksi asensin vielä `brew install cowsay speedtest-cli`
 Kaikki näytti toimivan mainiosti.
-!h6-002
+![h6-002](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h6-002.png)
 
 Takaisin ylös
 ___ 
@@ -119,7 +119,7 @@ Tehtävässä tuli tarkistaa ajaa ja analysoida jokin yllä esitellyistä (Karvi
 
 #### 1. Moduulin sisältö.
    - Aloitin tutkimalla sisältöä Git-hubista. Repoon sisältyi srv/salt hakesmisto, lisenssi, README-tiedosto, sekä high.sh-tiedosto jossa oli kirjattuna hoghstate-komento.
-     !h6-003
+     ![h6-003](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h6-003.png)
    - **srv/salt**-hakemistossa oli **flask** ja **vscode** moduulit sekä top.sls tiedosto.
      - vs-code tilassa oli init.sls, Microsoftin GPG-avaintiedosto, microsoftin pakettilähdelista(nämä tarvitaan sillä VSCode ei sisällö Linuxin-jakeluiden oletuspakettivarastoihiun), sekä oletusasetustiedosto jolla vscode määritellään käyttäjän mukaiseksi.
      - flask tilassa oli vbain flaskin init.sls.
@@ -130,10 +130,11 @@ Tehtävässä tuli tarkistaa ajaa ja analysoida jokin yllä esitellyistä (Karvi
 #### 3. Repon tuominen koneelle
    - Loin Doh002 hakemiston gitin repoille antamalla käyttäjän kotihakemistossa `sudo mkdir code`komennon ja siirryin sinne `cd code`.
    - Kopioin repon etusivulla `code`-painikkeen local- välilehdeltä löytyvän repon HTTPS - urlin.
-     !h6-004
+     ![h6-004](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h6-004.png)
    - `git clone https://github.com/riku-mannonen/moduuli.git` kloonasi rikun repon code - hakemistooni... Tai ei kloonannut kun git oli asentamatta. Korjasin tämän `sudo apt-get install git`. Tämän jälkeen kloonaus onnistui, tosin **srv/salt** repo typistyi nimeen **srv**.
-     !h6-005
+     ![h6-005](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h6-005.png)
     - Siirryin `cd /srv/` hakemistoon, jossa ensin uudelleennimesin olemassaolevan salt-hakemiston `sudo mv -n salt salt_v1.0`, jotta sen sisältö ei suoritu Rikun moduulia testatessa.
+     ![h6-006](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h6-006.png)
    - Kopioin tuodun repon **srv** hakemiston code hakemistosta srv hakemistoon `sudo cp -r /home/vagrant/code/moduuli/srv salt`.
 
 #### 4. Omien virtuaalikoneiden valmistelu testaamista varten.
@@ -184,18 +185,18 @@ Tehtävässä tuli tarkistaa ajaa ja analysoida jokin yllä esitellyistä (Karvi
   
       </details>
    - Klo 22.30 päivitin koneet `vagrant reload` joka käynnisti myös virtualboxin graafisen ikkunan sekä työpöytäympäristön kirjautumisikkunan klo 22.38. Käyttis ja salasanan vagrant ei toiminut joten kokeilin nollata salasanan CLIn kautta komennolla `sudo passwd vagrant`. Tämä auttoi ja työpöytäympäristö aukesi.
-     !h6-008
+     ![h6-008](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h6-008.png)
      
 #### 5. Rikun moduulin testaaminen
 
 - Siirryin **doh001** koneella `cd /srv/salt`ja annoin Rikun komennon `sudo salt-call --local state.highstate --file-root srv/salt`. Tämä ei tuottanut toivomaani tulosta.
-- !h6-009
+- ![h6-009](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h6-009.png)
 - Enne täsmällisempää vianetsintää kokeilin suorittaa `sudo salt '*' state.apply` josta sain onnistuneen palautteen.
-  !h6-010
+  ![h6-010](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h6-010.png)
 - Ensiksi tarkistin Flaskin asennuksen.
-  !h6-011
+  ![h6-011](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h6-011.png)
 - Siirryin minionin työpöytäympäristöön josta avasin asennetun VSCoden, mutta kuten Riku totesi hänen luomat conffit eivät toimi. 
-  !h6-012
+  ![h6-012](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h6-012.png)
 
 
 
