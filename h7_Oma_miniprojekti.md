@@ -5,8 +5,11 @@ Miniprojektini tarkoitus on saltia hyödyntäen luoda yksityinen verkko jossa on
 Tässä raportissa käyn askeleitain läpi miten loin oman miniprojektini. Varsinaiset tilat olin luonut jo valmiiksi,tätä raporttia kirjoitettaessa mutta  tiloja testatessani  "puhtaalla pöydälla" selostan samalla stepit, mitä tein. Pääsääntöisinä lähteinä olen käyttänyt tämän kurssin - Palvelinten hallinta - raporttejani. Niiltä osin kun muita lähteitä on käytetty, on ne merkitty tekstiviitteisiin ja lähdeluetteloon.
 
 a) Alkutoimet
+
 d) Varsinainen moduulin luonti
+
 z) Käyttöympäristö
+
 
 
 ---
@@ -176,7 +179,7 @@ Koska salt oli valmiiksi asennettu ja määritelty, käyttöönotto ja yhteys mi
 5. Viimeisenä nginx asensi webserverille nginxin vastaamaan sivusta testi.com ja localhost
     - Loin salt hakemistoon nginx hakemiston jonne tallensin:
       <details>
-      <summary> nginx init.sls tiedoston</summary>esh
+      <summary> nginx init.sls tiedoston</summary>
 
           nginx:
             pkg.installed
@@ -224,73 +227,71 @@ Koska salt oli valmiiksi asennettu ja määritelty, käyttöönotto ja yhteys mi
                 - file: /etc/nginx/sites-enabled/testi.com
                 - file: /home/vagrant/nginx/public_html/index.html
       <details>
-    - Sekä tmp hakemiston jossa oli lähdetiedostot joihin init.sls tiedostossa viitataan
-    - Hosts tiedosto:
-      <details>
-      <summary> hosts </summary>esh
 
-          127.0.0.1	localhost testi.com
-          127.0.0.2	bullseye
-          ff02::1		ip6-allnodes
-          ff02::2		ip6-allrouters
+
+
+   - Sekä tmp hakemiston jossa oli lähdetiedostot joihin init.sls tiedostossa viitataan
+     <details>
+      <summary> tmp hakemiston tiedostot </summary>
+     hosts:
+                    
+                              127.0.0.1	localhost testi.com
+                              127.0.0.2	bullseye
+                              ff02::1		ip6-allnodes
+                              ff02::2		ip6-allrouters
+                              
+                              127.0.1.1 webserver webserver
+                    
+     index.html:
+                    
           
-          127.0.1.1 webserver webserver
-    <details>
-
-    - Index. html:
-    <details>
-    <summary> index.html </summary>esh
-
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Salt-installed NGINX Test Page</title>
-            <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    margin: 0;
-                    padding: 0;
-                    background-color: #f4f4f4;
-                    color: #333;
-                    text-align: center;
-                    padding-top: 50px;
-                }
-                h1 {
-                    font-size: 36px;
-                    margin-bottom: 20px;
-                }
-                p {
-                    font-size: 18px;
-                    margin-bottom: 20px;
-                }
-            </style>
-        </head>
-        <body>
-            <h1>Welcome to the Salt-installed NGINX Test Page!</h1>
-            <p>This page confirms that NGINX has been successfully installed using Salt.</p>
-        </body>
-        </html>
-
-    <details>
-    
-      - Nginx conf tiedosto
-        <details>
-        <summary> hosts </summary>esh
-    
-            server {
-                listen 80;  
-                server_name localhost testi.com;
-            
-                root /home/vagrant/nginx/public_html;  
-                index index.html;  
-            
-                location / {
-                    try_files $uri $uri/ =404;  
-                }
-            }
-        <details>
+                  <!DOCTYPE html>
+                  <html lang="en">
+                  <head>
+                      <meta charset="UTF-8">
+                      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                      <title>Salt-installed NGINX Test Page</title>
+                      <style>
+                          body {
+                              font-family: Arial, sans-serif;
+                              margin: 0;
+                              padding: 0;
+                              background-color: #f4f4f4;
+                              color: #333;
+                              text-align: center;
+                              padding-top: 50px;
+                          }
+                          h1 {
+                              font-size: 36px;
+                              margin-bottom: 20px;
+                          }
+                          p {
+                              font-size: 18px;
+                              margin-bottom: 20px;
+                          }
+                      </style>
+                  </head>
+                  <body>
+                      <h1>Welcome to the Salt-installed NGINX Test Page!</h1>
+                      <p>This page confirms that NGINX has been successfully installed using Salt.</p>
+                  </body>
+                  </html>
+          
+     testi.com ngnx-conf tiedosto:
+              
+                      server {
+                          listen 80;  
+                          server_name localhost testi.com;
+                      
+                          root /home/vagrant/nginx/public_html;  
+                          index index.html;  
+                      
+                          location / {
+                              try_files $uri $uri/ =404;  
+                          }
+                      }
+                  
+          <details>
 
             
    - `sudo salt webserver state.apply nginx`  asensi nginxän. Testasin kirjautua webadmin koneen työpöydälle webadmin/ User One tunnuksin ja selaimella kohteeseen localhost sekä testi.com
