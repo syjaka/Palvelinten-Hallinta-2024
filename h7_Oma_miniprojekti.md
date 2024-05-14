@@ -96,6 +96,7 @@ Koska salt oli valmiiksi asennettu ja määritelty, käyttöönotto ja yhteys mi
       </details>
     - `sudo salt '*' state.apply ufw` suoritti tilan onnistuneesti. Tässä kohtaa tosin jäi ongelma, sillä palomuurin asennus katkaisi yhteyden minioneihin. Yhteyden onnistui palauttaa uudelleenkäynnistämällä minion paikallisesti, joka ei tietenkään ole tarkoituksenmukaista.
     - Koitin ratkaista luomalla `restart_minion` tilan:
+      
       <details>
       <summary> restart_minion init.sls tästä</summary>
       
@@ -107,8 +108,7 @@ Koska salt oli valmiiksi asennettu ja määritelty, käyttöönotto ja yhteys mi
                 - cmd: 'ufw allow 80/tcp'
                 - cmd: 'ufw allow 4505/tcp'
                 - cmd: 'ufw allow 4506/tcp'
-       <details>
-      
+   
     - Tämä ei kuitenkaan onnistunut, vaan yhteys minioneihin katkesi palomuurin käynnistyttyä. En myöskään löytänyt ratkaisua tikojen yhdistämiseen, jolloin...
     - Vaihtoehdoksi jäi joko jättää palomuuri pois tai hyväksyä tämä kunnes keksin miten asian voi korjata. Jotta moduulia voisi muuten testata kokonaisuudessaan päätin siirtää palomuurin määritykset suoritettavaksi koneita luodessa. mTämä ei tietenkään ole tarkoituksenmukaista mutta tässä vaiheessa ainoa ratkaisu mitä keksin. Jätän kyutenkin ´ufw`ja `restart_minion` tilat repoon, jotta voin mahdollisesti palata tähän.
 
@@ -158,7 +158,7 @@ Koska salt oli valmiiksi asennettu ja määritelty, käyttöönotto ja yhteys mi
                 - users
               - home: /home/basic
               - password: $1$z6y5IghC$sgtr0efVyO1aF9MP443On/    # User Two
-      <details>
+   
     - `sudo salt '*' state.apply user` loi onnistuneesti määritellyt kolme käyttäjää sekä webserver käyttäjäryhmän, johon webadmin liitettiin.
 4. Loin webadmin ja web servereille molemmille omat apps-tilatsalt hakemistoon, jotka asentavat koneille niiden tarvitsemia perus ohjelmia.
        <details>
@@ -241,7 +241,7 @@ Koska salt oli valmiiksi asennettu ja määritelty, käyttöönotto ja yhteys mi
                 - file: /etc/nginx/sites-available/testi.com
                 - file: /etc/nginx/sites-enabled/testi.com
                 - file: /home/vagrant/nginx/public_html/index.html
-      <details>
+    
 
 
 
