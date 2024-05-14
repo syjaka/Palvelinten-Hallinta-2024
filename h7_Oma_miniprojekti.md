@@ -19,7 +19,7 @@ z) Käyttöympäristö
 
 Koska aavistelin projektin luonnin ja testaamisen vaativan useamman vagrantkoneen luontia, conffasin Vagrantfilen joka luo kolme konetta.
 1. Salt masterin jossa tarvitut ohjelmat asennettu.
-2. Kaksi salt minionia, webadmin ja webserver joissa salt-minion asennettu ja masterin IP-osoite, sekä minionID määritetty. Lisäksi webadmin koneelle työpöytäympäristö. Tarkoituksena on luoda webadmin käyttäjä joka koneeltaan voi ottaa etäyhteyden webserveriin ja ylläpitää siellä hostattuja verkkosivuja.
+2. Kaksi salt minionia, webadmin ja webserver joissa salt-minion asennettu ja masterin IP-osoite, sekä minionID määritetty. Lisäksi webadmin koneelle työpöytäympäristö. Tarkoituksena on luoda webadmin käyttäjä joka  voi webserverillä ylläpitää siellä hostattuja verkkosivuja.
 
 <details>
 <summary>Avaa vagrantfile kokonaisuudessaan tästä</summary>
@@ -79,37 +79,46 @@ Koska salt oli valmiiksi asennettu ja määritelty, käyttöönotto ja yhteys mi
           
           ufw.service:
             service.running:
-              - name: ufw
-              - enable: True
-              - watch:
-                  - cmd: 'ufw enable'
-                  - cmd: 'ufw allow 22/tcp'
-                  - cmd: 'ufw allow 80/tcp'
-                  - cmd: 'ufw allow 4505/tcp'
-                  - cmd: 'ufw allow 4506/tcp'
-          
-          'ufw enable':
-            cmd.run:
-              - unless: "ufw status verbose |grep 'Status: active'"
+              - require:
+                - pkg: ufw
+              - cmd.run:
+                - name: 'ufw enable'
+                - unless: 'ufw status | grep active'
           
           'ufw allow 22/tcp':
             cmd.run:
-              - unless: "ufw status verbose |grep '^22/tcp' "
+              - unless: "ufw status verbose | grep '^22/tcp'"
           
           'ufw allow 80/tcp':
             cmd.run:
-              - unless: "ufw status verbose |grep '^80/tcp' "
-              
+              - unless: "ufw status verbose | grep '^80/tcp'"
+          
           'ufw allow 4505/tcp':
             cmd.run:
-              - unless: "ufw status verbose |grep '^4505/tcp' "
+              - unless: "ufw status verbose | grep '^4505/tcp'"
           
           'ufw allow 4506/tcp':
             cmd.run:
-              - unless: "ufw status verbose |grep '^4506/tcp' "
+              - unless: "ufw status verbose | grep '^4506/tcp'"
 
       </details>
-    - `sudo salt '*' state.apply ufw` suoritti tilan onnistuneesti. Tässä kohtaa tosin jäi ongelma, sillä palomuurin asennus katkaisi yhteyden minioneihin. Yhteyden onnistui palauttaa uudelleenkäynnistämällä minion paikallisesti, joka ei tietenkään ole tarkoituksenmukaista. Vaihtoehdoksi jäi joko jättää palomuuri pois tai hyväksyä tämä kunnes keksin miten asian voi korjata. Jotta moduulia voisi muuten testata kokonaisuudessaan jätän palomuurin kokonaan asentamatta mikäli en löydä ratkaisua tähän.
+    - `sudo salt '*' state.apply ufw` suoritti tilan onnistuneesti. Tässä kohtaa tosin jäi ongelma, sillä palomuurin asennus katkaisi yhteyden minioneihin. Yhteyden onnistui palauttaa uudelleenkäynnistämällä minion paikallisesti, joka ei tietenkään ole tarkoituksenmukaista.
+    - Koitin ratkaista luomalla `restart_minion` tilan:
+      <details>
+      <summary> restart_minion init.sls tästä</summary>
+      
+          restart_minion:
+          cmd.run:
+              - name: 'systemctl restart salt-minion'
+              - onchanges:
+                - cmd: 'ufw allow 22/tcp'
+                - cmd: 'ufw allow 80/tcp'
+                - cmd: 'ufw allow 4505/tcp'
+                - cmd: 'ufw allow 4506/tcp'
+       <details>
+      
+    - Tämä ei kuitenkaan onnistunut, vaan yhteys minioneihin katkesi palomuurin käynnistyttyä. En myöskään löytänyt ratkaisua tikojen yhdistämiseen, jolloin...
+    - Vaihtoehdoksi jäi joko jättää palomuuri pois tai hyväksyä tämä kunnes keksin miten asian voi korjata. Jotta moduulia voisi muuten testata kokonaisuudessaan päätin siirtää palomuurin määritykset suoritettavaksi koneita luodessa. mTämä ei tietenkään ole tarkoituksenmukaista mutta tässä vaiheessa ainoa ratkaisu mitä keksin. Jätän kyutenkin ´ufw`ja `restart_minion` tilat repoon, jotta voin mahdollisesti palata tähän.
 
       
 3. Seuraavaksi loin käyttäjät luovan moduulin
@@ -158,11 +167,12 @@ Koska salt oli valmiiksi asennettu ja määritelty, käyttöönotto ja yhteys mi
               - home: /home/basic
               - password: $1$z6y5IghC$sgtr0efVyO1aF9MP443On/    # User Two
       <details>
-    - `sudo salt '*' state.apply user` loi onnistuneesti määritellyt kolme käyttäjää sekä webserver käyttäjäryhmän johon webadmin liitettiin.
+    - `sudo salt '*' state.apply user` loi onnistuneesti määritellyt kolme käyttäjää sekä webserver käyttäjäryhmän, johon webadmin liitettiin.
 4. Loin webadmin ja web servereille molemmille omat apps-tilatsalt hakemistoon, jotka asentavat koneille niiden tarvitsemia perus ohjelmia.
        <details>
-          <summary> usrApps init.sls tästä</summary>esh
-    
+          <summary> usrApps ja serverApps init.sls tästä</summary>esh
+   UserApps
+   
             usrApps:
               pkg.installed:
                 - pkgs:
@@ -174,9 +184,20 @@ Koska salt oli valmiiksi asennettu ja määritelty, käyttöönotto ja yhteys mi
                   - tree
                   - wget
                   - curl
-        <details>
-    - `sudo salt webadmin state.apply usrApps`asensi webadminille halutut ohjelmat
-5. Viimeisenä nginx asensi webserverille nginxin vastaamaan sivusta testi.com ja localhost
+   ServerApps
+   
+             serverApps:
+            pkg.installed:
+              - pkgs:
+                - git
+                - bash-completion
+                - micro
+                - ssh
+                - curl
+   
+   <details>
+    - `sudo salt webadmin state.apply usrApps`ja `sudo salt webadmin state.apply serverApps` asensi webadminille halutut ohjelmat
+6. Viimeisenä nginx tila asensi webserverille nginxin vastaamaan sivusta testi.com ja localhost
     - Loin salt hakemistoon nginx hakemiston jonne tallensin:
       <details>
       <summary> nginx init.sls tiedoston</summary>
@@ -206,12 +227,14 @@ Koska salt oli valmiiksi asennettu ja määritelty, käyttöönotto ja yhteys mi
                - name: /home/vagrant/nginx/public_html/
                - group: webserver
                - dir_mode: 775
+               - unless: test -d /home/vagrant/nginx/public_html
           
           /home/vagrant/nginx/public_html/index.html:
              file.managed:
                - source: "salt://nginx/tmp/index.html"
                - group: webserver
                - mode: 664
+               - unless: test -f /home/vagrant/nginx/public_html/index.html
           
           /etc/hosts:
                  file.managed:
@@ -235,12 +258,12 @@ Koska salt oli valmiiksi asennettu ja määritelty, käyttöönotto ja yhteys mi
       <summary> tmp hakemiston tiedostot </summary>
      hosts:
                     
-                              127.0.0.1	localhost testi.com
-                              127.0.0.2	bullseye
+                              127.0.0.1	          localhost
+                              127.0.0.2	          bullseye
                               ff02::1		ip6-allnodes
                               ff02::2		ip6-allrouters
                               
-                              127.0.1.1 webserver webserver
+                              127.0.1.1          webserver
                     
      index.html:
                     
@@ -281,7 +304,7 @@ Koska salt oli valmiiksi asennettu ja määritelty, käyttöönotto ja yhteys mi
               
                       server {
                           listen 80;  
-                          server_name localhost testi.com;
+                          server_name localhost;
                       
                           root /home/vagrant/nginx/public_html;  
                           index index.html;  
@@ -294,11 +317,12 @@ Koska salt oli valmiiksi asennettu ja määritelty, käyttöönotto ja yhteys mi
           <details>
 
             
-   - `sudo salt webserver state.apply nginx`  asensi nginxän. Testasin kirjautua webadmin koneen työpöydälle webadmin/ User One tunnuksin ja selaimella kohteeseen localhost sekä testi.com
-   - !h7-004
-   - Tämän jälkeen ongekmat sitten alkoivatkin. webadmin kyllä pystyi muokkaamaan html sivun lähdekoodia, mutta se ei päivittynyt työpöydän selaimelle. `curl localhost`palautti muokatun sivun, mutta selaimen päivitykseen en löytänyt keinoa.
-   
-8. 
+   - `sudo salt webserver state.apply nginx`  asensi nginxän. Testasin kirjautua webadmin koneen työpöydälle webadmin/ User One tunnuksin ja selaimella kohteeseen HTTP://192.168.88.103 joka näytti että sivu aukeaa.
+     !h7-004
+   - Seuraavaksi testasin vielä kirjautua webserverille webadmin tunnuksin ja muokata sivua. Päivitin selaimen ja muutos tallentui.
+     !h7-005
+  
+Testailin vielä tavallisena käyttäjänä jolla ei ollut oikeuksia kuin kotihakemistoonsa. Muut muutokset eivät onnistuneet.
 
 ## z) Käyttöympäristö
 Tehtävä toteutettiin MacBook Retina 12-inch, koneella jossa, host OS on Ventura 13.6.1 käyttöjärjestelmä Suomen maa-asetuksilla ja suomen kielellä. Koneessa on 1,3GHz kaksiytiminen Intel Core i5 prosessori ja 8Gt 1867 MHz LPDDR3 muistia. Näytönohjain on Intel HD Graphics 615 jossa VRAM 1536 Mt.
