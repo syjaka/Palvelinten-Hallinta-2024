@@ -6,7 +6,7 @@ Tässä raportissa käyn askeleitain läpi miten loin oman miniprojektini. Varsi
 
 [a) Alkutoimet](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h7_Oma_miniprojekti.md#a-alkutoimet)
 
-[d) Varsinainen moduulin luonti](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h7_Oma_miniprojekti.md#d-varsinainen-moduulin-luonti)
+[d) Varsinainen moduulin luonti](https://github.com/syjaka/Palvelinten-Hallinta-2024/edit/main/h7_Oma_miniprojekti.md#d-varsinainen-moduulin-luonti)
 
 [z) Käyttöympäristö](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h7_Oma_miniprojekti.md#z-k%C3%A4ytt%C3%B6ymp%C3%A4rist%C3%B6)
 
