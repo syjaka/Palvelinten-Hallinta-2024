@@ -4,12 +4,11 @@ Miniprojektini tarkoitus on saltia hyödyntäen luoda yksityinen verkko jossa on
 
 Tässä raportissa käyn askeleitain läpi miten loin oman miniprojektini. Varsinaiset tilat olin luonut jo valmiiksi,tätä raporttia kirjoitettaessa mutta  tiloja testatessani  "puhtaalla pöydälla" selostan samalla stepit, mitä tein. Pääsääntöisinä lähteinä olen käyttänyt tämän kurssin - Palvelinten hallinta - raporttejani. Niiltä osin kun muita lähteitä on käytetty, on ne merkitty tekstiviitteisiin ja lähdeluetteloon.
 
-a) Alkutoimet
+[a) Alkutoimet](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h7_Oma_miniprojekti.md#a-alkutoimet)
 
-d) Varsinainen moduulin luonti
+[d) Varsinainen moduulin luonti](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h7_Oma_miniprojekti.md#d-varsinainen-moduulin-luonti)
 
-z) Käyttöympäristö
-
+[z) Käyttöympäristö](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h7_Oma_miniprojekti.md#z-k%C3%A4ytt%C3%B6ymp%C3%A4rist%C3%B6)
 
 
 ---
@@ -21,12 +20,7 @@ Koska aavistelin projektin luonnin ja testaamisen vaativan useamman vagrantkonee
 1. Salt masterin jossa tarvitut ohjelmat asennettu.
 2. Kaksi salt minionia, webadmin ja webserver joissa salt-minion asennettu ja masterin IP-osoite, sekä minionID määritetty. Lisäksi webadmin koneelle työpöytäympäristö. Tarkoituksena on luoda webadmin käyttäjä joka  voi webserverillä ylläpitää siellä hostattuja verkkosivuja.
 
-<details>
-<summary>Avaa vagrantfile kokonaisuudessaan tästä</summary>
-
-          
-  
-</details>
+[Käytetty vagrantfile](https://github.com/syjaka/h7_Oma_miniprojekti/blob/main/Vagrantfile)
 
 Loin kotihakemistoni vagrantVMs hakemistoon miniprojektihakemiston jonne kopioin luodun vagrantfilen ja loin suunnitellut virtuaalikoneet "vagrant up".
 Koneiden käynnistyttyä otin ssh yhteydet kaikkiin koneisiin kolmeen eri terminaali-ikkunaan:
@@ -35,21 +29,19 @@ Koneiden käynnistyttyä otin ssh yhteydet kaikkiin koneisiin kolmeen eri termin
 3. `vagrant ssh webserver`
 
 Yhteyksien auettua testasin että asiat toimi:
-- `sudo salt-key` tulosti hyväksymistä odottavat avaimet, eli vagrantfilen määritykset olivat onnistuneet.
-  !h7-001
+- `sudo salt-key` tulosti hyväksymistä odottavat avaimet, eli vagrantfilen saltin osalta määritykset olivat onnistuneet.
+  ![h7-001](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h7-001.png)
 - Testasin että masterille oli asentunut haluamani ohjelmat.
 - Webserverin gui kirjautuminen ei onnistunut esitetyn salasanavirheen takia. Nollasin salasanan webserverin terminaalista `sudo passwd vagrant`. Tämän jälkeen kirjautuminen onnistui.
   Lisäksi työpöytä ei käynnistynyt automaattisesti, mutta `startxfce4` auttoi.
 
 Koska salt oli valmiiksi asennettu ja määritelty, käyttöönotto ja yhteys minioneihin avautui `sudo salt-key -A`ja `y`.
-!h7-002
+![h7-002](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h7-002.png)
 
 #### 2) Gitin käyttöönotto
 
 1. Salt masterilla loin ssh avainparin `ssh-keygen` joka loi ssh avaimet oletushakemistoon - /home/vagrant/.ssh/id_rsa. Tulostin sieltä terminaaliin julkisen avaimen `cat /home/vagrant/.ssh/id_rsa.pub`, jonka taas liitin omaan githubiini asetussivun SSH and GPG keys, SSH keys -osioon.
 2. Siirryin koneellani kotihakemistooni luotuun /home/vagrant/code hakemistoon jonne kloonasin githubin repon `git clone git@github.com:syjaka/h7_Oma_miniprojekti.git`.  
-
-[Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h7_Oma_miniprojekti.md#h7-oma-miniprojekti)
 
 ---
 
@@ -65,7 +57,7 @@ Koska salt oli valmiiksi asennettu ja määritelty, käyttöönotto ja yhteys mi
             file.managed
       </details>
     - `sudo salt '*' state.apply helloworld` palautti onnistuneen ajon molemmille koneille
-      !h7-003
+      ![h7-003](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h7-003.png)
     - Tarkistus molemmilla koneilla osoitti että helloworld.txt tiedosto löytyi.
 
 2. Palomuurin asentavan tilan luonti.
@@ -318,9 +310,9 @@ Koska salt oli valmiiksi asennettu ja määritelty, käyttöönotto ja yhteys mi
 
             
    - `sudo salt webserver state.apply nginx`  asensi nginxän. Testasin kirjautua webadmin koneen työpöydälle webadmin/ User One tunnuksin ja selaimella kohteeseen HTTP://192.168.88.103 joka näytti että sivu aukeaa.
-     !h7-004
+     ![h7-004](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/!h7-004.png)
    - Seuraavaksi testasin vielä kirjautua webserverille webadmin tunnuksin ja muokata sivua. Päivitin selaimen ja muutos tallentui.
-     !h7-005
+     ![h7-005](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/h7-005.png)
   
 Testailin vielä tavallisena käyttäjänä jolla ei ollut oikeuksia kuin kotihakemistoonsa. Muut muutokset eivät onnistuneet.
 
@@ -332,5 +324,3 @@ Koneeseen asennettu Vagrant versio on 2.4.1.
 c - kohdassa käytetyt virtuaalikoneet ovat Linux Bullseye 5.10.0-28-amd64.
 
 [Takaisin ylös](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/h7_Oma_miniprojekti.md#h7-oma-miniprojekti)
-
----
