@@ -316,6 +316,13 @@ Koska salt oli valmiiksi asennettu ja määritelty, käyttöönotto ja yhteys mi
   
 Testailin vielä tavallisena käyttäjänä jolla ei ollut oikeuksia kuin kotihakemistoonsa. Muut muutokset eivät onnistuneet.
 
+---
+Video tilan suorituksesta lopputuloksen kanssa:
+[![Kaltura video](https://github.com/syjaka/Palvelinten-Hallinta-2024/blob/main/images/0_gaijn6j9_0_2nuawi2b.jpg)](https://api.kaltura.nordu.net/p/288/sp/28800/embedIframeJs/uiconf_id/23448708/partner_id/288?iframeembed=true&playerId=kaltura_player&entry_id=0_gaijn6j9&flashvars[streamerType]=auto&amp;flashvars[localizationCode]=en&amp;flashvars[leadWithHTML5]=true&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[hotspots.plugin]=1&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=0_llro2er8)
+
+
+---
+
 ## z) Käyttöympäristö
 Tehtävä toteutettiin MacBook Retina 12-inch, koneella jossa, host OS on Ventura 13.6.1 käyttöjärjestelmä Suomen maa-asetuksilla ja suomen kielellä. Koneessa on 1,3GHz kaksiytiminen Intel Core i5 prosessori ja 8Gt 1867 MHz LPDDR3 muistia. Näytönohjain on Intel HD Graphics 615 jossa VRAM 1536 Mt.
 
